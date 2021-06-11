@@ -1,6 +1,12 @@
 <h1 align="center">68 65 73 76 89  80 76 65 78 78 69 82</h1>
 
+<p align="center">
+<i>This project was bootstrapped with <a href="https://create-react-app.dev/docs/making-a-progressive-web-app/">Create React App</a></i>
+</p>
+
 A daily planner / todo list PWA React application - because I cannot stay organized to do the things planned robot
+
+https://create-react-app.dev/docs/making-a-progressive-web-app/
 
 ## Built With
 - JavaScript / TypeScript
