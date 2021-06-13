@@ -4,7 +4,7 @@
 <i>This project was bootstrapped with <a href="https://create-react-app.dev/docs/making-a-progressive-web-app/">Create React App</a></i>
 </p>
 
-A daily planner / todo list PWA React application - because I cannot stay organized to do the things planned robot
+A daily planner / todo list PWA React application - because I cannot stay organized :c
 
 https://create-react-app.dev/docs/making-a-progressive-web-app/
 
