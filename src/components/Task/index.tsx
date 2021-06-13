@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { ITask } from "../../types";
 import { Draggable } from "react-beautiful-dnd";
 import "./index.css";
