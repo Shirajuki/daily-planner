@@ -1,0 +1,15 @@
+div.todaysTask {
+}
+div.todaysTask h3 {
+	text-align: center;
+}
+div.infoBox {
+
+}
+div.footer {
+	display: block;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: tan;
+}

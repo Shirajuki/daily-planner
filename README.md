@@ -8,6 +8,8 @@ A daily planner / todo list PWA React application - because I cannot stay organi
 
 https://create-react-app.dev/docs/making-a-progressive-web-app/
 
+https://www.figma.com/file/1jsHNKFAHhiX95oUz7eEJo/Daily-Planner?node-id=0%3A1
+
 ## Built With
 - JavaScript / TypeScript
 - React framework

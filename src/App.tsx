@@ -31,22 +31,25 @@ const App: React.FC = () => {
   };
   return (
     <div className="App">
-      <div>
-        <p>Today</p>
-        <DragDropContext onDragEnd={onDragEnd}>
-          {state.columnOrder.map((columnId: number) => {
-            const column: any = state.columns[columnId];
-            const tasks: any = column.taskIds.map(
-              (taskId: number) => state.tasks[taskId]
-            );
-            return <Column key={columnId} column={column} tasks={tasks} />;
-          })}
-        </DragDropContext>
+      <div className="todaysTask">
+        <div className="topBackground">
+          <h3>DAILYJUKIPLANNER</h3>
+          <div className="infoBox"></div>
+          <div className="navigationBox"></div>
+        </div>
+        <div>
+          <DragDropContext onDragEnd={onDragEnd}>
+            {state.columnOrder.map((columnId: number) => {
+              const column: any = state.columns[columnId];
+              const tasks: any = column.taskIds.map(
+                (taskId: number) => state.tasks[taskId]
+              );
+              return <Column key={columnId} column={column} tasks={tasks} />;
+            })}
+          </DragDropContext>
+        </div>
       </div>
-
-      <div>
-        <p>Tomorrow</p>
-      </div>
+      <div className="footer">yuh</div>
     </div>
   );
 };
