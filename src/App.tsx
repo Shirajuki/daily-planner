@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Column from "./components/Column";
+import Footer from "./components/Footer";
 import { DragDropContext } from "react-beautiful-dnd";
 import "./App.css";
 import initialData from "./initialData";
@@ -49,7 +50,7 @@ const App: React.FC = () => {
           </DragDropContext>
         </div>
       </div>
-      <div className="footer">yuh</div>
+      <Footer />
     </div>
   );
 };

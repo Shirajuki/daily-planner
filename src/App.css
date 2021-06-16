@@ -6,10 +6,3 @@ div.todaysTask h3 {
 div.infoBox {
 
 }
-div.footer {
-	display: block;
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	background-color: tan;
-}

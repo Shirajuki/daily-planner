@@ -9,7 +9,7 @@ type ColumnType = {
   column: IColumn;
   tasks: ITask[];
 };
-const column: React.FC<ColumnType> = ({ column, tasks }) => {
+const Column: React.FC<ColumnType> = ({ column, tasks }) => {
   return (
     <div className="taskContainer">
       <h3>{column.title}</h3>
@@ -33,4 +33,4 @@ const column: React.FC<ColumnType> = ({ column, tasks }) => {
   );
 };
 
-export default column;
+export default Column;
