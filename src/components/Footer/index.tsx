@@ -7,6 +7,7 @@ const Footer: React.FC = () => {
       <div>nav1</div>
       <div>nav2</div>
       <div>nav3</div>
+      <div>nav4</div>
       <div>Big button</div>
     </div>
   );

@@ -1,8 +1,123 @@
 div.todaysTask {
+	background-color: #f6f6f6;
 }
 div.todaysTask h3 {
 	text-align: center;
 }
-div.infoBox {
-
+div.topBackground {
+	display: flex;
+	background-color: tomato;
+	flex-direction: column;
+	justify-content: center;
+	height: 120px;
+	padding-top: 90px;
+	margin-bottom: 110px;
 }
+div.topBackground > h3 {
+	color: #ffffff;
+	padding: 20px;
+}
+div.topBackground > div.infoBox,
+div.topBackground > div.navigationBox > div.statsBox {
+	background-color: #ffffff;
+	width: 90%;
+	margin: 15px auto;
+	border-radius: 5px;
+	box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
+}
+div.topBackground > div.infoBox {
+	margin: 0 auto 10px auto;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 5%;
+}
+div.topBackground > div.infoBox > div.dateBox {
+	display: grid;
+	grid-template-areas: "day day month month month"
+                       "day day year  year  year"
+                       "weekday weekday weekday weekday weekday";
+	grid-template-rows: 30px 17px 1fr;
+	padding: 5px 0 10px 0;
+}
+div.topBackground > div.infoBox > div.dateBox > p {
+	display: block;
+}
+div.topBackground > div.infoBox > div.dateBox > p.day {
+	font-weight: 500;
+	font-size: 3rem;
+	grid-area: day;
+	height: 5%;
+	padding-right: 4px;
+}
+div.topBackground > div.infoBox > div.dateBox > p.month {
+	grid-area: month;
+	align-self: end;
+}
+div.topBackground > div.infoBox > div.dateBox > p.year {
+	grid-area: year;
+}
+div.topBackground > div.infoBox > div.dateBox > p.weekday {
+	grid-area: weekday;
+	align-self: start;
+	font-size: 0.7rem;
+	margin-left: 5px;
+}
+
+div.topBackground > div.infoBox > div.statsBox {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 40%;
+}
+div.topBackground > div.infoBox > div.statsBox > div.stats {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+div.topBackground > div.infoBox > div.statsBox > div.stats > p {
+	transform: translateY(-2px);
+}
+div.topBackground > div.infoBox > div.statsBox > div.stats > p.num {
+	font-weight: 500;
+	font-size: 1.6rem;
+	transform: translateY(2px);
+}
+div.topBackground > div.navigationBox {
+	display: flex;
+	justify-content: space-between;
+	width: 90%;
+	margin: 0 auto;
+	height: 40px;
+}
+div.topBackground > div.navigationBox > div.statsBox {
+	display: flex;
+	width: 70%;
+	height: 100%;
+	margin: 0;
+	padding: 10px;
+}
+div.topBackground > div.navigationBox > div.navBox {
+	display: flex;
+	justify-content: space-between;
+	width: 27%;
+}
+div.topBackground > div.navigationBox > div.navBox > button {
+	display: block;
+	background-color: #ffffff;
+	border-radius: 5px;
+	box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
+	width: 40px;
+}
+/*
+          <div className="navigationBox">
+            <div className="stats">
+              <p>
+                June 15, 2021 <span>Tuesday</span>
+              </p>
+              <button>1</button>
+              <button>2</button>
+            </div>
+            <button>1</button>
+            <button>2</button>
+          </div>
+*/
