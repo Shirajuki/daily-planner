@@ -12,7 +12,6 @@ type ColumnType = {
 const Column: React.FC<ColumnType> = ({ column, tasks }) => {
   return (
     <div className="taskContainer">
-      <h3>{column.title}</h3>
       <Droppable droppableId={String(column.id)}>
         {(provided, snapshot) => (
           <div

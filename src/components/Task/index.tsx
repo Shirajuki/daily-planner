@@ -28,6 +28,11 @@ const Task: React.FC<TaskType> = ({ task, index }) => {
             onChange={handleInputChange}
           />
           <p>{task.content}</p>
+          <div>
+            <button>X</button>
+            <div className="timeStatus"></div>
+            <div className="tagColor"></div>
+          </div>
         </div>
       )}
     </Draggable>

@@ -1,15 +1,11 @@
 div.taskContainer {
-	margin: 8px;
-	border: 1px solid black;
-	border-radius: 2px;
-}
-div.taskContainer > h3 {
-	padding: 8px;
+	width: 90%;
+	height: 55%;
+	margin: 8px auto;
+	overflow: scroll;
 }
 div.taskContainer > div.taskColumn {
-	transition: background-color 0.2 ease;
-	background-color: #fff;
-	padding: 8px;
+	transition: background-color 0.5s ease;
 }
 div.taskContainer > div.taskColumn.dragging {
 	background-color: skyblue;

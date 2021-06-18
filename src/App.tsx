@@ -32,8 +32,10 @@ const App: React.FC = () => {
               <p>
                 June 15, 2021 <span>Tuesday</span>
               </p>
-              <button>1</button>
-              <button>2</button>
+              <div>
+                <button>1</button>
+                <button>2</button>
+              </div>
             </div>
             <div className="navBox">
               <button>←</button>
@@ -41,9 +43,7 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-        <div>
-          <DroppableList />
-        </div>
+        <DroppableList />
       </div>
       <Footer />
     </div>
