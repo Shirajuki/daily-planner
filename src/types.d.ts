@@ -12,3 +12,6 @@ export interface ITodoColumn {
   columns: IColumn[];
   columnOrder: number[];
 }
+export type ScreensType = {
+  hidden: boolean;
+};

@@ -1,0 +1,44 @@
+div.simpleScreen {
+	color: #ffffff;
+}
+div.simpleScreen > div.topSimple {
+	position: relative;
+}
+div.simpleScreen > div.topSimple > div.title {
+	display: flex;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+div.simpleScreen > div.topSimple > div.title > h1 {
+	font-size: 1rem;
+	text-transform: uppercase;
+	font-weight: 500;
+	margin-left: 8px;
+}
+div.simpleScreen > div.topSimple > h2 {
+	font-size: 1.3rem;
+	text-transform: uppercase;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-weight: 400;
+	width: 100px;
+	text-align: right;
+}
+div.simpleScreen > div.topSimple > p {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	color: #3C3C3C;
+	letter-spacing: 2px;
+	font-size: 0.8rem;
+}
+div.simpleScreen > div.topSimple::after {
+	content: "";
+	background-color: #E39DF9;
+	width: 100%;
+	height: 5px;
+	position: absolute;
+	bottom: 0;
+}

@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./index.css";
 import Column from "../Column";
 import initialData from "../../initialData";
 import { DragDropContext } from "react-beautiful-dnd";
 
-const DroppableList: React.FC = () => {
+type DroppableListType = {
+  rerender: boolean;
+};
+const DroppableList: React.FC<DroppableListType> = ({ rerender }) => {
   const [state, setState] = useState(initialData);
+  const [isOverflow, setIsOverflow] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (divRef.current != null) {
+      const wrapper: HTMLDivElement = divRef.current;
+      const taskColumn: HTMLDivElement = wrapper.children[0] as HTMLDivElement;
+      if (taskColumn.offsetHeight > wrapper.offsetHeight) {
+        setIsOverflow(true);
+        console.log(true);
+      }
+    }
+  }, [divRef, rerender]);
 
   const onDragEnd = (result: any) => {
     const { destination, source, draggableId } = result;
@@ -30,15 +46,20 @@ const DroppableList: React.FC = () => {
     }
   };
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      {state.columnOrder.map((columnId: number) => {
-        const column: any = state.columns[columnId];
-        const tasks: any = column.taskIds.map(
-          (taskId: number) => state.tasks[taskId]
-        );
-        return <Column key={columnId} column={column} tasks={tasks} />;
-      })}
-    </DragDropContext>
+    <div
+      className={`taskContainer ${isOverflow ? "overflow" : ""}`}
+      ref={divRef}
+    >
+      <DragDropContext onDragEnd={onDragEnd}>
+        {state.columnOrder.map((columnId: number) => {
+          const column: any = state.columns[columnId];
+          const tasks: any = column.taskIds.map(
+            (taskId: number) => state.tasks[taskId]
+          );
+          return <Column key={columnId} column={column} tasks={tasks} />;
+        })}
+      </DragDropContext>
+    </div>
   );
 };
 

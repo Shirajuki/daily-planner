@@ -3,4 +3,4 @@ User-agent: *
 Disallow:
 
 
-=w=)/ ~ hello robots
+=w=)/ ~ hello robots! nothing to see here! c:
