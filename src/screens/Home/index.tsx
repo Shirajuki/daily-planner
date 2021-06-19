@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DroppableList from "../../components/DroppableList";
 import { ScreensType } from "../../types";
+import initialData from "../../initialData";
 import "./index.css";
 
 const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
@@ -98,7 +99,12 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
           </div>
         </div>
       </div>
-      <DroppableList rerender={rerender} />
+      <DroppableList
+        rerender={rerender}
+        data={initialData}
+        showTitle={false}
+        hasEmptyString={""}
+      />
     </div>
   );
 };

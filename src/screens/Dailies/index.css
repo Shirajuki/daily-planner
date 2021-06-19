@@ -1,7 +1,10 @@
 div.simpleScreen {
-	color: #ffffff;
+	position: relative;
+	background-color: #f4f4f4;
+	height: 100vh;
 }
 div.simpleScreen > div.topSimple {
+	color: #ffffff;
 	position: relative;
 }
 div.simpleScreen > div.topSimple > div.title {
@@ -41,4 +44,8 @@ div.simpleScreen > div.topSimple::after {
 	height: 5px;
 	position: absolute;
 	bottom: 0;
+}
+div.dailies > div.taskContainer {
+	margin-top: 25px;
+	height: 65%;
 }

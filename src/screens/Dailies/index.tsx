@@ -1,8 +1,64 @@
-import React from "react";
-import { ScreensType } from "../../types";
+import React, { useState, useEffect } from "react";
+import { ITodoColumn, ScreensType } from "../../types";
+import DroppableList from "../../components/DroppableList";
 import "./index.css";
 
+const initialData: ITodoColumn = {
+  tasks: [
+    { id: 0, content: "Take out the garbage" },
+    { id: 1, content: "Watch my favourite show" },
+    { id: 2, content: "Charge my phone" },
+    { id: 3, content: "Cook dinner" },
+    { id: 4, content: "Example 1" },
+    { id: 5, content: "Example 2" },
+    { id: 6, content: "Example 3" },
+    { id: 7, content: "Yay" },
+  ],
+  columns: [
+    {
+      id: 0,
+      title: "Monday",
+      taskIds: [0, 1, 2, 3],
+    },
+    {
+      id: 1,
+      title: "Tuesday",
+      taskIds: [4, 5, 6],
+    },
+    {
+      id: 2,
+      title: "Wednesday",
+      taskIds: [],
+    },
+    {
+      id: 3,
+      title: "Thursday",
+      taskIds: [],
+    },
+    {
+      id: 4,
+      title: "Friday",
+      taskIds: [],
+    },
+    {
+      id: 5,
+      title: "Saturday",
+      taskIds: [],
+    },
+    {
+      id: 6,
+      title: "Sunday",
+      taskIds: [7],
+    },
+  ],
+  columnOrder: [0, 1, 2, 3, 4, 5, 6],
+};
+
 const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
+  const [rerender, setRerender] = useState(false);
+  useEffect(() => {
+    if (!hidden) setRerender(true);
+  }, [hidden]);
   return (
     <div className="dailies simpleScreen" hidden={hidden}>
       <div className="topBackground topSimple">
@@ -32,6 +88,12 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
         <h2>today's date</h2>
         <p>June 15, 2021</p>
       </div>
+      <DroppableList
+        rerender={rerender}
+        data={initialData}
+        showTitle={true}
+        hasEmptyString={"no tasks scheduled this day..."}
+      />
     </div>
   );
 };

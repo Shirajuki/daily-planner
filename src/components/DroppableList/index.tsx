@@ -1,22 +1,35 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./index.css";
 import Column from "../Column";
-import initialData from "../../initialData";
 import { DragDropContext } from "react-beautiful-dnd";
+import { ITodoColumn } from "../../types";
 
 type DroppableListType = {
   rerender: boolean;
+  showTitle: boolean;
+  hasEmptyString: string;
+  data: ITodoColumn;
 };
-const DroppableList: React.FC<DroppableListType> = ({ rerender }) => {
-  const [state, setState] = useState(initialData);
+const DroppableList: React.FC<DroppableListType> = ({
+  rerender,
+  showTitle,
+  hasEmptyString,
+  data,
+}) => {
+  const [state, setState] = useState(data);
   const [isOverflow, setIsOverflow] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (divRef.current != null) {
       const wrapper: HTMLDivElement = divRef.current;
-      const taskColumn: HTMLDivElement = wrapper.children[0] as HTMLDivElement;
-      if (taskColumn.offsetHeight > wrapper.offsetHeight) {
+      const height = [...wrapper.children]
+        .map((taskColumn) => {
+          const col = taskColumn as HTMLDivElement;
+          return col.offsetHeight;
+        })
+        .reduce((a: number, b: number) => a + b, 0);
+      if (height > wrapper.offsetHeight) {
         setIsOverflow(true);
         console.log(true);
       }
@@ -56,7 +69,15 @@ const DroppableList: React.FC<DroppableListType> = ({ rerender }) => {
           const tasks: any = column.taskIds.map(
             (taskId: number) => state.tasks[taskId]
           );
-          return <Column key={columnId} column={column} tasks={tasks} />;
+          return (
+            <Column
+              key={columnId}
+              column={column}
+              tasks={tasks}
+              showTitle={showTitle}
+              hasEmptyString={hasEmptyString}
+            />
+          );
         })}
       </DragDropContext>
     </div>
