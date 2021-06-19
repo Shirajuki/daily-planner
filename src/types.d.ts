@@ -6,6 +6,7 @@ export interface IColumn {
   id: number;
   title: string;
   taskIds: number[];
+  checked?: number[];
 }
 export interface ITodoColumn {
   tasks: ITask[];

@@ -4,3 +4,13 @@ div.taskContainer > div.taskColumn {
 div.taskContainer > div.taskColumn.dragging {
 	background-color: skyblue;
 }
+div.taskContainer > div.taskColumn > h3 {
+	font-size: 1rem;
+	text-transform: uppercase;
+	margin-bottom: 8px;
+}
+div.taskContainer > div.taskColumn > p {
+	font-size: 0.8rem;
+	color: #A7A7A7;
+	margin-bottom: 20px;
+}

@@ -15,6 +15,7 @@ const initialData: ITodoColumn = {
       id: 0,
       title: "To do",
       taskIds: [0, 1, 2, 3, 4, 5, 6],
+      checked: [],
     },
   ],
   columnOrder: [0],

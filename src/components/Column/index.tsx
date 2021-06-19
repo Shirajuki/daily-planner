@@ -9,12 +9,14 @@ type ColumnType = {
   tasks: ITask[];
   showTitle: boolean;
   hasEmptyString: string;
+  updateChecked: (columnId: number, index: number, check: boolean) => void;
 };
 const Column: React.FC<ColumnType> = ({
   column,
   tasks,
   showTitle,
   hasEmptyString,
+  updateChecked,
 }) => {
   return (
     <Droppable droppableId={String(column.id)}>
@@ -29,7 +31,14 @@ const Column: React.FC<ColumnType> = ({
             <p>{hasEmptyString}</p>
           ) : (
             tasks.map((task, index) => (
-              <Task key={task.id} task={task} index={index} />
+              <Task
+                key={task.id}
+                task={task}
+                index={index}
+                columnId={column.id}
+                checked={column?.checked || null}
+                updateChecked={updateChecked}
+              />
             ))
           )}
           {provided.placeholder}

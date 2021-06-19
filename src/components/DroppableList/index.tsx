@@ -36,6 +36,18 @@ const DroppableList: React.FC<DroppableListType> = ({
     }
   }, [divRef, rerender]);
 
+  const updateChecked = (columnId: number, index: number, check: boolean) => {
+    const newColumns = [...state.columns];
+    const oldChecked = newColumns[columnId]?.checked ?? null;
+    if (oldChecked !== null) {
+      const newChecked = [...new Set([...oldChecked, index])];
+      if (!check) newChecked.splice(newChecked.indexOf(index), 1);
+      newColumns[columnId].checked = newChecked;
+      const newState = { ...state, columns: newColumns };
+      setState(newState);
+    }
+  };
+
   const onDragEnd = (result: any) => {
     const { destination, source, draggableId } = result;
     if (!destination) return;
@@ -76,6 +88,7 @@ const DroppableList: React.FC<DroppableListType> = ({
               tasks={tasks}
               showTitle={showTitle}
               hasEmptyString={hasEmptyString}
+              updateChecked={updateChecked}
             />
           );
         })}

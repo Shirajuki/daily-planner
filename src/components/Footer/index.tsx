@@ -24,7 +24,7 @@ const getFooterItemIcon: React.FC<number> = (num, selected) => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle cx="12.5" cy="12.5" r="12.5" fill={color} />
-          <path d="M18 9L12 17L7.5 13.5" stroke="white" stroke-width="2" />
+          <path d="M18 9L12 17L7.5 13.5" stroke="white" strokeWidth="2" />
         </svg>
       );
     case 1:
@@ -111,9 +111,10 @@ const Footer: React.FC<FooterType> = ({ selected, setSelected }) => {
   return (
     <div className="footer">
       <div>
-        {items.map((item: IFooterItem) => {
+        {items.map((item: IFooterItem, index: number) => {
           return (
             <FooterItem
+              key={index}
               icon={item.icon}
               title={item.title}
               selected={selected}
