@@ -4,7 +4,6 @@ import { IColumn, ITask } from "../../types";
 import { Droppable } from "react-beautiful-dnd";
 import Task from "../Task";
 
-// return <Column key={columnId} column={column} tasks={tasks} />;
 type ColumnType = {
   column: IColumn;
   tasks: ITask[];

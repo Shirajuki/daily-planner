@@ -29,7 +29,7 @@ const Task: React.FC<TaskType> = ({ task, index }) => {
           />
           <p>{task.content}</p>
           <div>
-            <button>X</button>
+            <button>✕</button>
             <div className="timeStatus"></div>
             <div className="tagColor"></div>
           </div>

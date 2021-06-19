@@ -1,6 +1,6 @@
 div.todaysTask {
 	position: relative;
-	background-color: #f6f6f6;
+	background-color: #f4f4f4;
 	height: 100vh;
 }
 div.todaysTask h3 {
@@ -125,14 +125,18 @@ div.topBackground > div.navigationBox > div.statsBox > div {
 	width: 100%;
 }
 div.topBackground > div.navigationBox > div.statsBox button {
-	display: block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
 	height: 30px;
-	text-align: center;
 	background-color: #F7DAF8;
 	color: #707070;
 	border: none;
 	border-radius: 4px;
+}
+div.topBackground > div.navigationBox > div.statsBox button > svg path {
+	stroke: #434343;
 }
 div.topBackground > div.navigationBox > div.navBox {
 	display: flex;
@@ -145,17 +149,5 @@ div.topBackground > div.navigationBox > div.navBox > button {
 	border-radius: 5px;
 	box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
 	width: 40px;
+	border: none;
 }
-/*
-          <div className="navigationBox">
-            <div className="stats">
-              <p>
-                June 15, 2021 <span>Tuesday</span>
-              </p>
-              <button>1</button>
-              <button>2</button>
-            </div>
-            <button>1</button>
-            <button>2</button>
-          </div>
-*/
