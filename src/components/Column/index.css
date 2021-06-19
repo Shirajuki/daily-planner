@@ -5,6 +5,9 @@ div.taskContainer {
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
+div.taskContainer.overflow {
+	padding-right: 16px;
+}
 div.taskContainer > div.taskColumn {
 	transition: background-color 0.5s ease;
 }

@@ -24,7 +24,7 @@ div.footer > button.bigButton {
 }
 div.footer > div {
 	display: flex;
-	justify-content: start;
+	justify-content: flex-start;
 	align-items: center;
 	width: 80%;
 	padding-left: 10px;

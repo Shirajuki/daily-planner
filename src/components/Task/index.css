@@ -73,3 +73,7 @@ div.taskContent > div > div {
 div.taskContent.dragging {
 	background-color: lightgreen;
 }
+
+div.taskContent:last-child {
+	margin-bottom: 30px;
+}
