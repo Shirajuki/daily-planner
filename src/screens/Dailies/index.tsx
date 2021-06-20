@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { ITodoColumn, ScreensType } from "../../types";
+import { ITodoColumn, ITag, ScreensType } from "../../types";
 import DroppableList from "../../components/DroppableList";
 import "./index.css";
 
+const initialTag: ITag[] = [
+  { id: 1, tagName: "test tag1", tagColor: "tomato" },
+  { id: 2, tagName: "test tag2", tagColor: "pink" },
+  { id: 3, tagName: "test tag3", tagColor: "lightblue" },
+  { id: 4, tagName: "test tag4", tagColor: "lightgreen" },
+];
 const initialData: ITodoColumn = {
   tasks: [
-    { id: 0, content: "Take out the garbage" },
-    { id: 1, content: "Watch my favourite show" },
+    { id: 0, content: "Take out the garbage", tag: initialTag[0] },
+    { id: 1, content: "Watch my favourite show", tag: initialTag[1] },
     { id: 2, content: "Charge my phone" },
-    { id: 3, content: "Cook dinner" },
+    { id: 3, content: "Cook dinner", tag: initialTag[2] },
     { id: 4, content: "Example 1" },
     { id: 5, content: "Example 2" },
     { id: 6, content: "Example 3" },
-    { id: 7, content: "Yay" },
+    { id: 7, content: "Yay", tag: initialTag[3] },
   ],
   columns: [
     {
