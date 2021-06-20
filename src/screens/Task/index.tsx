@@ -1,12 +1,2 @@
-import React from "react";
-import { ScreensType } from "../../types";
-import "./index.css";
-
-const ScreensNewTask: React.FC<ScreensType> = ({ hidden }) => {
-  return (
-    <div className="task" hidden={hidden}>
-      <p>placeholder</p>
-    </div>
-  );
-};
-export default ScreensNewTask;
+export { default as ScreensAddTask } from "./ScreensAddTask";
+export { default as ScreensEditTask } from "./ScreensEditTask";

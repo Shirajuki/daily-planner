@@ -2,7 +2,7 @@ div.taskContainer {
 	width: 90%;
 	height: 55%;
 	margin: 8px auto;
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
 }
 div.taskContainer.overflow {

@@ -106,8 +106,13 @@ const FooterItem: React.FC<FooterItemType> = ({
 type FooterType = {
   selected: number;
   setSelected: (num: number) => void;
+  setPopupScreen: (num: number) => void;
 };
-const Footer: React.FC<FooterType> = ({ selected, setSelected }) => {
+const Footer: React.FC<FooterType> = ({
+  selected,
+  setSelected,
+  setPopupScreen,
+}) => {
   return (
     <div className="footer">
       <div>
@@ -123,7 +128,9 @@ const Footer: React.FC<FooterType> = ({ selected, setSelected }) => {
           );
         })}
       </div>
-      <button className="bigButton">+</button>
+      <button className="bigButton" onClick={() => setPopupScreen(1)}>
+        +
+      </button>
     </div>
   );
 };

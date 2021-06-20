@@ -5,15 +5,35 @@ import ScreensHome from "./screens/Home";
 import ScreensDailies from "./screens/Dailies";
 import ScreensTags from "./screens/Tags";
 import ScreensConfig from "./screens/Config";
+import { ScreensAddTask, ScreensEditTask } from "./screens/Task";
 import "./App.css";
 
 const App: React.FC = () => {
-  const [selected, setSelected] = useState<number>(3);
+  const [selected, setSelected] = useState<number>(0);
   const [popup, setPopup] = useState<boolean>(false);
+  const [popupScreen, setPopupScreen] = useState<number>(0);
+  const popupScreenTitles = (num: number) => {
+    switch (num) {
+      case 0:
+        return "Configuration";
+      case 1:
+        return "Add new task";
+      case 2:
+        return "Edit task";
+      default:
+        return "";
+    }
+  };
   useEffect(() => {
-    if (selected == 3) setPopup(true);
-    else if (popup) setPopup(false);
+    if (selected == 3) {
+      setPopup(true);
+      setPopupScreen(0);
+    } else if (popup) setPopup(false);
   }, [selected]);
+  const openPopupScreen = (num: number) => {
+    setPopupScreen(num);
+    setPopup(true);
+  };
   return (
     <div className="App">
       <ScreensHome hidden={selected !== 0 && selected !== 3} />
@@ -22,11 +42,26 @@ const App: React.FC = () => {
       <Popup
         isFullscreen={true}
         shown={popup}
-        closeEvent={() => setSelected(0)}
-        children={<ScreensConfig hidden={selected !== 3} />}
-        title={"Configuration"}
+        closeEvent={() => {
+          if (selected == 3) setSelected(0);
+          setPopup(false);
+        }}
+        children={
+          <>
+            <ScreensConfig
+              hidden={!popup || selected !== 3 || popupScreen !== 0}
+            />
+            <ScreensAddTask hidden={!popup || popupScreen !== 1} />
+            <ScreensEditTask hidden={!popup || popupScreen !== 2} />
+          </>
+        }
+        title={popupScreenTitles(popupScreen)}
       />
-      <Footer selected={selected} setSelected={setSelected} />
+      <Footer
+        selected={selected}
+        setSelected={setSelected}
+        setPopupScreen={openPopupScreen}
+      />
     </div>
   );
 };
