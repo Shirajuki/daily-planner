@@ -51,7 +51,6 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
       label.style.backgroundColor = color;
     }
   };
-  console.log("rerender");
   return (
     <div className="tags simpleScreen" hidden={hidden}>
       <div className="topBackground topSimple">

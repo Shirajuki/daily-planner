@@ -21,8 +21,7 @@ div.taskContent > input[type="checkbox"] + *::before {
 	font-size: 1.2rem;
 	text-align: center;
 	color: #ffffff;
-	left: 10px;
-	top: 10px;
+	top: 8px;
 	width: 1.5rem;
 	height: 1.5rem;
 	background-color: #F6F6F6;

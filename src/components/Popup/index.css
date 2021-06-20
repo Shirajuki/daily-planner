@@ -1,0 +1,45 @@
+div.popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	color: #ffffff;
+	justify-content: center;
+	align-items: center;
+	z-index: 9001;
+	transform: translateX(100%);
+	transition: transform 1s ease;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+}
+div.popup > h1.title {
+	position: absolute;
+	top: 25px;
+	left: 50%;
+	transform: translateX(-50%);
+	text-align: center;
+	font-size: 1rem;
+	text-transform: uppercase;
+}
+div.popup > button.closeBtn {
+	display: none;
+	color: #F7DAF8;
+	width: 50px;
+	height: 25px;
+	background-color: rgba(0,0,0,0);
+	border: none;
+}
+div.popup.fullscreen {
+	background-color: #896296;
+}
+div.popup.fullscreen > button.closeBtn {
+	display: block;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+div.popup.shown {
+	transform: translateX(0);
+}

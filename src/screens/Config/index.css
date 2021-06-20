@@ -1,0 +1,16 @@
+div.config {
+	padding: 10px;
+	width: 90%;
+	height: 85%;
+	margin-top: 15%;
+	letter-spacing: 1px;
+}
+div.inputWrapper {
+	display: flex;
+	margin-left: 8px;
+	margin-bottom: 12px;
+	align-items: center;
+}
+div.config > button.btn {
+	margin-top: 10px;
+}
