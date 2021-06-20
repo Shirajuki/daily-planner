@@ -10,8 +10,8 @@ import "./App.css";
 
 const App: React.FC = () => {
   const [selected, setSelected] = useState<number>(0);
-  const [popup, setPopup] = useState<boolean>(false);
-  const [popupScreen, setPopupScreen] = useState<number>(0);
+  const [popup, setPopup] = useState<boolean>(true);
+  const [popupScreen, setPopupScreen] = useState<number>(1);
   const popupScreenTitles = (num: number) => {
     switch (num) {
       case 0:
@@ -25,10 +25,11 @@ const App: React.FC = () => {
     }
   };
   useEffect(() => {
-    if (selected == 3) {
+    if (selected === 3) {
       setPopup(true);
       setPopupScreen(0);
-    } else if (popup) setPopup(false);
+    }
+    // else if (popup) setPopup(false);
   }, [selected]);
   const openPopupScreen = (num: number) => {
     setPopupScreen(num);
@@ -43,7 +44,7 @@ const App: React.FC = () => {
         isFullscreen={true}
         shown={popup}
         closeEvent={() => {
-          if (selected == 3) setSelected(0);
+          if (selected === 3) setSelected(0);
           setPopup(false);
         }}
         children={

@@ -49,6 +49,7 @@ input[type="checkbox"]:checked + * {
 input[type="checkbox"] + * {
 	display: block;
 	position: relative;
+	cursor: pointer;
 }
 button.btn {
 	width: 100%;
@@ -62,4 +63,30 @@ button.btn {
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 5px;
 	border: none;
+}
+
+div.inputs {
+	display: flex;
+	flex-direction: column;
+}
+div.inputs label {
+	display: block;
+	width: 100%;
+	color: #E5E5E5;
+	font-size: 0.9rem;
+	margin-bottom: 3px;
+}
+div.inputs input[type="text"],
+div.inputs input[type="time"] {
+	display: block;
+	height: 30px;
+	width: 100%;
+	background-color: rgba(0,0,0,0);
+	color: #ffffff;
+	border: none;
+	border-bottom: 2px solid #e5e5e5;
+	margin-bottom: 20px;
+}
+div.inputs input[type="text"]::placeholder {
+	color: #e5e5e5;
 }

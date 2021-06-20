@@ -1,0 +1,18 @@
+div.multipleTagSelect {
+	display: block;
+	margin-bottom: 16px;
+}
+div.multipleTagSelect > button.btn-select {
+	display: inline-block;
+	width: auto;
+	height: 30px;
+	margin: 8px 8px 0 0;
+	font-size: 0.6rem;
+	font-weight: 400;
+	text-transform: uppercase;
+	padding: 6px 10px;
+	border-radius: 3px;
+	letter-spacing: 0;
+	background-color: #B4B4B4;
+	box-shadow: none;
+}
