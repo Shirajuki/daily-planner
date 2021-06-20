@@ -6,7 +6,7 @@ import ScreensTags from "./screens/Tags";
 import "./App.css";
 
 const App: React.FC = () => {
-  const [selected, setSelected] = useState(1);
+  const [selected, setSelected] = useState(2);
   return (
     <div className="App">
       <ScreensHome hidden={selected !== 0 && selected !== 3} />

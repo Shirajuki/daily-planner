@@ -1,10 +1,59 @@
-import React from "react";
-import { ScreensType } from "../../types";
+import React, { useState, useEffect, useRef } from "react";
+import DroppableList from "../../components/DroppableList";
+import { ITag, ITodoColumn, ScreensType } from "../../types";
 import "./index.css";
 
+const initialTag: ITag[] = [
+  { id: 1, tagName: "test tag1", tagColor: "tomato" },
+  { id: 2, tagName: "test tag2", tagColor: "pink" },
+  { id: 3, tagName: "test tag3", tagColor: "lightblue" },
+  { id: 4, tagName: "test tag4", tagColor: "lightgreen" },
+];
+const initialData: ITodoColumn = {
+  tasks: [
+    { id: 0, content: "TAG NAME 1", tag: initialTag[0] },
+    { id: 1, content: "TAG NAME 2", tag: initialTag[1] },
+    { id: 2, content: "TAG NAME 3", tag: initialTag[2] },
+    { id: 3, content: "TAG NAME 4", tag: initialTag[3] },
+  ],
+  columns: [
+    {
+      id: 0,
+      title: "Tags",
+      taskIds: [0, 1, 2, 3],
+    },
+  ],
+  columnOrder: [0],
+};
 const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
+  const [rerender, setRerender] = useState(false);
+  const tagnameRef = useRef<HTMLInputElement>(null);
+  const colorRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!hidden) setRerender(true);
+  }, [hidden]);
+
+  useEffect(() => {
+    if (colorRef.current) {
+      // Generate default pastel colors on load
+      const color = `hsl(${Math.floor(Math.random() * 255) + 1}, 50%, 75%)`;
+      colorRef.current.value = color;
+      handleColorChange(color);
+    }
+  }, [colorRef]);
+
+  const handleColorChange = (color: string) => {
+    if (colorRef.current) {
+      const label: HTMLLabelElement = document.getElementById(
+        "color"
+      ) as HTMLLabelElement;
+      label.style.backgroundColor = color;
+    }
+  };
+  console.log("rerender");
   return (
-    <div className="dailies simpleScreen" hidden={hidden}>
+    <div className="tags simpleScreen" hidden={hidden}>
       <div className="topBackground topSimple">
         <div className="title">
           <svg
@@ -32,6 +81,37 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
         <h2>today's date</h2>
         <p>June 15, 2021</p>
       </div>
+      <div className="newTagBox">
+        <div className="inputs">
+          <label htmlFor="newTag">Tagname</label>
+          <input
+            type="text"
+            name="newTag"
+            id="newTag"
+            ref={tagnameRef}
+            placeholder="ADD NEW TAG..."
+          />
+        </div>
+        <div className="colors">
+          <input
+            type="color"
+            name="colorTag"
+            id="colorTag"
+            ref={colorRef}
+            onChange={(event: any) => handleColorChange(event.target.value)}
+          />
+          <label htmlFor="colorTag" id="color"></label>
+          <button>ADD</button>
+        </div>
+      </div>
+      <DroppableList
+        rerender={rerender}
+        data={initialData}
+        showTitle={false}
+        hasEmptyString={"no tasks scheduled this day..."}
+        showDeleteBtn={true}
+        hasBigTag={true}
+      />
     </div>
   );
 };

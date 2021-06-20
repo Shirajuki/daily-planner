@@ -8,14 +8,18 @@ type ColumnType = {
   column: IColumn;
   tasks: ITask[];
   showTitle: boolean;
+  showDeleteBtn?: boolean;
   hasEmptyString: string;
+  hasBigTag?: boolean;
   updateChecked: (columnId: number, index: number, check: boolean) => void;
 };
 const Column: React.FC<ColumnType> = ({
   column,
   tasks,
   showTitle,
+  showDeleteBtn,
   hasEmptyString,
+  hasBigTag,
   updateChecked,
 }) => {
   return (
@@ -38,6 +42,8 @@ const Column: React.FC<ColumnType> = ({
                 columnId={column.id}
                 checked={column?.checked || null}
                 updateChecked={updateChecked}
+                showDeleteBtn={showDeleteBtn}
+                hasBigTag={hasBigTag}
               />
             ))
           )}

@@ -9,6 +9,8 @@ type TaskType = {
   columnId: number;
   checked: number[] | null;
   updateChecked: (columnId: number, index: number, check: boolean) => void;
+  showDeleteBtn?: boolean;
+  hasBigTag?: boolean;
 };
 const Task: React.FC<TaskType> = ({
   task,
@@ -16,6 +18,8 @@ const Task: React.FC<TaskType> = ({
   columnId,
   checked,
   updateChecked,
+  showDeleteBtn,
+  hasBigTag,
 }) => {
   const [isDone, setIsDone] = useState<boolean>(false);
   const handleInputChange = (event: any) => {
@@ -36,7 +40,7 @@ const Task: React.FC<TaskType> = ({
         <div
           className={`taskContent ${snapshot.isDragging ? "dragging" : ""} ${
             checked == null ? "noCheck" : ""
-          }`}
+          } ${showDeleteBtn ? "showDeleteBtn" : ""}`}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
@@ -47,10 +51,14 @@ const Task: React.FC<TaskType> = ({
             onChange={handleInputChange}
           />
           <p>{task.content}</p>
-          <div>
+          <div className={hasBigTag ? "bigTag" : ""}>
             <button>✕</button>
             <div className="timeStatus"></div>
-            <div className="tagColor"></div>
+            <div
+              className="tagColor"
+              hidden={task?.tag === undefined}
+              style={{ backgroundColor: task?.tag?.tagColor ?? "initial" }}
+            ></div>
           </div>
         </div>
       )}

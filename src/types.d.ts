@@ -1,6 +1,12 @@
+export interface ITag {
+  id: number;
+  tagName: string;
+  tagColor: string;
+}
 export interface ITask {
   id: number;
   content: string;
+  tag?: ITag;
 }
 export interface IColumn {
   id: number;

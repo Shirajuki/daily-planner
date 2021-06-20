@@ -1,0 +1,55 @@
+div.tags > div.newTagBox {
+	display: grid;
+	grid-template-columns: 1fr 100px;
+	width: 90%;
+	margin: 20px auto;
+	grid-gap: 24px;
+}
+div.tags > div.newTagBox > div.colors {
+	display: flex;
+	height: 30px;
+	align-self: flex-end;
+	margin-bottom: 4px;
+}
+div.tags > div.newTagBox > div.colors > label {
+	display: block;
+	min-width: 30px;
+	width: 30px;
+	height: 30px;
+	background-color: #000000;
+	border-radius: 100px;
+	border: 2px solid #ffffff;
+}
+div.tags > div.newTagBox > div.colors > input[type="color"] {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+div.tags > div.newTagBox > div.colors > button {
+	border: none;
+	background-color: #e39df9;
+	color: #ffffff;
+	box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+	width: 100%;
+	border-radius: 5px;
+	margin-left: 8px;
+}
+div.tags > div.newTagBox > div.inputs {
+	display: flex;
+	flex-direction: column;
+}
+div.tags > div.newTagBox > div.inputs > label {
+	display: block;
+	width: 100%;
+	color: #707070;
+	font-size: 0.9rem;
+	margin-bottom: 3px;
+}
+div.tags > div.newTagBox > div.inputs > input[type="text"] {
+	display: block;
+	height: 30px;
+	width: 100%;
+	background-color: rgba(0,0,0,0);
+	border: none;
+	border-bottom: 2px solid black;
+}

@@ -96,3 +96,27 @@ div.taskContent.noCheck > div > div.timeStatus,
 div.taskContent.noCheck > div > button {
 	display: none;
 }
+div.taskContent.showDeleteBtn > div > button {
+	display: block;
+}
+div.taskContent.showDeleteBtn > div {
+	grid-template-columns: 1fr;
+	justify-content: flex-end;
+}
+div.taskContent.noCheck.showDeleteBtn > div {
+	grid-template-columns: 1fr 4px;
+}
+div.taskContent > div.bigTag { 
+	position: relative;
+}
+div.taskContent > div.bigTag > button {
+	position: relative;
+	z-index: 1;
+}
+div.taskContent > div.bigTag > div.tagColor {
+	position: absolute;
+	width: 100%;
+	height: calc(100% + 6px);
+	z-index: 0;
+	border-radius: 0 3px 3px 0;
+}

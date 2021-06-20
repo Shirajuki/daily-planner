@@ -8,12 +8,16 @@ type DroppableListType = {
   rerender: boolean;
   showTitle: boolean;
   hasEmptyString: string;
+  showDeleteBtn?: boolean;
+  hasBigTag?: boolean;
   data: ITodoColumn;
 };
 const DroppableList: React.FC<DroppableListType> = ({
   rerender,
   showTitle,
   hasEmptyString,
+  showDeleteBtn,
+  hasBigTag,
   data,
 }) => {
   const [state, setState] = useState(data);
@@ -87,8 +91,10 @@ const DroppableList: React.FC<DroppableListType> = ({
               column={column}
               tasks={tasks}
               showTitle={showTitle}
+              showDeleteBtn={showDeleteBtn}
               hasEmptyString={hasEmptyString}
               updateChecked={updateChecked}
+              hasBigTag={hasBigTag}
             />
           );
         })}
