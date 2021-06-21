@@ -9,7 +9,7 @@ div.tags > div.newTagBox > div.colors {
 	display: flex;
 	height: 30px;
 	align-self: flex-end;
-	margin-bottom: 4px;
+	margin-bottom: 3px;
 }
 div.tags > div.newTagBox > div.colors > label {
 	display: block;
@@ -52,4 +52,8 @@ div.tags > div.newTagBox > div.inputs > input[type="text"] {
 	background-color: rgba(0,0,0,0);
 	border: none;
 	border-bottom: 2px solid black;
+	margin-bottom: 0;
+}
+div.tags > div.newTagBox > div.inputs input[type="text"]::placeholder {
+	color: initial;
 }

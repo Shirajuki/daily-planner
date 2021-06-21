@@ -52,8 +52,8 @@ const App: React.FC = () => {
             <ScreensConfig
               hidden={!popup || selected !== 3 || popupScreen !== 0}
             />
-            <ScreensAddTask hidden={!popup || popupScreen !== 1} />
-            <ScreensEditTask hidden={!popup || popupScreen !== 2} />
+            {popup && popupScreen === 1 ? <ScreensAddTask /> : <></>}
+            {popup && popupScreen === 2 ? <ScreensEditTask /> : <></>}
           </>
         }
         title={popupScreenTitles(popupScreen)}

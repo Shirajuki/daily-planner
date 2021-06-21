@@ -1,10 +1,9 @@
 import React from "react";
-import { ScreensType } from "../../types";
 import "./index.css";
 
-const ScreensEditTask: React.FC<ScreensType> = ({ hidden }) => {
+const ScreensEditTask: React.FC = () => {
   return (
-    <div className="task" hidden={hidden}>
+    <div className="task">
       <p>placeholder</p>
     </div>
   );
