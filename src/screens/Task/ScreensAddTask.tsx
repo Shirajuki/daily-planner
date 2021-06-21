@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { ITag, ITask } from "../../types";
+import { ITag, ITagSettings, ITask } from "../../types";
 import MultipleTagSelect from "../../components/MultipleTagSelect";
 import "./index.css";
 
@@ -15,6 +15,10 @@ const initialTags: ITag[] = [
   },
   { id: 6, tagName: "test short", tagColor: "pink" },
 ];
+const initialTagSettings: ITagSettings = {
+  tags: initialTags,
+  selected: [],
+};
 const initialDays: ITag[] = [
   { id: 1, tagName: "Monday", tagColor: "#e39df9" },
   { id: 2, tagName: "Tuesday", tagColor: "#e39df9" },
@@ -24,12 +28,16 @@ const initialDays: ITag[] = [
   { id: 6, tagName: "Saturday", tagColor: "#e39df9" },
   { id: 7, tagName: "Sunday", tagColor: "#e39df9" },
 ];
+const initialDaySettings: ITagSettings = {
+  tags: initialDays,
+  selected: [],
+};
 const ScreensAddTask: React.FC = () => {
   const [checkTime, setCheckTime] = useState<boolean>(false);
   const [isDailyTask, setIsDailyTask] = useState<boolean>(false);
   const [task, setTask] = useState<ITask>();
-  const [tags, setTags] = useState(initialTags);
-  const [days, setDays] = useState(initialDays);
+  const [tags, setTags] = useState(initialTagSettings);
+  const [days, setDays] = useState(initialDaySettings);
   const divRef = useRef<HTMLDivElement>(null);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
 
@@ -117,7 +125,7 @@ const ScreensAddTask: React.FC = () => {
                   d="M22 11.5C22 17.299 17.299 22 11.5 22C5.70101 22 1 17.299 1 11.5C1 5.70101 5.70101 1 11.5 1C17.299 1 22 5.70101 22 11.5Z"
                   fill="white"
                   stroke="#A4BAF7"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
                 <path
                   d="M14.0556 14.0559C16.6112 16.6114 11.5001 11.5003 11.5001 11.5003C11.5001 9.45586 11.5001 1.27808 11.5001 6.38919"
@@ -128,7 +136,7 @@ const ScreensAddTask: React.FC = () => {
           </div>
           <div className="multipleSelectWrapper">
             <label>Tags</label>
-            <MultipleTagSelect tags={tags} />
+            <MultipleTagSelect tags={tags} setTags={setTags} />
           </div>
           <div className="inputWrapper">
             <input
@@ -143,7 +151,7 @@ const ScreensAddTask: React.FC = () => {
             <label htmlFor="isDailyTask">is a daily task?</label>
           </div>
           <div className="multipleSelectWrapper" hidden={!isDailyTask}>
-            <MultipleTagSelect tags={days} />
+            <MultipleTagSelect tags={days} setTags={setDays} />
           </div>
         </div>
         <button className="btn center">ADD TASK</button>

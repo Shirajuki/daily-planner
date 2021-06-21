@@ -34,7 +34,7 @@ const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
             handleInputChange(setDarkmode, event.target.checked)
           }
         />
-        <label htmlFor="other">some stuff</label>
+        <label htmlFor="other">some other stuff</label>
       </div>
       <button className="btn">CLEAR DATA</button>
     </div>

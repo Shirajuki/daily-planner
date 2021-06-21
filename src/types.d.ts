@@ -3,6 +3,10 @@ export interface ITag {
   tagName: string;
   tagColor: string;
 }
+export interface ITagSettings {
+  tags: ITag[];
+  selected: number[];
+}
 export interface ITask {
   id: number;
   content: string;
