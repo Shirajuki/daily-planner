@@ -9,9 +9,9 @@ import { ScreensAddTask, ScreensEditTask } from "./screens/Task";
 import "./App.css";
 
 const App: React.FC = () => {
-  const [selected, setSelected] = useState<number>(0);
-  const [popup, setPopup] = useState<boolean>(true);
-  const [popupScreen, setPopupScreen] = useState<number>(1);
+  const [selected, setSelected] = useState<number>(2);
+  const [popup, setPopup] = useState<boolean>(false);
+  const [popupScreen, setPopupScreen] = useState<number>(0);
   const popupScreenTitles = (num: number) => {
     switch (num) {
       case 0:

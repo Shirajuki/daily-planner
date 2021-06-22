@@ -26,3 +26,6 @@ export interface ITodoColumn {
 export type ScreensType = {
   hidden: boolean;
 };
+export type ScreensEditType = {
+  task: ITask;
+};

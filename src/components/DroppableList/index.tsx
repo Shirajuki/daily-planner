@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "./index.css";
 import Column from "../Column";
 import { DragDropContext } from "react-beautiful-dnd";
-import { ITodoColumn } from "../../types";
+import { ITask, ITodoColumn } from "../../types";
 
 type DroppableListType = {
   rerender: boolean;
@@ -10,6 +10,7 @@ type DroppableListType = {
   hasEmptyString: string;
   showDeleteBtn?: boolean;
   hasBigTag?: boolean;
+  onClick?: (task: ITask, columnId: number) => void;
   data: ITodoColumn;
 };
 const DroppableList: React.FC<DroppableListType> = ({
@@ -18,6 +19,7 @@ const DroppableList: React.FC<DroppableListType> = ({
   hasEmptyString,
   showDeleteBtn,
   hasBigTag,
+  onClick,
   data,
 }) => {
   const [state, setState] = useState(data);
@@ -94,6 +96,7 @@ const DroppableList: React.FC<DroppableListType> = ({
               hasEmptyString={hasEmptyString}
               updateChecked={updateChecked}
               hasBigTag={hasBigTag}
+              onClick={onClick}
             />
           );
         })}

@@ -57,3 +57,15 @@ div.tags > div.newTagBox > div.inputs > input[type="text"] {
 div.tags > div.newTagBox > div.inputs input[type="text"]::placeholder {
 	color: initial;
 }
+div.tags ~ div.popup > div.task > div.taskSection.small {
+	height: calc(100% - 20px - 110px);
+}
+div.tags ~ div.popup > div.task > button.center {
+	margin-bottom: 10px;
+}
+div.tags ~ div.popup > div.task > button.center:last-child {
+	margin-bottom: 25px;
+}
+div.tags ~ div.popup > div.task > button.center.delete {
+	background-color: #FFB0B0;
+}

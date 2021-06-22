@@ -12,6 +12,7 @@ type ColumnType = {
   hasEmptyString: string;
   hasBigTag?: boolean;
   updateChecked: (columnId: number, index: number, check: boolean) => void;
+  onClick?: (task: ITask, columnId: number) => void;
 };
 const Column: React.FC<ColumnType> = ({
   column,
@@ -21,6 +22,7 @@ const Column: React.FC<ColumnType> = ({
   hasEmptyString,
   hasBigTag,
   updateChecked,
+  onClick,
 }) => {
   return (
     <Droppable droppableId={String(column.id)}>
@@ -44,6 +46,7 @@ const Column: React.FC<ColumnType> = ({
                 updateChecked={updateChecked}
                 showDeleteBtn={showDeleteBtn}
                 hasBigTag={hasBigTag}
+                onClick={onClick}
               />
             ))
           )}

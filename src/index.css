@@ -59,7 +59,7 @@ button.btn {
 	letter-spacing: 1.5px;
 	color: #ffffff;
 	padding: 10px;
-	background: #FFB0B0;
+	background-color: #E39DF9;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 5px;
 	border: none;
@@ -88,4 +88,35 @@ div.inputs input[type="time"] {
 }
 div.inputs input[type="text"]::placeholder {
 	color: #e5e5e5;
+}
+div.inputs div.colorWrapper {
+	position: relative;
+}
+div.inputs div.colorWrapper > input[type="text"] {
+	margin-top: 12px;
+	padding-left: 35px;
+}
+div.inputs div.colors {
+	display: flex;
+	height: 30px;
+	align-self: flex-end;
+	margin-bottom: 3px;
+}
+div.inputs div.colors > label {
+	display: block;
+	min-width: 30px;
+	width: 30px;
+	height: 30px;
+	background-color: #000000;
+	border-radius: 100px;
+	border: 2px solid #ffffff;
+}
+div.inputs div.colors > input[type="color"] {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+div.inputs div.colors.colorInput {
+	position: absolute;
+	top: 22px;
 }

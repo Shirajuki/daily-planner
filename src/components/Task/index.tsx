@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ITask } from "../../types";
 import { Draggable } from "react-beautiful-dnd";
 import "./index.css";
@@ -11,6 +11,7 @@ type TaskType = {
   updateChecked: (columnId: number, index: number, check: boolean) => void;
   showDeleteBtn?: boolean;
   hasBigTag?: boolean;
+  onClick?: (task: ITask, columnId: number) => void;
 };
 const Task: React.FC<TaskType> = ({
   task,
@@ -20,6 +21,7 @@ const Task: React.FC<TaskType> = ({
   updateChecked,
   showDeleteBtn,
   hasBigTag,
+  onClick,
 }) => {
   const [isDone, setIsDone] = useState<boolean>(false);
   const handleInputChange = (event: any) => {
@@ -29,11 +31,6 @@ const Task: React.FC<TaskType> = ({
     }
     setIsDone(check);
   };
-  useEffect(() => {
-    if (checked !== null) {
-      console.log(checked);
-    }
-  }, [checked]);
   return (
     <Draggable draggableId={String(task.id)} index={index}>
       {(provided, snapshot) => (
@@ -44,6 +41,9 @@ const Task: React.FC<TaskType> = ({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          onClick={() => {
+            if (onClick) onClick(task, columnId);
+          }}
         >
           <input
             type="checkbox"
