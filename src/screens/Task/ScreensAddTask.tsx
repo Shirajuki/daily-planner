@@ -4,29 +4,29 @@ import MultipleTagSelect from "../../components/MultipleTagSelect";
 import "./index.css";
 
 const initialTags: ITag[] = [
-  { id: 1, tagName: "a long test tag name here", tagColor: "tomato" },
-  { id: 2, tagName: "test tag2", tagColor: "pink" },
-  { id: 3, tagName: "test medium long tag3", tagColor: "lightblue" },
-  { id: 4, tagName: "test", tagColor: "lightgreen" },
+  { id: "1", tagName: "a long test tag name here", tagColor: "tomato" },
+  { id: "2", tagName: "test tag2", tagColor: "pink" },
+  { id: "3", tagName: "test medium long tag3", tagColor: "lightblue" },
+  { id: "4", tagName: "test", tagColor: "lightgreen" },
   {
-    id: 5,
+    id: "5",
     tagName: "test long long very long tag long",
     tagColor: "lightblue",
   },
-  { id: 6, tagName: "test short", tagColor: "pink" },
+  { id: "6", tagName: "test short", tagColor: "pink" },
 ];
 const initialTagSettings: ITagSettings = {
   tags: initialTags,
   selected: [],
 };
 const initialDays: ITag[] = [
-  { id: 1, tagName: "Monday", tagColor: "#e39df9" },
-  { id: 2, tagName: "Tuesday", tagColor: "#e39df9" },
-  { id: 3, tagName: "Wednesday", tagColor: "#e39df9" },
-  { id: 4, tagName: "Thursday", tagColor: "#e39df9" },
-  { id: 5, tagName: "Friday", tagColor: "#e39df9" },
-  { id: 6, tagName: "Saturday", tagColor: "#e39df9" },
-  { id: 7, tagName: "Sunday", tagColor: "#e39df9" },
+  { id: "1", tagName: "Monday", tagColor: "#e39df9" },
+  { id: "2", tagName: "Tuesday", tagColor: "#e39df9" },
+  { id: "3", tagName: "Wednesday", tagColor: "#e39df9" },
+  { id: "4", tagName: "Thursday", tagColor: "#e39df9" },
+  { id: "5", tagName: "Friday", tagColor: "#e39df9" },
+  { id: "6", tagName: "Saturday", tagColor: "#e39df9" },
+  { id: "7", tagName: "Sunday", tagColor: "#e39df9" },
 ];
 const initialDaySettings: ITagSettings = {
   tags: initialDays,
@@ -50,7 +50,6 @@ const ScreensAddTask: React.FC = () => {
           return col.offsetHeight;
         })
         .reduce((a: number, b: number) => a + b, 0);
-      console.log(height, wrapper.offsetHeight);
       if (height > wrapper.offsetHeight - 40) {
         setIsOverflow(true);
       } else {

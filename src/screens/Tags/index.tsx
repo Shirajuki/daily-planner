@@ -1,47 +1,29 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useRecoilValue } from "recoil";
 import DroppableList from "../../components/DroppableList";
 import Popup from "../../components/Popup";
 import ScreensEditTag from "./ScreensEditTag";
-import { ITag, ITask, ITodoColumn, ScreensType } from "../../types";
+import { IColumn, ITask, ITodoColumn, ScreensType } from "../../types";
+import { tagTasksState } from "../../recoil/selectors";
 import "./index.css";
 
-const initialTag: ITag[] = [
-  { id: 1, tagName: "test tag1", tagColor: "tomato" },
-  { id: 2, tagName: "test tag2", tagColor: "pink" },
-  { id: 3, tagName: "test tag3", tagColor: "lightblue" },
-  { id: 4, tagName: "test tag4", tagColor: "lightgreen" },
-];
-const initialData: ITodoColumn = {
-  tasks: [
-    { id: 0, content: "TAG NAME 1", tag: initialTag[0] },
-    { id: 1, content: "TAG NAME 2", tag: initialTag[1] },
-    { id: 2, content: "TAG NAME 3", tag: initialTag[2] },
-    { id: 3, content: "TAG NAME 4", tag: initialTag[3] },
-  ],
-  columns: [
-    {
-      id: 0,
-      title: "Tags",
-      taskIds: [0, 1, 2, 3],
-    },
-  ],
-  columnOrder: [0],
-};
 const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState<boolean>(false);
   const tagnameRef = useRef<HTMLInputElement>(null);
   const colorRef = useRef<HTMLInputElement>(null);
   const [popup, setPopup] = useState<boolean>(false);
   const [selectedTag, setSelectedTag] = useState<ITask>();
+  const tagTasks: ITodoColumn = useRecoilValue(tagTasksState);
+  const [columnId, setColumnId] = useState<string>("");
 
   useEffect(() => {
     if (!hidden) setRerender(true);
   }, [hidden]);
 
-  const test = (task: ITask, columnId: number) => {
-    console.log("123", task, columnId);
+  const test = (task: ITask, columnId: string) => {
     setPopup(true);
     setSelectedTag(task);
+    setColumnId(columnId);
   };
 
   useEffect(() => {
@@ -114,15 +96,19 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
             <button>ADD</button>
           </div>
         </div>
-        <DroppableList
-          rerender={rerender}
-          data={initialData}
-          showTitle={false}
-          hasEmptyString={"no tasks scheduled this day..."}
-          showDeleteBtn={true}
-          hasBigTag={true}
-          onClick={test}
-        />
+        {tagTasks ? (
+          <DroppableList
+            rerender={rerender}
+            data={tagTasks}
+            showTitle={false}
+            hasEmptyString={"no tasks scheduled this day..."}
+            showDeleteBtn={true}
+            hasBigTag={true}
+            onClick={test}
+          />
+        ) : (
+          <></>
+        )}
       </div>
       <Popup
         isFullscreen={true}
@@ -133,7 +119,13 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
         children={
           <>
             {popup && selectedTag ? (
-              <ScreensEditTag task={selectedTag} />
+              <ScreensEditTag
+                task={selectedTag}
+                taskIds={
+                  tagTasks.columns.find((col: IColumn) => col.id === columnId)
+                    ?.taskIds ?? []
+                }
+              />
             ) : (
               <></>
             )}

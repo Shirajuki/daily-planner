@@ -5,7 +5,7 @@ import "./index.css";
 type TagSelectType = {
   tag: ITag;
   selected: boolean;
-  selectTagHandler: (id: number) => void;
+  selectTagHandler: (id: string) => void;
 };
 const TagSelect: React.FC<TagSelectType> = ({
   tag,
@@ -37,9 +37,9 @@ const MultipleTagSelect: React.FC<MultipleTagSelectType> = ({
   tags,
   setTags,
 }) => {
-  const selectTagHandler = (id: number) => {
+  const selectTagHandler = (id: string) => {
     const index: number = tags.selected.indexOf(id);
-    const selected: number[] = [...new Set([...tags.selected, id])];
+    const selected: string[] = [...new Set([...tags.selected, id])];
     // Toggle effect: remove if already exists
     if (index !== -1) selected.splice(index, 1);
     const newTags: ITagSettings = { ...tags, selected: selected };

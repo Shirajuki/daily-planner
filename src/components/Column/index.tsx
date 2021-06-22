@@ -11,8 +11,8 @@ type ColumnType = {
   showDeleteBtn?: boolean;
   hasEmptyString: string;
   hasBigTag?: boolean;
-  updateChecked: (columnId: number, index: number, check: boolean) => void;
-  onClick?: (task: ITask, columnId: number) => void;
+  updateChecked: (columnId: string, task: ITask, check: boolean) => void;
+  onClick?: (task: ITask, columnId: string) => void;
 };
 const Column: React.FC<ColumnType> = ({
   column,
@@ -36,19 +36,21 @@ const Column: React.FC<ColumnType> = ({
           {tasks.length === 0 && hasEmptyString !== "" ? (
             <p>{hasEmptyString}</p>
           ) : (
-            tasks.map((task, index) => (
-              <Task
-                key={task.id}
-                task={task}
-                index={index}
-                columnId={column.id}
-                checked={column?.checked || null}
-                updateChecked={updateChecked}
-                showDeleteBtn={showDeleteBtn}
-                hasBigTag={hasBigTag}
-                onClick={onClick}
-              />
-            ))
+            tasks.map((task, index) => {
+              return (
+                <Task
+                  key={task.id}
+                  task={task}
+                  index={index}
+                  columnId={column.id}
+                  checked={column?.checked || null}
+                  updateChecked={updateChecked}
+                  showDeleteBtn={showDeleteBtn}
+                  hasBigTag={hasBigTag}
+                  onClick={onClick}
+                />
+              );
+            })
           )}
           {provided.placeholder}
         </div>

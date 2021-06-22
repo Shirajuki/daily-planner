@@ -1,31 +1,32 @@
 export interface ITag {
-  id: number;
+  id: string;
   tagName: string;
   tagColor: string;
 }
 export interface ITagSettings {
   tags: ITag[];
-  selected: number[];
+  selected: string[];
 }
 export interface ITask {
-  id: number;
+  id: string;
   content: string;
   tag?: ITag;
 }
 export interface IColumn {
-  id: number;
+  id: string;
   title: string;
-  taskIds: number[];
-  checked?: number[];
+  taskIds: string[];
+  checked?: string[];
 }
 export interface ITodoColumn {
   tasks: ITask[];
   columns: IColumn[];
-  columnOrder: number[];
+  columnOrder: string[];
 }
 export type ScreensType = {
   hidden: boolean;
 };
 export type ScreensEditType = {
   task: ITask;
+  taskIds?: string[];
 };

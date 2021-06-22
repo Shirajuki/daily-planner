@@ -1,11 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
-import { ScreensEditType } from "../../types";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useRecoilState } from "recoil";
+import { tagsState } from "../../recoil/atoms";
+import { ITag, ScreensEditType } from "../../types";
 import "./index.css";
 
-const ScreensEditTag: React.FC<ScreensEditType> = ({ task }) => {
+const ScreensEditTag: React.FC<ScreensEditType> = ({ task, taskIds }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
-  const [color, setColor] = useState<string>("#000000");
+  const [tag, setTag] = useState<ITag>(task?.tag ?? ({} as ITag));
+  const [tags, setTags] = useRecoilState(tagsState);
 
   useEffect(() => {
     if (divRef.current != null) {
@@ -24,23 +27,37 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({ task }) => {
     }
   }, [divRef]);
 
-  const handleInputChange = (
-    setState: (state: boolean) => void,
-    state: boolean
-  ) => {
-    setState(state);
+  const editTag = () => {
+    const ntags: ITag[] = [...tags.filter((t: ITag) => t.id !== tag.id), tag];
+    ntags.sort((a, b) => {
+      const indA = taskIds?.indexOf(a.id) ?? 0;
+      const indB = taskIds?.indexOf(b.id) ?? 0;
+      return indA - indB;
+    });
+    setTags(ntags);
+  };
+
+  const handleInputChange = (tagName: string) => {
+    if (tag) {
+      const ntag: ITag = { ...tag, tagName: tagName };
+      setTag(ntag);
+    }
   };
 
   const handleColorChange = (ncolor: string) => {
-    if (color) {
+    if (tag.tagColor) {
       const label: HTMLLabelElement = document.getElementById(
         "color2"
       ) as HTMLLabelElement;
       label.style.backgroundColor = ncolor;
-      setColor(ncolor);
+      const ntag: ITag = { ...tag, tagColor: ncolor };
+      setTag(ntag);
     }
   };
-  console.log(task);
+
+  useEffect(() => {
+    handleColorChange(tag.tagColor);
+  }, []);
   return (
     <>
       <div className="task">
@@ -54,7 +71,8 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({ task }) => {
               type="text"
               id="tagname"
               name="tagname"
-              ref={null}
+              value={tag.tagName}
+              onChange={(event: any) => handleInputChange(event.target.value)}
               placeholder="TAGNAME..."
             />
             <div className="colorWrapper">
@@ -64,7 +82,7 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({ task }) => {
                 type="text"
                 id="colorLabel"
                 name="colorLabel"
-                value={color}
+                value={tag.tagColor}
                 readOnly
               />
               <div className="colors colorInput">
@@ -72,7 +90,7 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({ task }) => {
                   type="color"
                   name="colorTag2"
                   id="colorTag2"
-                  value={color}
+                  value={tag.tagColor}
                   onChange={(event: any) =>
                     handleColorChange(event.target.value)
                   }
@@ -83,7 +101,9 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({ task }) => {
           </div>
         </div>
         <button className="btn center delete">DELETE TAG</button>
-        <button className="btn center">EDIT TAG</button>
+        <button className="btn center" onClick={editTag}>
+          EDIT TAG
+        </button>
       </div>
     </>
   );

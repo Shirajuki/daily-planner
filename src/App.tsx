@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { RecoilRoot } from "recoil";
 import Footer from "./components/Footer";
 import Popup from "./components/Popup";
 import ScreensHome from "./screens/Home";
@@ -29,41 +30,42 @@ const App: React.FC = () => {
       setPopup(true);
       setPopupScreen(0);
     }
-    // else if (popup) setPopup(false);
   }, [selected]);
   const openPopupScreen = (num: number) => {
     setPopupScreen(num);
     setPopup(true);
   };
   return (
-    <div className="App">
-      <ScreensHome hidden={selected !== 0 && selected !== 3} />
-      <ScreensDailies hidden={selected !== 1} />
-      <ScreensTags hidden={selected !== 2} />
-      <Popup
-        isFullscreen={true}
-        shown={popup}
-        closeEvent={() => {
-          if (selected === 3) setSelected(0);
-          setPopup(false);
-        }}
-        children={
-          <>
-            <ScreensConfig
-              hidden={!popup || selected !== 3 || popupScreen !== 0}
-            />
-            {popup && popupScreen === 1 ? <ScreensAddTask /> : <></>}
-            {popup && popupScreen === 2 ? <ScreensEditTask /> : <></>}
-          </>
-        }
-        title={popupScreenTitles(popupScreen)}
-      />
-      <Footer
-        selected={selected}
-        setSelected={setSelected}
-        setPopupScreen={openPopupScreen}
-      />
-    </div>
+    <RecoilRoot>
+      <div className="App">
+        <ScreensHome hidden={selected !== 0 && selected !== 3} />
+        <ScreensDailies hidden={selected !== 1} />
+        <ScreensTags hidden={selected !== 2} />
+        <Popup
+          isFullscreen={true}
+          shown={popup}
+          closeEvent={() => {
+            if (selected === 3) setSelected(0);
+            setPopup(false);
+          }}
+          children={
+            <>
+              <ScreensConfig
+                hidden={!popup || selected !== 3 || popupScreen !== 0}
+              />
+              {popup && popupScreen === 1 ? <ScreensAddTask /> : <></>}
+              {popup && popupScreen === 2 ? <ScreensEditTask /> : <></>}
+            </>
+          }
+          title={popupScreenTitles(popupScreen)}
+        />
+        <Footer
+          selected={selected}
+          setSelected={setSelected}
+          setPopupScreen={openPopupScreen}
+        />
+      </div>
+    </RecoilRoot>
   );
 };
 

@@ -1,25 +1,29 @@
 import { ITodoColumn, ITag } from "./types";
 
-const initialTag: ITag = { id: 1, tagName: "test tag", tagColor: "tomato" };
+export const initialTag: ITag[] = [
+  { id: "tagid0", tagName: "test tag1", tagColor: "tomato" },
+  { id: "tagid1", tagName: "test tag2", tagColor: "pink" },
+  { id: "tagid2", tagName: "test tag3", tagColor: "lightblue" },
+  { id: "tagid3", tagName: "test tag4", tagColor: "lightgreen" },
+];
 
-const initialData: ITodoColumn = {
+export const initialData: ITodoColumn = {
   tasks: [
-    { id: 0, content: "Take out the garbage", tag: initialTag },
-    { id: 1, content: "Watch my favourite show", tag: initialTag },
-    { id: 2, content: "Charge my phone" },
-    { id: 3, content: "Cook dinner", tag: initialTag },
-    { id: 4, content: "Example 1" },
-    { id: 5, content: "Example 2" },
-    { id: 6, content: "Example 3" },
+    { id: "0", content: "Take out the garbage", tag: initialTag[0] },
+    { id: "1", content: "Watch my favourite show", tag: initialTag[0] },
+    { id: "2", content: "Charge my phone" },
+    { id: "3", content: "Cook dinner", tag: initialTag[0] },
+    { id: "4", content: "Example 1" },
+    { id: "5", content: "Example 2" },
+    { id: "6", content: "Example 3" },
   ],
   columns: [
     {
-      id: 0,
+      id: "col0",
       title: "To do",
-      taskIds: [0, 1, 2, 3, 4, 5, 6],
+      taskIds: ["0", "1", "2", "3", "4", "5", "6"],
       checked: [],
     },
   ],
-  columnOrder: [0],
+  columnOrder: ["col0"],
 };
-export default initialData;

@@ -6,12 +6,12 @@ import "./index.css";
 type TaskType = {
   task: ITask;
   index: number;
-  columnId: number;
-  checked: number[] | null;
-  updateChecked: (columnId: number, index: number, check: boolean) => void;
+  columnId: string;
+  checked: string[] | null;
+  updateChecked: (columnId: string, task: ITask, check: boolean) => void;
   showDeleteBtn?: boolean;
   hasBigTag?: boolean;
-  onClick?: (task: ITask, columnId: number) => void;
+  onClick?: (task: ITask, columnId: string) => void;
 };
 const Task: React.FC<TaskType> = ({
   task,
@@ -27,7 +27,7 @@ const Task: React.FC<TaskType> = ({
   const handleInputChange = (event: any) => {
     const check: boolean = event.target.checked;
     if (checked !== null) {
-      updateChecked(columnId, index, check);
+      updateChecked(columnId, task, check);
     }
     setIsDone(check);
   };
@@ -41,16 +41,19 @@ const Task: React.FC<TaskType> = ({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          onClick={() => {
-            if (onClick) onClick(task, columnId);
-          }}
         >
           <input
             type="checkbox"
             checked={isDone}
             onChange={handleInputChange}
           />
-          <p>{task.content}</p>
+          <p
+            onClick={() => {
+              if (onClick) onClick(task, columnId);
+            }}
+          >
+            {task.content}
+          </p>
           <div className={hasBigTag ? "bigTag" : ""}>
             <button>✕</button>
             <div className="timeStatus"></div>
