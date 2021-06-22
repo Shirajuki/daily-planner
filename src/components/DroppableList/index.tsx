@@ -9,6 +9,7 @@ type DroppableListType = {
   showTitle: boolean;
   hasEmptyString: string;
   showDeleteBtn?: boolean;
+  deleteEventHandler?: (tag: ITask) => void;
   hasBigTag?: boolean;
   onClick?: (task: ITask, columnId: string) => void;
   data: ITodoColumn;
@@ -18,6 +19,7 @@ const DroppableList: React.FC<DroppableListType> = ({
   showTitle,
   hasEmptyString,
   showDeleteBtn,
+  deleteEventHandler,
   hasBigTag,
   onClick,
   data,
@@ -109,6 +111,7 @@ const DroppableList: React.FC<DroppableListType> = ({
               tasks={tasks}
               showTitle={showTitle}
               showDeleteBtn={showDeleteBtn}
+              deleteEventHandler={deleteEventHandler}
               hasEmptyString={hasEmptyString}
               updateChecked={updateChecked}
               hasBigTag={hasBigTag}

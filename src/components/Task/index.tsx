@@ -10,6 +10,7 @@ type TaskType = {
   checked: string[] | null;
   updateChecked: (columnId: string, task: ITask, check: boolean) => void;
   showDeleteBtn?: boolean;
+  deleteEventHandler?: (tag: ITask) => void;
   hasBigTag?: boolean;
   onClick?: (task: ITask, columnId: string) => void;
 };
@@ -20,6 +21,7 @@ const Task: React.FC<TaskType> = ({
   checked,
   updateChecked,
   showDeleteBtn,
+  deleteEventHandler,
   hasBigTag,
   onClick,
 }) => {
@@ -55,7 +57,13 @@ const Task: React.FC<TaskType> = ({
             {task.content}
           </p>
           <div className={hasBigTag ? "bigTag" : ""}>
-            <button>✕</button>
+            <button
+              onClick={() => {
+                if (deleteEventHandler) deleteEventHandler(task);
+              }}
+            >
+              ✕
+            </button>
             <div className="timeStatus"></div>
             <div
               className="tagColor"

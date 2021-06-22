@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { ITag, ITask, ITodoColumn } from "../types";
+import { IColumn, ITag, ITask, ITodoColumn } from "../types";
 import { tagsState } from "./atoms";
 
 export const tagTasksState = selector({
@@ -22,6 +22,13 @@ export const tagTasksState = selector({
       ],
       columnOrder: ["0"],
     };
-    return tagTasks;
+    const objectColumns: any = {};
+    tagTasks.columns.forEach(
+      (col: IColumn) => (objectColumns[col.id] = col.taskIds)
+    );
+    return {
+      todoColumn: tagTasks,
+      taskIds: objectColumns,
+    };
   },
 });

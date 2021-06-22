@@ -9,6 +9,7 @@ type ColumnType = {
   tasks: ITask[];
   showTitle: boolean;
   showDeleteBtn?: boolean;
+  deleteEventHandler?: (tag: ITask) => void;
   hasEmptyString: string;
   hasBigTag?: boolean;
   updateChecked: (columnId: string, task: ITask, check: boolean) => void;
@@ -19,6 +20,7 @@ const Column: React.FC<ColumnType> = ({
   tasks,
   showTitle,
   showDeleteBtn,
+  deleteEventHandler,
   hasEmptyString,
   hasBigTag,
   updateChecked,
@@ -46,6 +48,7 @@ const Column: React.FC<ColumnType> = ({
                   checked={column?.checked || null}
                   updateChecked={updateChecked}
                   showDeleteBtn={showDeleteBtn}
+                  deleteEventHandler={deleteEventHandler}
                   hasBigTag={hasBigTag}
                   onClick={onClick}
                 />

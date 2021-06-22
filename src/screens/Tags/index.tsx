@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import DroppableList from "../../components/DroppableList";
 import Popup from "../../components/Popup";
 import ScreensEditTag from "./ScreensEditTag";
-import { IColumn, ITag, ITask, ITodoColumn, ScreensType } from "../../types";
+import { ITag, ITask, ScreensType } from "../../types";
 import { tagTasksState } from "../../recoil/selectors";
 import { tagsState } from "../../recoil/atoms";
 import "./index.css";
@@ -16,7 +16,7 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
     `hsl(${Math.floor(Math.random() * 255) + 1}, 50%, 75%)`
   );
   const [selectedTag, setSelectedTag] = useState<ITask>();
-  const tagTasks: ITodoColumn = useRecoilValue(tagTasksState);
+  const tagTasks = useRecoilValue(tagTasksState);
   const [columnId, setColumnId] = useState<string>("");
   const [tags, setTags] = useRecoilState(tagsState);
 
@@ -36,13 +36,19 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
     setSelectedTag(task);
     setColumnId(columnId);
   };
+  const deleteEventHandler = (tag: ITask) => {
+    // TODO: Add delete animation :)
+    const ntags = tags.filter((t: ITag) => t.id !== tag.id);
+    setTags(ntags);
+  };
 
   const addTag = () => {
     const tagName = tagnameRef?.current?.value;
     const tagColor = color;
     if (tagName) {
       const tagId =
-        tagName.replaceAll(" ", "_").toLowerCase() + tagTasks.tasks.length;
+        tagName.replaceAll(" ", "_").toLowerCase() +
+        tagTasks.taskIds[columnId].length;
       const tag: ITag = { id: tagId, tagName: tagName, tagColor: tagColor };
       setTags([...tags, tag]);
     }
@@ -107,10 +113,11 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
         {tagTasks ? (
           <DroppableList
             rerender={rerender}
-            data={tagTasks}
+            data={tagTasks.todoColumn}
             showTitle={false}
             hasEmptyString={"no tasks scheduled this day..."}
             showDeleteBtn={true}
+            deleteEventHandler={deleteEventHandler}
             hasBigTag={true}
             onClick={selectTagHandler}
           />
@@ -129,10 +136,7 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
             {popup && selectedTag ? (
               <ScreensEditTag
                 task={selectedTag}
-                taskIds={
-                  tagTasks.columns.find((col: IColumn) => col.id === columnId)
-                    ?.taskIds ?? []
-                }
+                taskIds={tagTasks.taskIds[columnId]}
               />
             ) : (
               <></>
