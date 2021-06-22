@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { tagsState } from "../../recoil/atoms";
 import { ITag, ScreensEditType } from "../../types";
@@ -35,6 +35,10 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({ task, taskIds }) => {
       return indA - indB;
     });
     setTags(ntags);
+    const btn: HTMLButtonElement = document.querySelector(
+      "button.closeBtn"
+    ) as HTMLButtonElement;
+    btn.click();
   };
 
   const handleInputChange = (tagName: string) => {
