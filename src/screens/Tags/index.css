@@ -54,6 +54,7 @@ div.tags > div.newTagBox > div.inputs > input[type="text"] {
 	border-bottom: 2px solid black;
 	margin-bottom: 0;
 }
+div.tags > div.newTagBox > div.inputs input[type="text"],
 div.tags > div.newTagBox > div.inputs input[type="text"]::placeholder {
 	color: initial;
 }

@@ -1,47 +1,55 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import DroppableList from "../../components/DroppableList";
 import Popup from "../../components/Popup";
 import ScreensEditTag from "./ScreensEditTag";
-import { IColumn, ITask, ITodoColumn, ScreensType } from "../../types";
+import { IColumn, ITag, ITask, ITodoColumn, ScreensType } from "../../types";
 import { tagTasksState } from "../../recoil/selectors";
+import { tagsState } from "../../recoil/atoms";
 import "./index.css";
 
 const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState<boolean>(false);
   const tagnameRef = useRef<HTMLInputElement>(null);
-  const colorRef = useRef<HTMLInputElement>(null);
   const [popup, setPopup] = useState<boolean>(false);
+  const [color, setColor] = useState<string>(
+    `hsl(${Math.floor(Math.random() * 255) + 1}, 50%, 75%)`
+  );
   const [selectedTag, setSelectedTag] = useState<ITask>();
   const tagTasks: ITodoColumn = useRecoilValue(tagTasksState);
   const [columnId, setColumnId] = useState<string>("");
+  const [tags, setTags] = useRecoilState(tagsState);
 
   useEffect(() => {
     if (!hidden) setRerender(true);
   }, [hidden]);
 
-  const test = (task: ITask, columnId: string) => {
+  useEffect(() => {
+    const label: HTMLLabelElement = document.getElementById(
+      "color"
+    ) as HTMLLabelElement;
+    label.style.backgroundColor = color;
+  }, [color]);
+
+  const selectTagHandler = (task: ITask, columnId: string) => {
     setPopup(true);
     setSelectedTag(task);
     setColumnId(columnId);
   };
 
-  useEffect(() => {
-    if (colorRef.current) {
-      // Generate default pastel colors on load
-      const color = `hsl(${Math.floor(Math.random() * 255) + 1}, 50%, 75%)`;
-      colorRef.current.value = color;
-      handleColorChange(color);
+  const addTag = () => {
+    const tagName = tagnameRef?.current?.value;
+    const tagColor = color;
+    if (tagName) {
+      const tagId =
+        tagName.replaceAll(" ", "_").toLowerCase() + tagTasks.tasks.length;
+      const tag: ITag = { id: tagId, tagName: tagName, tagColor: tagColor };
+      setTags([...tags, tag]);
     }
-  }, [colorRef]);
+  };
 
-  const handleColorChange = (color: string) => {
-    if (colorRef.current) {
-      const label: HTMLLabelElement = document.getElementById(
-        "color"
-      ) as HTMLLabelElement;
-      label.style.backgroundColor = color;
-    }
+  const handleColorChange = (ncolor: string) => {
+    if (color) setColor(ncolor);
   };
   return (
     <>
@@ -89,11 +97,11 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
               type="color"
               name="colorTag"
               id="colorTag"
-              ref={colorRef}
+              value={color}
               onChange={(event: any) => handleColorChange(event.target.value)}
             />
             <label htmlFor="colorTag" id="color"></label>
-            <button>ADD</button>
+            <button onClick={addTag}>ADD</button>
           </div>
         </div>
         {tagTasks ? (
@@ -104,7 +112,7 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
             hasEmptyString={"no tasks scheduled this day..."}
             showDeleteBtn={true}
             hasBigTag={true}
-            onClick={test}
+            onClick={selectTagHandler}
           />
         ) : (
           <></>

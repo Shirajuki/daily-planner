@@ -50,18 +50,17 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({ task, taskIds }) => {
 
   const handleColorChange = (ncolor: string) => {
     if (tag.tagColor) {
-      const label: HTMLLabelElement = document.getElementById(
-        "color2"
-      ) as HTMLLabelElement;
-      label.style.backgroundColor = ncolor;
       const ntag: ITag = { ...tag, tagColor: ncolor };
       setTag(ntag);
     }
   };
 
   useEffect(() => {
-    handleColorChange(tag.tagColor);
-  }, []);
+    const label: HTMLLabelElement = document.getElementById(
+      "color2"
+    ) as HTMLLabelElement;
+    label.style.backgroundColor = tag.tagColor;
+  }, [tag.tagColor]);
   return (
     <>
       <div className="task">
