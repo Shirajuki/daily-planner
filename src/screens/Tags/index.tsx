@@ -17,7 +17,7 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
   );
   const [selectedTag, setSelectedTag] = useState<ITask>();
   const tagTasks = useRecoilValue(tagTasksState);
-  const [columnId, setColumnId] = useState<string>("");
+  const [columnId, setColumnId] = useState<string>("0");
   const [tags, setTags] = useRecoilState(tagsState);
 
   useEffect(() => {
@@ -51,6 +51,7 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
         tagTasks.taskIds[columnId].length;
       const tag: ITag = { id: tagId, tagName: tagName, tagColor: tagColor };
       setTags([...tags, tag]);
+      if (tagnameRef?.current?.value) tagnameRef.current.value = "";
     }
   };
 
