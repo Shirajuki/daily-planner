@@ -7,11 +7,13 @@ import ScreensDailies from "./screens/Dailies";
 import ScreensTags from "./screens/Tags";
 import ScreensConfig from "./screens/Config";
 import { ScreensAddTask, ScreensEditTask } from "./screens/Task";
+import Transition from "./components/Transition";
 import "./App.css";
 
 const App: React.FC = () => {
   const [selected, setSelected] = useState<number>(2);
   const [popup, setPopup] = useState<boolean>(false);
+  const [transition, setTransition] = useState<boolean>(false);
   const [popupScreen, setPopupScreen] = useState<number>(0);
   const popupScreenTitles = (num: number) => {
     switch (num) {
@@ -29,8 +31,11 @@ const App: React.FC = () => {
     if (selected === 3) {
       setPopup(true);
       setPopupScreen(0);
+    } else {
+      setTransition(true);
     }
   }, [selected]);
+
   const openPopupScreen = (num: number) => {
     setPopupScreen(num);
     setPopup(true);
@@ -59,6 +64,7 @@ const App: React.FC = () => {
           }
           title={popupScreenTitles(popupScreen)}
         />
+        <Transition shown={transition} setShown={setTransition} />
         <Footer
           selected={selected}
           setSelected={setSelected}
