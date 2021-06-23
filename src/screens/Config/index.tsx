@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { themeState } from "../../recoil/atoms";
 import { ScreensType } from "../../types";
 import "./index.css";
 
 const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
   const [darkmode, setDarkmode] = useState<boolean>(false);
+  const setTheme = useSetRecoilState(themeState);
   const handleInputChange = (
     setState: (state: boolean) => void,
     state: boolean
   ) => {
     setState(state);
   };
+  useEffect(() => {
+    if (darkmode) setTheme("dark");
+    else setTheme("light");
+  }, [darkmode, setTheme]);
   return (
     <div className="config" hidden={hidden}>
       <div className="inputWrapper">

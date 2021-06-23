@@ -4,7 +4,11 @@ import { tagsState } from "../../recoil/atoms";
 import { ITag, ScreensEditType } from "../../types";
 import "./index.css";
 
-const ScreensEditTag: React.FC<ScreensEditType> = ({ task, taskIds }) => {
+const ScreensEditTag: React.FC<ScreensEditType> = ({
+  task,
+  taskIds,
+  deleteEventHandler,
+}) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
   const [tag, setTag] = useState<ITag>(task?.tag ?? ({} as ITag));
@@ -27,6 +31,12 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({ task, taskIds }) => {
     }
   }, [divRef]);
 
+  const closePopup = () => {
+    const btn: HTMLButtonElement = document.querySelector(
+      "button.closeBtn"
+    ) as HTMLButtonElement;
+    btn.click();
+  };
   const editTag = () => {
     const ntags: ITag[] = [...tags.filter((t: ITag) => t.id !== tag.id), tag];
     ntags.sort((a, b) => {
@@ -35,10 +45,7 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({ task, taskIds }) => {
       return indA - indB;
     });
     setTags(ntags);
-    const btn: HTMLButtonElement = document.querySelector(
-      "button.closeBtn"
-    ) as HTMLButtonElement;
-    btn.click();
+    closePopup();
   };
 
   const handleInputChange = (tagName: string) => {
@@ -103,7 +110,17 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({ task, taskIds }) => {
             </div>
           </div>
         </div>
-        <button className="btn center delete">DELETE TAG</button>
+        <button
+          className="btn center delete"
+          onClick={() => {
+            if (deleteEventHandler) {
+              deleteEventHandler(task);
+              closePopup();
+            }
+          }}
+        >
+          DELETE TAG
+        </button>
         <button className="btn center" onClick={editTag}>
           EDIT TAG
         </button>

@@ -138,6 +138,7 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
               <ScreensEditTag
                 task={selectedTag}
                 taskIds={tagTasks.taskIds[columnId]}
+                deleteEventHandler={deleteEventHandler}
               />
             ) : (
               <></>

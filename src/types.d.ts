@@ -29,4 +29,5 @@ export type ScreensType = {
 export type ScreensEditType = {
   task: ITask;
   taskIds?: string[];
+  deleteEventHandler?: (tag: ITask) => void;
 };
