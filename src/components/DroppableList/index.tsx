@@ -26,6 +26,7 @@ const DroppableList: React.FC<DroppableListType> = ({
   data,
   setData,
 }) => {
+  const [state, setState] = useState<ITodoColumn>(data);
   const [isOverflow, setIsOverflow] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -44,6 +45,10 @@ const DroppableList: React.FC<DroppableListType> = ({
     }
   }, [divRef, rerender]);
 
+  useEffect(() => {
+    setState(data);
+  }, [data]);
+
   const updateChecked = (columnId: string, task: ITask, check: boolean) => {
     const newColumns = data.columns.filter(
       (col: IColumn) => col.id !== columnId
@@ -57,6 +62,7 @@ const DroppableList: React.FC<DroppableListType> = ({
       if (!check) newChecked.splice(newChecked.indexOf(task.id), 1);
       const nColumn: IColumn = { ...newColumn, checked: newChecked };
       const newState = { ...data, columns: [...newColumns, nColumn] };
+      setState(newState);
       setData(newState);
     }
   };
@@ -81,6 +87,7 @@ const DroppableList: React.FC<DroppableListType> = ({
         (col: IColumn) => col.id !== newColumn.id
       );
       const newState = { ...data, columns: [...newColumns, newColumn] };
+      setState(newState);
       setData(newState);
     }
   };
@@ -90,14 +97,14 @@ const DroppableList: React.FC<DroppableListType> = ({
       ref={divRef}
     >
       <DragDropContext onDragEnd={onDragEnd}>
-        {data.columnOrder.map((columnId: string) => {
+        {state.columnOrder.map((columnId: string) => {
           const column: IColumn =
-            data.columns.find((col: IColumn) => col.id === columnId) ??
+            state.columns.find((col: IColumn) => col.id === columnId) ??
             ({} as IColumn);
           const tasks: ITask[] = column.taskIds
             .map(
               (taskId: string) =>
-                data.tasks.find((task: ITask) => task.id === taskId) ??
+                state.tasks.find((task: ITask) => task.id === taskId) ??
                 ({} as ITask)
             )
             .filter((task: ITask) => task.id);
