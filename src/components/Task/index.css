@@ -10,7 +10,8 @@ div.taskContent {
 	box-shadow: 0px 2px 5px rgba(0,0,0,0.25);
 }
 div.taskContent > input[type="checkbox"] {
-	margin: 5px;
+	width: 55px;
+	height: 25px;
 	opacity: 0;
 	cursor: pointer;
 }

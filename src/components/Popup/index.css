@@ -4,7 +4,7 @@ div.eventBlocker {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 9001;
+	z-index: -1;
 	pointer-events: none;
 }
 div.eventBlocker.shown {
@@ -24,6 +24,12 @@ div.popup {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0,0,0,0.5);
+	pointer-events: none;
+}
+div.popup:not(.fullscreen) {
+	transform: translateX(0);
+	opacity: 0;
+	transition: opacity 1s ease;
 }
 div.popup > h1.title {
 	position: absolute;
@@ -54,4 +60,6 @@ div.popup.fullscreen > button.closeBtn {
 }
 div.popup.shown {
 	transform: translateX(0);
+	opacity: 1;
+	pointer-events: all;
 }

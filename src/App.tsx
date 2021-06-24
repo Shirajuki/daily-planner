@@ -63,7 +63,6 @@ const App: React.FC = () => {
     } else if (selected !== num || transitionRef.current) {
       return true;
     }
-    if (num === 1) console.log("yes", false);
     return false;
   };
 

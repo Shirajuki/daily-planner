@@ -20,13 +20,17 @@ const Popup: React.FC<PopupType> = ({
   };
   return (
     <>
-      <div className={`eventBlocker ${shown ? "shown" : ""}`}></div>
       <div
         className={`popup ${shown ? "shown" : ""} ${
           isFullscreen ? "fullscreen" : ""
         }`}
-        onClick={handleCloseEvent}
       >
+        <div
+          className={`eventBlocker ${shown ? "shown" : ""}`}
+          onClick={() => {
+            if (!isFullscreen) handleCloseEvent();
+          }}
+        ></div>
         <button className="closeBtn" onClick={closeEvent}>
           <svg
             width="26"

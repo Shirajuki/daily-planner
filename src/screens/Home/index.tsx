@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DroppableList from "../../components/DroppableList";
 import Calendar from "react-calendar";
 import Popup from "../../components/Popup";
+import * as utilities from "../../utilities";
 import { ScreensType } from "../../types";
 import { initialData } from "../../initialData";
 import "./index.css";
@@ -11,20 +12,26 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
   const [popup, setPopup] = useState<boolean>(false);
   const [date, setDate] = useState(new Date());
+  const todayRef = useRef(new Date());
   useEffect(() => {
     if (!hidden) setRerender(true);
   }, [hidden]);
-  console.log(date);
+
+  const addDate = (days: number) => {
+    const ndate = new Date(date);
+    ndate.setDate(ndate.getDate() + days);
+    setDate(ndate);
+  };
   return (
     <div className="todaysTask" hidden={hidden}>
       <div className="topBackground">
         <h3>DAILYJUKIPLANNER</h3>
         <div className="infoBox">
           <div className="dateBox">
-            <p className="day">15</p>
-            <p className="month">June</p>
-            <p className="year">2021</p>
-            <p className="weekday">Tuesday</p>
+            <p className="day">{utilities.getDayFormatted(todayRef.current)}</p>
+            <p className="month">{utilities.getMonthName(todayRef.current)}</p>
+            <p className="year">{todayRef.current.getFullYear()}</p>
+            <p className="weekday">{utilities.getWeekday(todayRef.current)}</p>
           </div>
           <div className="statsBox">
             <div className="stats">
@@ -40,7 +47,8 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
         <div className="navigationBox">
           <div className="statsBox">
             <p>
-              June 15, 2021 <span>Tuesday</span>
+              {utilities.prettyDate(date)}
+              <span>{utilities.getWeekday(date)}</span>
             </p>
             <div>
               <button onClick={() => setPopup(true)}>
@@ -100,8 +108,8 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
             </div>
           </div>
           <div className="navBox">
-            <button>←</button>
-            <button>→</button>
+            <button onClick={() => addDate(-1)}>←</button>
+            <button onClick={() => addDate(1)}>→</button>
           </div>
         </div>
       </div>
@@ -117,8 +125,11 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
         children={
           popup ? (
             <div className="dateWrapper">
-              {" "}
+              <h1>SELECT DATE</h1>
               <Calendar onChange={setDate} value={date} />
+              <button className="btn" onClick={() => setPopup(false)}>
+                DONE
+              </button>
             </div>
           ) : (
             <></>
