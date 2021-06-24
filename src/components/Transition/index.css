@@ -10,9 +10,9 @@ div.transitionWrapper {
 	background-color: #896296;
 	z-index: 9002;
 	pointer-events: none;
+	transition: opacity .4s;
 }
 div.transitionWrapper.hidden {
-	transition: opacity .5s;
 	opacity: 0;
 }
 div.transitionWrapper > div.circle {

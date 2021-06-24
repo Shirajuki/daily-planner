@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { RecoilRoot } from "recoil";
 import Footer from "./components/Footer";
 import Popup from "./components/Popup";
@@ -15,6 +15,9 @@ const App: React.FC = () => {
   const [popup, setPopup] = useState<boolean>(false);
   const [transition, setTransition] = useState<boolean>(false);
   const [popupScreen, setPopupScreen] = useState<number>(0);
+  const transitionRef = useRef<boolean>(false);
+  const selectedOldRef = useRef<number>(selected);
+
   const popupScreenTitles = (num: number) => {
     switch (num) {
       case 0:
@@ -27,31 +30,57 @@ const App: React.FC = () => {
         return "";
     }
   };
-  useEffect(() => {
-    if (selected === 3) {
-      setPopup(true);
-      setPopupScreen(0);
-    } else {
-      setTransition(true);
-    }
-  }, [selected]);
-
   const openPopupScreen = (num: number) => {
     setPopupScreen(num);
     setPopup(true);
+    transitionRef.current = false;
   };
+  useEffect(() => {
+    if (selected === 3) {
+      openPopupScreen(0);
+    } else if (selectedOldRef.current !== 3) {
+      setTransition(true);
+    } else {
+      transitionRef.current = true;
+    }
+  }, [selected]);
+
+  useEffect(() => {
+    if (selectedOldRef.current === 3) transitionRef.current = false;
+    else if (!transition) {
+      transitionRef.current = true;
+    } else transitionRef.current = false;
+  }, [transition]);
+
+  const setSelectedHandler = (num: number) => {
+    selectedOldRef.current = selected;
+    setSelected(num);
+    transitionRef.current = true;
+  };
+  const hiddenScreen = (num: number) => {
+    if (selected === 3) {
+      return !(selectedOldRef.current === num);
+    } else if (selected !== num || transitionRef.current) {
+      return true;
+    }
+    if (num === 1) console.log("yes", false);
+    return false;
+  };
+
   return (
     <RecoilRoot>
       <div className="App">
-        <ScreensHome hidden={selected !== 0 && selected !== 3} />
-        <ScreensDailies hidden={selected !== 1} />
-        <ScreensTags hidden={selected !== 2} />
+        <Transition shown={transition} setShown={setTransition} />
+        <ScreensHome hidden={hiddenScreen(0)} />
+        <ScreensDailies hidden={hiddenScreen(1)} />
+        <ScreensTags hidden={hiddenScreen(2)} />
         <Popup
           isFullscreen={true}
           shown={popup}
           closeEvent={() => {
-            if (selected === 3) setSelected(0);
+            if (selected === 3) setSelectedHandler(selectedOldRef.current);
             setPopup(false);
+            transitionRef.current = false;
           }}
           children={
             <>
@@ -64,10 +93,9 @@ const App: React.FC = () => {
           }
           title={popupScreenTitles(popupScreen)}
         />
-        <Transition shown={transition} setShown={setTransition} />
         <Footer
           selected={selected}
-          setSelected={setSelected}
+          setSelected={setSelectedHandler}
           setPopupScreen={openPopupScreen}
         />
       </div>
