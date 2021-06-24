@@ -7,6 +7,9 @@ div.eventBlocker {
 	z-index: -1;
 	pointer-events: none;
 }
+div.eventBlocker.back {
+	z-index: 9001;
+}
 div.eventBlocker.shown {
 	pointer-events: all;
 }

@@ -20,6 +20,11 @@ const Popup: React.FC<PopupType> = ({
   };
   return (
     <>
+      {isFullscreen ? (
+        <div className={`eventBlocker back ${shown ? "shown" : ""}`}></div>
+      ) : (
+        <></>
+      )}
       <div
         className={`popup ${shown ? "shown" : ""} ${
           isFullscreen ? "fullscreen" : ""
