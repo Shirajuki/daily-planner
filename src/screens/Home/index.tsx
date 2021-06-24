@@ -3,15 +3,20 @@ import DroppableList from "../../components/DroppableList";
 import Calendar from "react-calendar";
 import Popup from "../../components/Popup";
 import * as utilities from "../../utilities";
-import { ScreensType } from "../../types";
+import { ITask, ITodoColumn, ScreensType } from "../../types";
 import { initialData } from "../../initialData";
 import "./index.css";
 import "react-calendar/dist/Calendar.css";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { tasksState } from "../../recoil/atoms";
+import { tasksSelectorState } from "../../recoil/selectors";
 
 const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
   const [popup, setPopup] = useState<boolean>(false);
   const [date, setDate] = useState(new Date());
+  const [tasks, setTasks] = useRecoilState(tasksState);
+  const tasksSelector = useRecoilValue(tasksSelectorState);
   const todayRef = useRef(new Date());
   useEffect(() => {
     if (!hidden) setRerender(true);
@@ -35,11 +40,11 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
           </div>
           <div className="statsBox">
             <div className="stats">
-              <p className="num">9</p>
+              <p className="num">{tasksSelector.tasksChecked?.length ?? 0}</p>
               <p>done</p>
             </div>
             <div className="stats">
-              <p className="num">10</p>
+              <p className="num">{tasksSelector.tasks?.length ?? 0}</p>
               <p>due today</p>
             </div>
           </div>
@@ -115,7 +120,8 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
       </div>
       <DroppableList
         rerender={rerender}
-        data={initialData}
+        data={tasks}
+        setData={setTasks}
         showTitle={false}
         hasEmptyString={""}
       />

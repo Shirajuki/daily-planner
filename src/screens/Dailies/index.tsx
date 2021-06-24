@@ -57,6 +57,7 @@ const initialData: ITodoColumn = {
 
 const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
+  const [data, setData] = useState<ITodoColumn>(initialData);
   useEffect(() => {
     if (!hidden) setRerender(true);
   }, [hidden]);
@@ -91,7 +92,8 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
       </div>
       <DroppableList
         rerender={rerender}
-        data={initialData}
+        data={data}
+        setData={setData}
         showTitle={true}
         hasEmptyString={"no tasks scheduled this day..."}
       />

@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import DroppableList from "../../components/DroppableList";
 import Popup from "../../components/Popup";
 import ScreensEditTag from "./ScreensEditTag";
-import { ITag, ITask, ScreensType } from "../../types";
+import { ITag, ITask, ITodoColumn, ScreensType } from "../../types";
 import { tagTasksState } from "../../recoil/selectors";
 import { tagsState } from "../../recoil/atoms";
 import "./index.css";
@@ -115,6 +115,7 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
           <DroppableList
             rerender={rerender}
             data={tagTasks.todoColumn}
+            setData={(_: ITodoColumn) => ""}
             showTitle={false}
             hasEmptyString={"no tasks scheduled this day..."}
             showDeleteBtn={true}

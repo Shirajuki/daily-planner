@@ -13,6 +13,7 @@ type DroppableListType = {
   hasBigTag?: boolean;
   onClick?: (task: ITask, columnId: string) => void;
   data: ITodoColumn;
+  setData: (data: ITodoColumn) => void;
 };
 const DroppableList: React.FC<DroppableListType> = ({
   rerender,
@@ -23,8 +24,8 @@ const DroppableList: React.FC<DroppableListType> = ({
   hasBigTag,
   onClick,
   data,
+  setData,
 }) => {
-  const [state, setState] = useState(data);
   const [isOverflow, setIsOverflow] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -43,24 +44,20 @@ const DroppableList: React.FC<DroppableListType> = ({
     }
   }, [divRef, rerender]);
 
-  useEffect(() => {
-    setState(data);
-  }, [data]);
-
   const updateChecked = (columnId: string, task: ITask, check: boolean) => {
-    const newColumns = state.columns.filter(
+    const newColumns = data.columns.filter(
       (col: IColumn) => col.id !== columnId
     );
     const newColumn: IColumn =
-      state.columns.find((col: IColumn) => col.id === columnId) ??
+      data.columns.find((col: IColumn) => col.id === columnId) ??
       ({} as IColumn);
     const oldChecked = newColumn?.checked;
     if (oldChecked) {
       const newChecked = [...new Set([...oldChecked, task.id])];
       if (!check) newChecked.splice(newChecked.indexOf(task.id), 1);
       const nColumn: IColumn = { ...newColumn, checked: newChecked };
-      const newState = { ...state, columns: [...newColumns, nColumn] };
-      setState(newState);
+      const newState = { ...data, columns: [...newColumns, nColumn] };
+      setData(newState);
     }
   };
 
@@ -74,17 +71,17 @@ const DroppableList: React.FC<DroppableListType> = ({
       return;
 
     const columnId: string = source.droppableId;
-    const column = state.columns.find((col: any) => col.id === columnId);
+    const column = data.columns.find((col: any) => col.id === columnId);
     if (column) {
       const newTaskIds = [...column.taskIds];
       newTaskIds.splice(source.index, 1);
       newTaskIds.splice(destination.index, 0, draggableId);
       const newColumn = { ...column, taskIds: newTaskIds };
-      const newColumns = state.columns.filter(
+      const newColumns = data.columns.filter(
         (col: IColumn) => col.id !== newColumn.id
       );
-      const newState = { ...state, columns: [...newColumns, newColumn] };
-      setState(newState);
+      const newState = { ...data, columns: [...newColumns, newColumn] };
+      setData(newState);
     }
   };
   return (
@@ -93,14 +90,14 @@ const DroppableList: React.FC<DroppableListType> = ({
       ref={divRef}
     >
       <DragDropContext onDragEnd={onDragEnd}>
-        {state.columnOrder.map((columnId: string) => {
+        {data.columnOrder.map((columnId: string) => {
           const column: IColumn =
-            state.columns.find((col: IColumn) => col.id === columnId) ??
+            data.columns.find((col: IColumn) => col.id === columnId) ??
             ({} as IColumn);
           const tasks: ITask[] = column.taskIds
             .map(
               (taskId: string) =>
-                state.tasks.find((task: ITask) => task.id === taskId) ??
+                data.tasks.find((task: ITask) => task.id === taskId) ??
                 ({} as ITask)
             )
             .filter((task: ITask) => task.id);

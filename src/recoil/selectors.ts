@@ -1,6 +1,6 @@
 import { selector } from "recoil";
 import { IColumn, ITag, ITask, ITodoColumn } from "../types";
-import { tagsState } from "./atoms";
+import { tagsState, tasksState } from "./atoms";
 
 export const tagTasksState = selector({
   key: "tagTasks",
@@ -29,6 +29,19 @@ export const tagTasksState = selector({
     return {
       todoColumn: tagTasks,
       taskIds: objectColumns,
+    };
+  },
+});
+
+export const tasksSelectorState = selector({
+  key: "tasksSelectorState",
+  get: ({ get }) => {
+    const tasks: ITodoColumn = get(tasksState);
+    const tasksChecked = tasks.columns[0].checked;
+    return {
+      todoColumn: tasks,
+      tasksChecked: tasksChecked,
+      tasks: tasks.tasks,
     };
   },
 });
