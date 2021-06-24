@@ -8,7 +8,7 @@ type TransitionType = {
 const Transition: React.FC<TransitionType> = ({ shown, setShown }) => {
   useEffect(() => {
     if (shown) {
-      const timer = setTimeout(() => setShown(false), 1000);
+      const timer = setTimeout(() => setShown(false), 800);
       return () => clearTimeout(timer);
     }
   }, [shown, setShown]);
