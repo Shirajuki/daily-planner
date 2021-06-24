@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import DroppableList from "../../components/DroppableList";
+import Calendar from "react-calendar";
+import Popup from "../../components/Popup";
 import { ScreensType } from "../../types";
 import { initialData } from "../../initialData";
 import "./index.css";
+import "react-calendar/dist/Calendar.css";
 
 const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
+  const [popup, setPopup] = useState<boolean>(false);
+  const [date, setDate] = useState(new Date());
   useEffect(() => {
     if (!hidden) setRerender(true);
   }, [hidden]);
+  console.log(date);
   return (
     <div className="todaysTask" hidden={hidden}>
       <div className="topBackground">
@@ -37,7 +43,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
               June 15, 2021 <span>Tuesday</span>
             </p>
             <div>
-              <button>
+              <button onClick={() => setPopup(true)}>
                 <svg
                   width="22"
                   height="22"
@@ -71,7 +77,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
                   />
                 </svg>
               </button>
-              <button>
+              <button onClick={() => setDate(new Date())}>
                 <svg
                   width="22"
                   height="20"
@@ -104,6 +110,21 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
         data={initialData}
         showTitle={false}
         hasEmptyString={""}
+      />
+      <Popup
+        isFullscreen={false}
+        shown={popup}
+        children={
+          popup ? (
+            <div className="dateWrapper">
+              {" "}
+              <Calendar onChange={setDate} value={date} />
+            </div>
+          ) : (
+            <></>
+          )
+        }
+        closeEvent={() => setPopup(false)}
       />
     </div>
   );
