@@ -3,17 +3,20 @@ import DroppableList from "../../components/DroppableList";
 import Calendar from "react-calendar";
 import Popup from "../../components/Popup";
 import * as utilities from "../../utilities";
-import { ScreensType } from "../../types";
+import { ITask, ScreensType } from "../../types";
 import "./index.css";
 import "react-calendar/dist/Calendar.css";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tasksState } from "../../recoil/atoms";
 import { tasksSelectorState } from "../../recoil/selectors";
+import { ScreensEditTask } from "../Task";
 
 const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
+  const [smallPopup, setSmallPopup] = useState<boolean>(false);
   const [popup, setPopup] = useState<boolean>(false);
   const [date, setDate] = useState(new Date());
+  const [selectedTag, setSelectedTag] = useState<ITask>();
   const [tasks, setTasks] = useRecoilState(tasksState);
   const tasksSelector = useRecoilValue(tasksSelectorState);
   const todayRef = useRef(new Date());
@@ -25,6 +28,11 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
     const ndate = new Date(date);
     ndate.setDate(ndate.getDate() + days);
     setDate(ndate);
+  };
+  const selectTaskHandler = (task: ITask, _: string) => {
+    setPopup(true);
+    setSelectedTag(task);
+    console.log(task, "col0");
   };
   return (
     <div className="todaysTask" hidden={hidden}>
@@ -123,16 +131,17 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
         setData={setTasks}
         showTitle={false}
         hasEmptyString={""}
+        onClick={selectTaskHandler}
       />
       <Popup
         isFullscreen={false}
-        shown={popup}
+        shown={smallPopup}
         children={
-          popup ? (
+          smallPopup ? (
             <div className="dateWrapper">
               <h1>SELECT DATE</h1>
               <Calendar onChange={setDate} value={date} />
-              <button className="btn" onClick={() => setPopup(false)}>
+              <button className="btn" onClick={() => setSmallPopup(false)}>
                 DONE
               </button>
             </div>
@@ -140,7 +149,16 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
             <></>
           )
         }
-        closeEvent={() => setPopup(false)}
+        closeEvent={() => setSmallPopup(false)}
+      />
+      <Popup
+        isFullscreen={true}
+        shown={popup}
+        closeEvent={() => {
+          setPopup(false);
+        }}
+        children={<>{popup && selectedTag ? <ScreensEditTask /> : <></>}</>}
+        title="EDIT TASK"
       />
     </div>
   );
