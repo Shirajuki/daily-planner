@@ -66,3 +66,30 @@ div.popup.shown {
 	opacity: 1;
 	pointer-events: all;
 }
+div.popupWrapper {
+	display: flex;
+	padding: 16px 12px;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #fff;
+	width: 85%;
+	max-width: 320px;
+	border-radius: 10px;
+	color: #707070
+}
+div.popupWrapper.center {
+	text-align: center;
+}
+div.popupWrapper h1 {
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: #707070;
+	padding: 8px;
+}
+div.popupWrapper > h1.title {
+	font-weight: 700;
+	color: #4e4e4e;
+}
+div.popupWrapper button.btn {
+	margin-top: 12px;
+}

@@ -144,7 +144,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
         shown={smallPopup}
         children={
           smallPopup ? (
-            <div className="dateWrapper">
+            <div className="popupWrapper dateWrapper">
               <h1>SELECT DATE</h1>
               <Calendar onChange={setDate} value={date} />
               <button className="btn" onClick={() => setSmallPopup(false)}>

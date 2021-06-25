@@ -155,23 +155,6 @@ div.topBackground > div.navigationBox > div.navBox > button {
 	width: 40px;
 	border: none;
 }
-div.dateWrapper {
-	display: flex;
-	padding: 16px 12px;
-	flex-direction: column;
-	justify-content: center;
-	background-color: #fff;
-	width: 85%;
-	max-width: 320px;
-	border-radius: 10px;
-	color: #707070
-}
-div.dateWrapper h1 {
-	font-size: 0.9rem;
-	font-weight: 500;
-	color: #707070;
-	padding: 8px;
-}
 div.dateWrapper .react-calendar {
 	border: none;
 }
@@ -203,7 +186,4 @@ div.dateWrapper .react-calendar__tile:enabled:hover {
 }
 div.dateWrapper .react-calendar__tile--now {
 	background-color: rgba(255, 176, 176, 0.3);
-}
-div.dateWrapper button.btn {
-	margin-top: 12px;
 }

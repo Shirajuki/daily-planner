@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { themeState } from "../../recoil/atoms";
 import { ScreensType } from "../../types";
+import Popup from "../../components/Popup";
 import "./index.css";
 
 const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
   const [darkmode, setDarkmode] = useState<boolean>(false);
+  const [popup, setPopup] = useState<boolean>(false);
   const setTheme = useSetRecoilState(themeState);
   const handleInputChange = (
     setState: (state: boolean) => void,
@@ -43,7 +45,30 @@ const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
         />
         <label htmlFor="other">some other stuff</label>
       </div>
-      <button className="btn">CLEAR DATA</button>
+      <button className="btn" onClick={() => setPopup(true)}>
+        CLEAR DATA
+      </button>
+      <Popup
+        isFullscreen={false}
+        shown={popup}
+        children={
+          popup ? (
+            <div className="popupWrapper center">
+              <h1 className="title">R YOU SURE?</h1>
+              <p>Action: CLEAR DATA</p>
+              <button className="btn delete" onClick={() => setPopup(false)}>
+                NO
+              </button>
+              <button className="btn" onClick={() => setPopup(false)}>
+                YES
+              </button>
+            </div>
+          ) : (
+            <></>
+          )
+        }
+        closeEvent={() => ""}
+      />
     </div>
   );
 };
