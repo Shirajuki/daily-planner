@@ -32,10 +32,10 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({
   }, [divRef]);
 
   const closePopup = () => {
-    const btn: HTMLButtonElement = document.querySelector(
-      "button.closeBtn"
-    ) as HTMLButtonElement;
-    btn.click();
+    const buttons: HTMLButtonElement[] = Array.from(
+      document.querySelectorAll("button.closeBtn")
+    ) as HTMLButtonElement[];
+    buttons.forEach((btn) => btn.click());
   };
   const editTag = () => {
     const ntags: ITag[] = [...tags.filter((t: ITag) => t.id !== tag.id), tag];
@@ -115,7 +115,7 @@ const ScreensEditTag: React.FC<ScreensEditType> = ({
           onClick={() => {
             if (deleteEventHandler) {
               deleteEventHandler(task);
-              closePopup();
+              setTimeout(() => closePopup(), 100);
             }
           }}
         >
