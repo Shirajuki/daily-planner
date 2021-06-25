@@ -87,7 +87,6 @@ const App: React.FC = () => {
                 hidden={!popup || selected !== 3 || popupScreen !== 0}
               />
               {popup && popupScreen === 1 ? <ScreensAddTask /> : <></>}
-              {popup && popupScreen === 2 ? <ScreensEditTask /> : <></>}
             </>
           }
           title={popupScreenTitles(popupScreen)}

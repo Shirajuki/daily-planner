@@ -34,6 +34,12 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
     setSelectedTag(task);
     console.log(task, "col0");
   };
+  const deleteEventHandler = (task: ITask) => {
+    // TODO: Add delete animation :)
+    // const ntags = tags.filter((t: ITag) => t.id !== tag.id);
+    // setTags(ntags);
+    console.log("delete!");
+  };
   return (
     <div className="todaysTask" hidden={hidden}>
       <div className="topBackground">
@@ -63,7 +69,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
               <span>{utilities.getWeekday(date)}</span>
             </p>
             <div>
-              <button onClick={() => setPopup(true)}>
+              <button onClick={() => setSmallPopup(true)}>
                 <svg
                   width="22"
                   height="22"
@@ -157,7 +163,19 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
         closeEvent={() => {
           setPopup(false);
         }}
-        children={<>{popup && selectedTag ? <ScreensEditTask /> : <></>}</>}
+        children={
+          <>
+            {popup && selectedTag ? (
+              <ScreensEditTask
+                task={selectedTag}
+                taskIds={[]}
+                deleteEventHandler={deleteEventHandler}
+              />
+            ) : (
+              <></>
+            )}
+          </>
+        }
         title="EDIT TASK"
       />
     </div>
