@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ITodoColumn, ScreensType } from "../../types";
 import DroppableList from "../../components/DroppableList";
 import "./index.css";
 import { initialTag } from "../../initialData";
+import * as utilities from "../../utilities";
 
 const initialData: ITodoColumn = {
   tasks: [
@@ -58,6 +59,7 @@ const initialData: ITodoColumn = {
 const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
   const [data, setData] = useState<ITodoColumn>(initialData);
+  const dateRef = useRef(new Date());
   useEffect(() => {
     if (!hidden) setRerender(true);
   }, [hidden]);
@@ -88,7 +90,7 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
           <h1>Dailies</h1>
         </div>
         <h2>today's date</h2>
-        <p>June 15, 2021</p>
+        <p>{utilities.prettyDate(dateRef.current)}</p>
       </div>
       <DroppableList
         rerender={rerender}

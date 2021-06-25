@@ -25,7 +25,7 @@ export const prettyDate = (date: Date): string => {
   const dayFormatted = getDayFormatted(date);
   const year = date.getFullYear();
   const monthName = getMonthName(date);
-  const formatted = `${dayFormatted} ${monthName}, ${year}`;
+  const formatted = `${monthName} ${dayFormatted}, ${year}`;
   return formatted;
 };
 export const getDayFormatted = (date: Date): string => {

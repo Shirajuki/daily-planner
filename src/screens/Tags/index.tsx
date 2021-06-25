@@ -6,6 +6,7 @@ import ScreensEditTag from "./ScreensEditTag";
 import { ITag, ITask, ITodoColumn, ScreensType } from "../../types";
 import { tagTasksState } from "../../recoil/selectors";
 import { tagsState } from "../../recoil/atoms";
+import * as utilities from "../../utilities";
 import "./index.css";
 
 const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
@@ -19,6 +20,7 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
   const tagTasks = useRecoilValue(tagTasksState);
   const [columnId, setColumnId] = useState<string>("0");
   const [tags, setTags] = useRecoilState(tagsState);
+  const dateRef = useRef(new Date());
 
   useEffect(() => {
     if (!hidden) setRerender(true);
@@ -86,7 +88,7 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
             <h1>Tags</h1>
           </div>
           <h2>today's date</h2>
-          <p>June 15, 2021</p>
+          <p>{utilities.prettyDate(dateRef.current)}</p>
         </div>
         <div className="newTagBox">
           <div className="inputs">
