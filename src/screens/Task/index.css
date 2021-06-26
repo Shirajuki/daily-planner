@@ -47,3 +47,9 @@ button.btn.center {
 	text-align: center;
 	margin: 0 auto 25px auto;
 }
+div.task > div.taskSection.small {
+	height: calc(100% - 20px - 110px);
+}
+div.task button.btn.center.delete {
+	margin-bottom: 10px;
+}

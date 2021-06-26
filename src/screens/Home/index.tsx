@@ -136,6 +136,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
         data={tasks}
         setData={setTasks}
         showTitle={false}
+        deleteEventHandler={deleteEventHandler}
         hasEmptyString={""}
         onClick={selectTaskHandler}
       />

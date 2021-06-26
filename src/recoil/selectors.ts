@@ -8,7 +8,7 @@ export const tagTasksState = selector({
     const tags: ITag[] = get(tagsState);
     const tasks: ITask[] = [
       ...tags.map((tag: ITag) => {
-        return { id: tag.id, content: tag.tagName, tag: tag };
+        return { id: tag.id, title: tag.tagName, description: "", tag: tag };
       }),
     ];
     const tagTasks: ITodoColumn = {

@@ -9,13 +9,23 @@ export const initialTag: ITag[] = [
 
 export const initialData: ITodoColumn = {
   tasks: [
-    { id: "0", content: "Take out the garbage", tag: initialTag[0] },
-    { id: "1", content: "Watch my favourite show", tag: initialTag[0] },
-    { id: "2", content: "Charge my phone" },
-    { id: "3", content: "Cook dinner", tag: initialTag[0] },
-    { id: "4", content: "Example 1" },
-    { id: "5", content: "Example 2" },
-    { id: "6", content: "Example 3" },
+    {
+      id: "0",
+      title: "Take out the garbage",
+      description: "",
+      tag: initialTag[0],
+    },
+    {
+      id: "1",
+      title: "Watch my favourite show",
+      description: "",
+      tag: initialTag[0],
+    },
+    { id: "2", title: "Charge my phone", description: "" },
+    { id: "3", title: "Cook dinner", description: "", tag: initialTag[0] },
+    { id: "4", title: "Example 1", description: "" },
+    { id: "5", title: "Example 2", description: "" },
+    { id: "6", title: "Example 3", description: "" },
   ],
   columns: [
     {
@@ -27,3 +37,13 @@ export const initialData: ITodoColumn = {
   ],
   columnOrder: ["col0"],
 };
+
+export const initialDays: ITag[] = [
+  { id: "day1", tagName: "Monday", tagColor: "#e39df9" },
+  { id: "day2", tagName: "Tuesday", tagColor: "#e39df9" },
+  { id: "day3", tagName: "Wednesday", tagColor: "#e39df9" },
+  { id: "day4", tagName: "Thursday", tagColor: "#e39df9" },
+  { id: "day5", tagName: "Friday", tagColor: "#e39df9" },
+  { id: "day6", tagName: "Saturday", tagColor: "#e39df9" },
+  { id: "day7", tagName: "Sunday", tagColor: "#e39df9" },
+];

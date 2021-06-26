@@ -1,33 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ITag, ITagSettings, ITask, ScreensEditType } from "../../types";
+import { ITagSettings, ITask, ScreensEditType } from "../../types";
 import MultipleTagSelect from "../../components/MultipleTagSelect";
 import "./index.css";
+import { useRecoilState } from "recoil";
+import { tagsState } from "../../recoil/atoms";
+import { initialDays } from "../../initialData";
 
-const initialTags: ITag[] = [
-  { id: "1", tagName: "a long test tag name here", tagColor: "tomato" },
-  { id: "2", tagName: "test tag2", tagColor: "pink" },
-  { id: "3", tagName: "test medium long tag3", tagColor: "lightblue" },
-  { id: "4", tagName: "test", tagColor: "lightgreen" },
-  {
-    id: "5",
-    tagName: "test long long very long tag long",
-    tagColor: "lightblue",
-  },
-  { id: "6", tagName: "test short", tagColor: "pink" },
-];
-const initialTagSettings: ITagSettings = {
-  tags: initialTags,
-  selected: [],
-};
-const initialDays: ITag[] = [
-  { id: "1", tagName: "Monday", tagColor: "#e39df9" },
-  { id: "2", tagName: "Tuesday", tagColor: "#e39df9" },
-  { id: "3", tagName: "Wednesday", tagColor: "#e39df9" },
-  { id: "4", tagName: "Thursday", tagColor: "#e39df9" },
-  { id: "5", tagName: "Friday", tagColor: "#e39df9" },
-  { id: "6", tagName: "Saturday", tagColor: "#e39df9" },
-  { id: "7", tagName: "Sunday", tagColor: "#e39df9" },
-];
+export enum TaskEditableAttributes {
+  TITLE = "title",
+  DESCRIPTION = "description",
+  TIME = "time",
+  DAILYTASK = "dailyTask",
+  TAG = "tag",
+}
 const initialDaySettings: ITagSettings = {
   tags: initialDays,
   selected: [],
@@ -42,8 +27,19 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
   const [isDailyTask, setIsDailyTask] = useState<boolean>(false);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
   const [task, setTask] = useState<ITask>(initialTask);
-  const [tags, setTags] = useState(initialTagSettings);
+  const [tags, setTags] = useRecoilState(tagsState);
   const [days, setDays] = useState(initialDaySettings);
+  const [tagsSelected, setTagsSelected] = useState<ITagSettings>({
+    tags: tags,
+    selected: [],
+  });
+  const updateEventHandler = (
+    value: any,
+    attribute: TaskEditableAttributes
+  ) => {
+    setTask({ ...task, [attribute]: value });
+  };
+  const updateEventHandlerRef = useRef(updateEventHandler);
 
   useEffect(() => {
     if (divRef.current != null) {
@@ -60,7 +56,7 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
         setIsOverflow(false);
       }
     }
-  }, [divRef]);
+  }, [divRef, checkTime, isDailyTask]);
 
   const closePopup = () => {
     const buttons: HTMLButtonElement[] = Array.from(
@@ -70,7 +66,7 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
   };
 
   const editTask = () => {
-    //setTasks(ntasks);
+    // setTasks(ntasks);
     // closePopup();
     console.log("finished editing");
   };
@@ -81,6 +77,20 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
   ) => {
     setState(state);
   };
+
+  useEffect(() => {
+    updateEventHandlerRef.current(
+      tagsSelected.selected,
+      TaskEditableAttributes.TAG
+    );
+  }, [tagsSelected.selected]);
+
+  useEffect(() => {
+    updateEventHandlerRef.current(
+      days.selected,
+      TaskEditableAttributes.DAILYTASK
+    );
+  }, [days.selected]);
 
   return (
     <>
@@ -95,7 +105,13 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
               type="text"
               id="title"
               name="title"
-              ref={null}
+              value={task.title}
+              onChange={(event) =>
+                updateEventHandler(
+                  event.target.value,
+                  TaskEditableAttributes.TITLE
+                )
+              }
               placeholder="TITLE..."
             />
             <label htmlFor="description">Description</label>
@@ -103,7 +119,13 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
               type="text"
               id="description"
               name="description"
-              ref={null}
+              value={task.description}
+              onChange={(event) =>
+                updateEventHandler(
+                  event.target.value,
+                  TaskEditableAttributes.DESCRIPTION
+                )
+              }
               placeholder="DESCRIPTION..."
             />
           </div>
@@ -152,7 +174,7 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
           </div>
           <div className="multipleSelectWrapper">
             <label>Tags</label>
-            <MultipleTagSelect tags={tags} setTags={setTags} />
+            <MultipleTagSelect tags={tagsSelected} setTags={setTagsSelected} />
           </div>
           <div className="inputWrapper">
             <input
@@ -179,10 +201,10 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
             }
           }}
         >
-          DELETE TAG
+          DELETE TASK
         </button>
         <button className="btn center" onClick={editTask}>
-          EDIT TAG
+          EDIT TASK
         </button>
       </div>
     </>

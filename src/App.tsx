@@ -6,7 +6,7 @@ import ScreensHome from "./screens/Home";
 import ScreensDailies from "./screens/Dailies";
 import ScreensTags from "./screens/Tags";
 import ScreensConfig from "./screens/Config";
-import { ScreensAddTask, ScreensEditTask } from "./screens/Task";
+import { ScreensAddTask } from "./screens/Task";
 import Transition from "./components/Transition";
 import "./App.css";
 

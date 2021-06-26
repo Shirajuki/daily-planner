@@ -54,7 +54,7 @@ const Task: React.FC<TaskType> = ({
               if (onClick) onClick(task, columnId);
             }}
           >
-            {task.content}
+            {task.title}
           </p>
           <div className={hasBigTag ? "bigTag" : ""}>
             <button

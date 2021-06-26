@@ -7,14 +7,24 @@ import * as utilities from "../../utilities";
 
 const initialData: ITodoColumn = {
   tasks: [
-    { id: "0", content: "Take out the garbage", tag: initialTag[0] },
-    { id: "1", content: "Watch my favourite show", tag: initialTag[1] },
-    { id: "2", content: "Charge my phone" },
-    { id: "3", content: "Cook dinner", tag: initialTag[2] },
-    { id: "4", content: "Example 1" },
-    { id: "5", content: "Example 2" },
-    { id: "6", content: "Example 3" },
-    { id: "7", content: "Yay", tag: initialTag[3] },
+    {
+      id: "0",
+      title: "Take out the garbage",
+      description: "",
+      tag: initialTag[0],
+    },
+    {
+      id: "1",
+      title: "Watch my favourite show",
+      description: "",
+      tag: initialTag[1],
+    },
+    { id: "2", title: "Charge my phone", description: "" },
+    { id: "3", title: "Cook dinner", description: "", tag: initialTag[2] },
+    { id: "4", title: "Example 1", description: "" },
+    { id: "5", title: "Example 2", description: "" },
+    { id: "6", title: "Example 3", description: "" },
+    { id: "7", title: "Yay", description: "", tag: initialTag[3] },
   ],
   columns: [
     {

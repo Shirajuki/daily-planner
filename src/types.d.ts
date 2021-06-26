@@ -9,7 +9,10 @@ export interface ITagSettings {
 }
 export interface ITask {
   id: string;
-  content: string;
+  title: string;
+  description: string;
+  time?: Date;
+  dailyTask?: ITag[];
   tag?: ITag;
 }
 export interface IColumn {
