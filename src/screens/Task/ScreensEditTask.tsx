@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { ITagSettings, ITask, ScreensEditType } from "../../types";
 import MultipleTagSelect from "../../components/MultipleTagSelect";
 import "./index.css";
-import { useRecoilState } from "recoil";
-import { tagsState } from "../../recoil/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { tagsState, tasksState } from "../../recoil/atoms";
 import { initialDays } from "../../initialData";
 
 export enum TaskEditableAttributes {
@@ -12,6 +12,7 @@ export enum TaskEditableAttributes {
   TIME = "time",
   DAILYTASK = "dailyTask",
   TAG = "tag",
+  TAGS = "tags",
 }
 const initialDaySettings: ITagSettings = {
   tags: initialDays,
@@ -27,11 +28,12 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
   const [isDailyTask, setIsDailyTask] = useState<boolean>(false);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
   const [task, setTask] = useState<ITask>(initialTask);
-  const [tags, setTags] = useRecoilState(tagsState);
+  const [tasks, setTasks] = useRecoilState(tasksState);
+  const tags = useRecoilValue(tagsState);
   const [days, setDays] = useState(initialDaySettings);
   const [tagsSelected, setTagsSelected] = useState<ITagSettings>({
     tags: tags,
-    selected: [],
+    selected: task.tags ?? [],
   });
   const updateEventHandler = (
     value: any,
@@ -65,10 +67,19 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
     buttons.forEach((btn) => btn.click());
   };
 
+  const checkValidTask = (task: ITask) => {
+    return task.title !== "";
+  };
   const editTask = () => {
-    // setTasks(ntasks);
-    // closePopup();
-    console.log("finished editing");
+    if (checkValidTask(task)) {
+      const ntaskList = tasks.tasks.filter((t: ITask) => t.id !== task.id);
+      const ntasks = { ...tasks, tasks: [...ntaskList, task] };
+      setTasks(ntasks);
+      closePopup();
+      console.log("finished editing");
+    } else {
+      console.log("nope");
+    }
   };
 
   const handleInputChange = (
@@ -81,7 +92,7 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
   useEffect(() => {
     updateEventHandlerRef.current(
       tagsSelected.selected,
-      TaskEditableAttributes.TAG
+      TaskEditableAttributes.TAGS
     );
   }, [tagsSelected.selected]);
 

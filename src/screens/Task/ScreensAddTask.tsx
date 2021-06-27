@@ -1,45 +1,40 @@
 import React, { useState, useRef, useEffect } from "react";
-import { ITag, ITagSettings, ITask } from "../../types";
+import { IColumn, ITagSettings, ITask } from "../../types";
 import MultipleTagSelect from "../../components/MultipleTagSelect";
 import "./index.css";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { tagsState, tasksState } from "../../recoil/atoms";
+import { initialDaySettings, initialTask } from "../../initialData";
+import { v4 as uuidv4 } from "uuid";
 
-const initialTags: ITag[] = [
-  { id: "1", tagName: "a long test tag name here", tagColor: "tomato" },
-  { id: "2", tagName: "test tag2", tagColor: "pink" },
-  { id: "3", tagName: "test medium long tag3", tagColor: "lightblue" },
-  { id: "4", tagName: "test", tagColor: "lightgreen" },
-  {
-    id: "5",
-    tagName: "test long long very long tag long",
-    tagColor: "lightblue",
-  },
-  { id: "6", tagName: "test short", tagColor: "pink" },
-];
-const initialTagSettings: ITagSettings = {
-  tags: initialTags,
-  selected: [],
-};
-const initialDays: ITag[] = [
-  { id: "1", tagName: "Monday", tagColor: "#e39df9" },
-  { id: "2", tagName: "Tuesday", tagColor: "#e39df9" },
-  { id: "3", tagName: "Wednesday", tagColor: "#e39df9" },
-  { id: "4", tagName: "Thursday", tagColor: "#e39df9" },
-  { id: "5", tagName: "Friday", tagColor: "#e39df9" },
-  { id: "6", tagName: "Saturday", tagColor: "#e39df9" },
-  { id: "7", tagName: "Sunday", tagColor: "#e39df9" },
-];
-const initialDaySettings: ITagSettings = {
-  tags: initialDays,
-  selected: [],
-};
+export enum TaskEditableAttributes {
+  TITLE = "title",
+  DESCRIPTION = "description",
+  TIME = "time",
+  DAILYTASK = "dailyTask",
+  TAG = "tag",
+  TAGS = "tags",
+}
 const ScreensAddTask: React.FC = () => {
   const [checkTime, setCheckTime] = useState<boolean>(false);
   const [isDailyTask, setIsDailyTask] = useState<boolean>(false);
-  const [task, setTask] = useState<ITask>();
-  const [tags, setTags] = useState(initialTagSettings);
+  const [task, setTask] = useState<ITask>(initialTask);
+  const tags = useRecoilValue(tagsState);
+  const [tasks, setTasks] = useRecoilState(tasksState);
+  const [tagsSelected, setTagsSelected] = useState<ITagSettings>({
+    tags: tags,
+    selected: [],
+  });
   const [days, setDays] = useState(initialDaySettings);
   const divRef = useRef<HTMLDivElement>(null);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
+  const updateEventHandler = (
+    value: any,
+    attribute: TaskEditableAttributes
+  ) => {
+    setTask({ ...task, [attribute]: value });
+  };
+  const updateEventHandlerRef = useRef(updateEventHandler);
 
   useEffect(() => {
     if (divRef.current != null) {
@@ -58,12 +53,58 @@ const ScreensAddTask: React.FC = () => {
     }
   }, [divRef, checkTime, isDailyTask]);
 
+  useEffect(() => {
+    if (task.id === "") setTask({ ...task, id: uuidv4() });
+  }, [task]);
+
+  console.log(task);
+
+  const closePopup = () => {
+    const buttons: HTMLButtonElement[] = Array.from(
+      document.querySelectorAll("button.closeBtn")
+    ) as HTMLButtonElement[];
+    buttons.forEach((btn) => btn.click());
+  };
+
+  const checkValidTask = (task: ITask) => {
+    return task.title !== "";
+  };
+
+  const addTask = () => {
+    if (checkValidTask(task)) {
+      const ncolumn: IColumn = {
+        ...tasks.columns[0],
+        taskIds: [...tasks.columns[0].taskIds, task.id],
+      };
+      const ntaskList = [...tasks.tasks, task];
+      const ntasks = { ...tasks, columns: [ncolumn], tasks: ntaskList };
+      setTasks(ntasks);
+      setTask(initialTask);
+      closePopup();
+      console.log("finished adding task");
+    } else {
+      console.log("nope");
+    }
+  };
   const handleInputChange = (
     setState: (state: boolean) => void,
     state: boolean
   ) => {
     setState(state);
   };
+  useEffect(() => {
+    updateEventHandlerRef.current(
+      tagsSelected.selected,
+      TaskEditableAttributes.TAGS
+    );
+  }, [tagsSelected.selected]);
+
+  useEffect(() => {
+    updateEventHandlerRef.current(
+      days.selected,
+      TaskEditableAttributes.DAILYTASK
+    );
+  }, [days.selected]);
 
   return (
     <>
@@ -78,7 +119,13 @@ const ScreensAddTask: React.FC = () => {
               type="text"
               id="title"
               name="title"
-              ref={null}
+              value={task.title}
+              onChange={(event) =>
+                updateEventHandler(
+                  event.target.value,
+                  TaskEditableAttributes.TITLE
+                )
+              }
               placeholder="TITLE..."
             />
             <label htmlFor="description">Description</label>
@@ -86,7 +133,13 @@ const ScreensAddTask: React.FC = () => {
               type="text"
               id="description"
               name="description"
-              ref={null}
+              value={task.description}
+              onChange={(event) =>
+                updateEventHandler(
+                  event.target.value,
+                  TaskEditableAttributes.DESCRIPTION
+                )
+              }
               placeholder="DESCRIPTION..."
             />
           </div>
@@ -135,7 +188,7 @@ const ScreensAddTask: React.FC = () => {
           </div>
           <div className="multipleSelectWrapper">
             <label>Tags</label>
-            <MultipleTagSelect tags={tags} setTags={setTags} />
+            <MultipleTagSelect tags={tagsSelected} setTags={setTagsSelected} />
           </div>
           <div className="inputWrapper">
             <input
@@ -153,7 +206,9 @@ const ScreensAddTask: React.FC = () => {
             <MultipleTagSelect tags={days} setTags={setDays} />
           </div>
         </div>
-        <button className="btn center">ADD TASK</button>
+        <button className="btn center" onClick={addTask}>
+          ADD TASK
+        </button>
       </div>
     </>
   );

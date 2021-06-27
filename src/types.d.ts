@@ -14,6 +14,7 @@ export interface ITask {
   time?: Date;
   dailyTask?: ITag[];
   tag?: ITag;
+  tags?: string[];
 }
 export interface IColumn {
   id: string;

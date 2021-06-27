@@ -1,4 +1,4 @@
-import { ITodoColumn, ITag } from "./types";
+import { ITodoColumn, ITag, ITagSettings, ITask } from "./types";
 
 export const initialTag: ITag[] = [
   { id: "tagid0", tagName: "test tag1", tagColor: "tomato" },
@@ -47,3 +47,13 @@ export const initialDays: ITag[] = [
   { id: "day6", tagName: "Saturday", tagColor: "#e39df9" },
   { id: "day7", tagName: "Sunday", tagColor: "#e39df9" },
 ];
+export const initialDaySettings: ITagSettings = {
+  tags: initialDays,
+  selected: [],
+};
+export const initialTask: ITask = {
+  id: "",
+  title: "",
+  description: "",
+  dailyTask: [],
+};
