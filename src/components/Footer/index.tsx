@@ -96,7 +96,12 @@ const FooterItem: React.FC<FooterItemType> = ({
   setSelected,
 }) => {
   return (
-    <div className="footerItem" onClick={() => setSelected(icon)}>
+    <div
+      className="footerItem"
+      onClick={() => {
+        if (selected !== icon) setSelected(icon);
+      }}
+    >
       {getFooterItemIcon(icon, selected)}
       <p className={selected === icon ? "selected" : ""}>{title}</p>
     </div>
