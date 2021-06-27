@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { initialData, initialTag } from "../initialData";
+import { initialDaily, initialData, initialTag } from "../initialData";
 
 export const tagsState = atom({
   key: "tagsState",
@@ -9,6 +9,11 @@ export const tagsState = atom({
 export const tasksState = atom({
   key: "tasksState",
   default: initialData,
+});
+
+export const dailiesState = atom({
+  key: "dailiesState",
+  default: initialDaily,
 });
 
 export const themeState = atom({

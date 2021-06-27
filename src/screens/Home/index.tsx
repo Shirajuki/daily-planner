@@ -16,7 +16,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const [smallPopup, setSmallPopup] = useState<boolean>(false);
   const [popup, setPopup] = useState<boolean>(false);
   const [date, setDate] = useState(new Date());
-  const [selectedTag, setSelectedTag] = useState<ITask>();
+  const [selectedTask, setSelectedTask] = useState<ITask>();
   const [tasks, setTasks] = useRecoilState(tasksState);
   const tasksSelector = useRecoilValue(tasksSelectorState);
   const todayRef = useRef(new Date());
@@ -31,8 +31,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   };
   const selectTaskHandler = (task: ITask, _: string) => {
     setPopup(true);
-    setSelectedTag(task);
-    console.log(task, "col0");
+    setSelectedTask(task);
   };
   const deleteEventHandler = (task: ITask) => {
     // TODO: Add delete animation :)
@@ -170,9 +169,9 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
         }}
         children={
           <>
-            {popup && selectedTag ? (
+            {popup && selectedTask ? (
               <ScreensEditTask
-                task={selectedTag}
+                task={selectedTask}
                 taskIds={[]}
                 deleteEventHandler={deleteEventHandler}
               />

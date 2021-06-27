@@ -1,78 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ITodoColumn, ScreensType } from "../../types";
+import { ITask, ScreensType } from "../../types";
 import DroppableList from "../../components/DroppableList";
 import "./index.css";
-import { initialTag } from "../../initialData";
 import * as utilities from "../../utilities";
-
-const initialData: ITodoColumn = {
-  tasks: [
-    {
-      id: "0",
-      title: "Take out the garbage",
-      description: "",
-      tag: initialTag[0],
-    },
-    {
-      id: "1",
-      title: "Watch my favourite show",
-      description: "",
-      tag: initialTag[1],
-    },
-    { id: "2", title: "Charge my phone", description: "" },
-    { id: "3", title: "Cook dinner", description: "", tag: initialTag[2] },
-    { id: "4", title: "Example 1", description: "" },
-    { id: "5", title: "Example 2", description: "" },
-    { id: "6", title: "Example 3", description: "" },
-    { id: "7", title: "Yay", description: "", tag: initialTag[3] },
-  ],
-  columns: [
-    {
-      id: "c0",
-      title: "Monday",
-      taskIds: ["0", "1", "2", "3"],
-    },
-    {
-      id: "c1",
-      title: "Tuesday",
-      taskIds: ["4", "5", "6"],
-    },
-    {
-      id: "c2",
-      title: "Wednesday",
-      taskIds: [],
-    },
-    {
-      id: "c3",
-      title: "Thursday",
-      taskIds: [],
-    },
-    {
-      id: "c4",
-      title: "Friday",
-      taskIds: [],
-    },
-    {
-      id: "c5",
-      title: "Saturday",
-      taskIds: [],
-    },
-    {
-      id: "c6",
-      title: "Sunday",
-      taskIds: ["7"],
-    },
-  ],
-  columnOrder: ["c0", "c1", "c2", "c3", "c4", "c5", "c6"],
-};
+import { useRecoilState } from "recoil";
+import { dailiesState } from "../../recoil/atoms";
 
 const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
-  const [data, setData] = useState<ITodoColumn>(initialData);
+  const [dailies, setDailies] = useRecoilState(dailiesState);
+  const [selectedTask, setSelectedTask] = useState<ITask>();
   const dateRef = useRef(new Date());
+
   useEffect(() => {
     if (!hidden) setRerender(true);
   }, [hidden]);
+
+  const selectTaskHandler = (task: ITask, columnId: string) => {
+    // setPopup(true);
+    setSelectedTask(task);
+    console.log(task, columnId);
+  };
   return (
     <div className="dailies simpleScreen" hidden={hidden}>
       <div className="topBackground topSimple">
@@ -104,10 +52,11 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
       </div>
       <DroppableList
         rerender={rerender}
-        data={data}
-        setData={setData}
+        data={dailies}
+        setData={setDailies}
         showTitle={true}
         hasEmptyString={"no tasks scheduled this day..."}
+        onClick={selectTaskHandler}
       />
     </div>
   );
