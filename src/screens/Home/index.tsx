@@ -3,7 +3,7 @@ import DroppableList from "../../components/DroppableList";
 import Calendar from "react-calendar";
 import Popup from "../../components/Popup";
 import * as utilities from "../../utilities";
-import { ITask, ScreensType } from "../../types";
+import { IColumn, ITask, ScreensType } from "../../types";
 import "./index.css";
 import "react-calendar/dist/Calendar.css";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -36,9 +36,13 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   };
   const deleteEventHandler = (task: ITask) => {
     // TODO: Add delete animation :)
-    // const ntags = tags.filter((t: ITag) => t.id !== tag.id);
-    // setTags(ntags);
-    console.log("delete!");
+    const ncolumn: IColumn = {
+      ...tasks.columns[0],
+      taskIds: tasks.columns[0].taskIds.filter((id: string) => id !== task.id),
+    };
+    const ntaskList = tasks.tasks.filter((t: ITask) => t.id !== task.id);
+    const ntasks = { ...tasks, columns: [ncolumn], tasks: ntaskList };
+    setTasks(ntasks);
   };
   return (
     <div className="todaysTask" hidden={hidden}>
