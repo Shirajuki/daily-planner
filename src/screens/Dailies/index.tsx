@@ -5,10 +5,13 @@ import "./index.css";
 import * as utilities from "../../utilities";
 import { useRecoilState } from "recoil";
 import { dailiesState } from "../../recoil/atoms";
+import Popup from "../../components/Popup";
+import ScreensEditDaily from "./ScreensEditDaily";
 
 const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
   const [dailies, setDailies] = useRecoilState(dailiesState);
+  const [popup, setPopup] = useState<boolean>(false);
   const [selectedTask, setSelectedTask] = useState<ITask>();
   const dateRef = useRef(new Date());
 
@@ -17,9 +20,12 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
   }, [hidden]);
 
   const selectTaskHandler = (task: ITask, columnId: string) => {
-    // setPopup(true);
+    setPopup(true);
     setSelectedTask(task);
     console.log(task, columnId);
+  };
+  const deleteEventHandler = (_: ITask) => {
+    console.log("asd");
   };
   return (
     <div className="dailies simpleScreen" hidden={hidden}>
@@ -57,6 +63,27 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
         showTitle={true}
         hasEmptyString={"no tasks scheduled this day..."}
         onClick={selectTaskHandler}
+      />
+      <Popup
+        isFullscreen={true}
+        shown={popup}
+        closeEvent={() => {
+          setPopup(false);
+        }}
+        children={
+          <>
+            {popup && selectedTask ? (
+              <ScreensEditDaily
+                task={selectedTask}
+                taskIds={[]}
+                deleteEventHandler={deleteEventHandler}
+              />
+            ) : (
+              <></>
+            )}
+          </>
+        }
+        title="EDIT DAILY TASK"
       />
     </div>
   );
