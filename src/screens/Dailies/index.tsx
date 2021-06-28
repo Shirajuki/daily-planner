@@ -19,6 +19,7 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
 
   useEffect(() => {
     if (!hidden) setRerender(true);
+    else setRerender(false);
   }, [hidden]);
 
   const selectTaskHandler = (task: ITask, _: string) => {

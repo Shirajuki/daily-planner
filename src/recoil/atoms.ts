@@ -9,7 +9,7 @@ export const tagsState = atom({
 
 export const tasksState = atom({
   key: "tasksState",
-  default: loadTasks() ?? [initialData],
+  default: loadTasks(),
 });
 
 export const homeTasksState = atom({

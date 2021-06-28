@@ -7,8 +7,13 @@ import { IColumn, ITask, ITodoColumn, ScreensType } from "../../types";
 import "./index.css";
 import "react-calendar/dist/Calendar.css";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { dateState, homeTasksState, tasksState } from "../../recoil/atoms";
-import { tasksSelectorState } from "../../recoil/selectors";
+import {
+  dailiesState,
+  dateState,
+  homeTasksState,
+  tasksState,
+} from "../../recoil/atoms";
+import { loadNewDailyTask, tasksSelectorState } from "../../recoil/selectors";
 import { ScreensEditTask } from "../Task";
 import { saveTasks } from "../../api";
 
@@ -20,6 +25,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const [selectedTask, setSelectedTask] = useState<ITask>();
   const [tasks, setTasks] = useRecoilState(homeTasksState);
   const [taskCol, setTaskCol] = useRecoilState(tasksState);
+  const dailies = useRecoilValue(dailiesState);
   const tasksSelector = useRecoilValue(tasksSelectorState);
   const todayRef = useRef(new Date());
   const compareDiff = (taskCol: ITodoColumn[], nTaskCol: ITodoColumn[]) => {
@@ -31,8 +37,17 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   };
   const compareDiffRef = useRef(compareDiff);
 
+  const compareDaily = (tasks: ITodoColumn, dailies: ITodoColumn) => {
+    const dailyTasks = loadNewDailyTask(date, dailies);
+    if (tasks.id !== dailyTasks.id) return false;
+    const d1 = JSON.stringify(tasks);
+    const d2 = JSON.stringify(dailyTasks);
+    return d1 !== d2;
+  };
+
   useEffect(() => {
     if (!hidden) setRerender(true);
+    else setRerender(false);
   }, [hidden]);
 
   useEffect(() => {
@@ -45,12 +60,17 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
       ...taskCol.filter((t: ITodoColumn) => t?.id !== tasks?.id),
       tasks,
     ];
-    if (compareDiffRef.current(taskCol, nTaskCol)) {
+    if (
+      compareDiffRef.current(taskCol, nTaskCol) &&
+      compareDaily(tasks, dailies) &&
+      tasks?.id
+    ) {
       setTaskCol(nTaskCol);
       saveTasks(nTaskCol);
+      console.log("saved", nTaskCol);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [date, tasks]);
+  }, [date, tasks, dailies]);
 
   const addDate = (days: number) => {
     const ndate = new Date(date);

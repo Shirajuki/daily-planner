@@ -66,7 +66,7 @@ export const dailiesSelectorState = selector({
   },
 });
 
-const loadNewDailyTask = (date: Date, dailies: ITodoColumn) => {
+export const loadNewDailyTask = (date: Date, dailies: ITodoColumn) => {
   if (date.getTime() >= new Date(prettyDate(new Date())).getTime()) {
     const weekday = utilities.getWeekday(date).toLowerCase();
     const tasks = dailies.tasks;

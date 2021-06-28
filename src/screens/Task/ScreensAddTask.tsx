@@ -8,7 +8,7 @@ import { initialDaySettings, initialTask } from "../../initialData";
 import { v4 as uuidv4 } from "uuid";
 import { saveDailies } from "../../api";
 
-export enum TaskEditableAttributes {
+enum TaskEditableAttributes {
   TITLE = "title",
   DESCRIPTION = "description",
   TIME = "time",

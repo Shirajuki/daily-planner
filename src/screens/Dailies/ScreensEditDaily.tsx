@@ -14,17 +14,17 @@ import "./index.css";
 import { dailiesSelectorState } from "../../recoil/selectors";
 import { saveDailies } from "../../api";
 
-export enum TaskEditableAttributes {
+enum TaskEditableAttributes {
   TITLE = "title",
   DESCRIPTION = "description",
   TIME = "time",
-  DAILYTASK = "dailyTask",
+  DAILYTASK = "dailytask",
   TAG = "tag",
   TAGS = "tags",
 }
 const ScreensEditDaily: React.FC<ScreensEditType> = ({
   task: initialTask,
-  taskIds,
+  taskIds: _,
   deleteEventHandler,
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
@@ -50,6 +50,7 @@ const ScreensEditDaily: React.FC<ScreensEditType> = ({
     const checkedDays: string[] = dailiesSelector.tasks[0]?.dailyTask ?? [];
     const ndays: ITagSettings = { ...days, selected: checkedDays };
     setDays(ndays);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dailiesSelector.tasks[0].dailyTask]);
 
   useEffect(() => {

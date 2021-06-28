@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { tagsState, homeTasksState } from "../../recoil/atoms";
 import "./index.css";
 
-export enum TaskEditableAttributes {
+enum TaskEditableAttributes {
   TITLE = "title",
   DESCRIPTION = "description",
   TIME = "time",
@@ -15,7 +15,7 @@ export enum TaskEditableAttributes {
 }
 const ScreensEditTask: React.FC<ScreensEditType> = ({
   task: initialTask,
-  taskIds,
+  taskIds: _,
   deleteEventHandler,
 }) => {
   const divRef = useRef<HTMLDivElement>(null);

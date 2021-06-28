@@ -26,6 +26,7 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
 
   useEffect(() => {
     if (!hidden) setRerender(true);
+    else setRerender(false);
   }, [hidden]);
 
   useEffect(() => {
