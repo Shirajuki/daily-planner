@@ -23,6 +23,7 @@ export interface IColumn {
   checked?: string[];
 }
 export interface ITodoColumn {
+  id?: string;
   tasks: ITask[];
   columns: IColumn[];
   columnOrder: string[];

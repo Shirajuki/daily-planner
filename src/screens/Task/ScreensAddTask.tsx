@@ -3,9 +3,10 @@ import { IColumn, ITagSettings, ITask } from "../../types";
 import MultipleTagSelect from "../../components/MultipleTagSelect";
 import "./index.css";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { tagsState, tasksState } from "../../recoil/atoms";
+import { tagsState, homeTasksState, dailiesState } from "../../recoil/atoms";
 import { initialDaySettings, initialTask } from "../../initialData";
 import { v4 as uuidv4 } from "uuid";
+import { saveDailies } from "../../api";
 
 export enum TaskEditableAttributes {
   TITLE = "title",
@@ -20,7 +21,8 @@ const ScreensAddTask: React.FC = () => {
   const [isDailyTask, setIsDailyTask] = useState<boolean>(false);
   const [task, setTask] = useState<ITask>(initialTask);
   const tags = useRecoilValue(tagsState);
-  const [tasks, setTasks] = useRecoilState(tasksState);
+  const [tasks, setTasks] = useRecoilState(homeTasksState);
+  const [dailies, setDailies] = useRecoilState(dailiesState);
   const [tagsSelected, setTagsSelected] = useState<ITagSettings>({
     tags: tags,
     selected: [],
@@ -34,7 +36,6 @@ const ScreensAddTask: React.FC = () => {
   ) => {
     setTask({ ...task, [attribute]: value });
   };
-  const updateEventHandlerRef = useRef(updateEventHandler);
 
   useEffect(() => {
     if (divRef.current != null) {
@@ -57,8 +58,6 @@ const ScreensAddTask: React.FC = () => {
     if (task.id === "") setTask({ ...task, id: uuidv4() });
   }, [task]);
 
-  console.log(task);
-
   const closePopup = () => {
     const buttons: HTMLButtonElement[] = Array.from(
       document.querySelectorAll("button.closeBtn")
@@ -71,7 +70,25 @@ const ScreensAddTask: React.FC = () => {
   };
 
   const addTask = () => {
-    if (checkValidTask(task)) {
+    if (isDailyTask) {
+      if (checkValidTask(task) && days.selected.length > 0) {
+        const ntaskList = [...dailies.tasks, task];
+        const ncolumn: IColumn[] = [];
+        for (let i = 0; i < dailies.columns.length; i++) {
+          const col: IColumn = JSON.parse(JSON.stringify(dailies.columns[i]));
+          if (days.selected.includes(col.id))
+            col.taskIds = [...col.taskIds, task.id];
+          ncolumn.push(col);
+        }
+        const ndailies = { ...dailies, columns: ncolumn, tasks: ntaskList };
+        setDailies(ndailies);
+        saveDailies(ndailies);
+        setTask(initialTask);
+        closePopup();
+        console.log("finished adding daily task");
+        return;
+      }
+    } else if (checkValidTask(task)) {
       const ncolumn: IColumn = {
         ...tasks.columns[0],
         taskIds: [...tasks.columns[0].taskIds, task.id],
@@ -82,9 +99,9 @@ const ScreensAddTask: React.FC = () => {
       setTask(initialTask);
       closePopup();
       console.log("finished adding task");
-    } else {
-      console.log("nope");
+      return;
     }
+    console.log("nope");
   };
   const handleInputChange = (
     setState: (state: boolean) => void,
@@ -93,17 +110,13 @@ const ScreensAddTask: React.FC = () => {
     setState(state);
   };
   useEffect(() => {
-    updateEventHandlerRef.current(
-      tagsSelected.selected,
-      TaskEditableAttributes.TAGS
-    );
+    updateEventHandler(tagsSelected.selected, TaskEditableAttributes.TAGS);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tagsSelected.selected]);
 
   useEffect(() => {
-    updateEventHandlerRef.current(
-      days.selected,
-      TaskEditableAttributes.DAILYTASK
-    );
+    updateEventHandler(days.selected, TaskEditableAttributes.DAILYTASK);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days.selected]);
 
   return (

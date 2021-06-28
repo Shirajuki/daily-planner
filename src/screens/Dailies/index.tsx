@@ -3,14 +3,16 @@ import { ITask, ScreensType } from "../../types";
 import DroppableList from "../../components/DroppableList";
 import "./index.css";
 import * as utilities from "../../utilities";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { dailiesState } from "../../recoil/atoms";
 import Popup from "../../components/Popup";
 import ScreensEditDaily from "./ScreensEditDaily";
+import { dailiesSelectorState } from "../../recoil/selectors";
 
 const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
-  const [dailies, setDailies] = useRecoilState(dailiesState);
+  const setDailies = useSetRecoilState(dailiesState);
+  const dailiesSelector = useRecoilValue(dailiesSelectorState);
   const [popup, setPopup] = useState<boolean>(false);
   const [selectedTask, setSelectedTask] = useState<ITask>();
   const dateRef = useRef(new Date());
@@ -22,7 +24,6 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
   const selectTaskHandler = (task: ITask, columnId: string) => {
     setPopup(true);
     setSelectedTask(task);
-    console.log(task, columnId);
   };
   const deleteEventHandler = (_: ITask) => {
     console.log("asd");
@@ -58,7 +59,7 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
       </div>
       <DroppableList
         rerender={rerender}
-        data={dailies}
+        data={dailiesSelector.todoColumn}
         setData={setDailies}
         showTitle={true}
         hasEmptyString={"no tasks scheduled this day..."}

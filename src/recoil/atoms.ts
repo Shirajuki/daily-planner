@@ -1,19 +1,30 @@
 import { atom } from "recoil";
-import { initialDaily, initialData, initialTag } from "../initialData";
+import { loadDailies, loadTags, loadTasks } from "../api";
+import { initialData } from "../initialData";
 
 export const tagsState = atom({
   key: "tagsState",
-  default: initialTag,
+  default: loadTags(),
 });
 
 export const tasksState = atom({
   key: "tasksState",
+  default: loadTasks() ?? [initialData],
+});
+
+export const homeTasksState = atom({
+  key: "homeTasksState",
   default: initialData,
 });
 
 export const dailiesState = atom({
   key: "dailiesState",
-  default: initialDaily,
+  default: loadDailies(),
+});
+
+export const dateState = atom({
+  key: "dateState",
+  default: new Date(),
 });
 
 export const themeState = atom({

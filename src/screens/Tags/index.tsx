@@ -7,7 +7,9 @@ import { ITag, ITask, ITodoColumn, ScreensType } from "../../types";
 import { tagTasksState } from "../../recoil/selectors";
 import { tagsState } from "../../recoil/atoms";
 import * as utilities from "../../utilities";
+import { v4 as uuidv4 } from "uuid";
 import "./index.css";
+import { saveTags } from "../../api";
 
 const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState<boolean>(false);
@@ -25,6 +27,10 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
   useEffect(() => {
     if (!hidden) setRerender(true);
   }, [hidden]);
+
+  useEffect(() => {
+    saveTags(tags);
+  }, [tags]);
 
   useEffect(() => {
     const label: HTMLLabelElement = document.getElementById(
@@ -48,12 +54,12 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
     const tagName = tagnameRef?.current?.value;
     const tagColor = color;
     if (tagName) {
-      const tagId =
-        tagName.replaceAll(" ", "_").toLowerCase() +
-        tagTasks.taskIds[columnId].length;
+      const tagId = uuidv4();
       const tag: ITag = { id: tagId, tagName: tagName, tagColor: tagColor };
       setTags([...tags, tag]);
       if (tagnameRef?.current?.value) tagnameRef.current.value = "";
+      // Generate new color
+      setColor(`hsl(${Math.floor(Math.random() * 255) + 1}, 50%, 75%)`);
     }
   };
 

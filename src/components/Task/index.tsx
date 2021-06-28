@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ITask } from "../../types";
 import { Draggable } from "react-beautiful-dnd";
 import "./index.css";
@@ -26,6 +26,9 @@ const Task: React.FC<TaskType> = ({
   onClick,
 }) => {
   const [isDone, setIsDone] = useState<boolean>(false);
+  useEffect(() => {
+    if (checked !== null) if (checked.includes(task.id)) setIsDone(true);
+  }, [checked, task.id]);
   const handleInputChange = (event: any) => {
     const check: boolean = event.target.checked;
     if (checked !== null) {

@@ -8,44 +8,26 @@ export const initialTag: ITag[] = [
 ];
 
 export const initialData: ITodoColumn = {
-  tasks: [
-    {
-      id: "0",
-      title: "Take out the garbage",
-      description: "",
-      tag: initialTag[0],
-    },
-    {
-      id: "1",
-      title: "Watch my favourite show",
-      description: "",
-      tag: initialTag[0],
-    },
-    { id: "2", title: "Charge my phone", description: "" },
-    { id: "3", title: "Cook dinner", description: "", tag: initialTag[0] },
-    { id: "4", title: "Example 1", description: "" },
-    { id: "5", title: "Example 2", description: "" },
-    { id: "6", title: "Example 3", description: "" },
-  ],
+  tasks: [],
   columns: [
     {
-      id: "col0",
+      id: "todo",
       title: "To do",
-      taskIds: ["0", "1", "2", "3", "4", "5", "6"],
+      taskIds: [],
       checked: [],
     },
   ],
-  columnOrder: ["col0"],
+  columnOrder: ["todo"],
 };
 
 export const initialDays: ITag[] = [
-  { id: "day1", tagName: "Monday", tagColor: "#e39df9" },
-  { id: "day2", tagName: "Tuesday", tagColor: "#e39df9" },
-  { id: "day3", tagName: "Wednesday", tagColor: "#e39df9" },
-  { id: "day4", tagName: "Thursday", tagColor: "#e39df9" },
-  { id: "day5", tagName: "Friday", tagColor: "#e39df9" },
-  { id: "day6", tagName: "Saturday", tagColor: "#e39df9" },
-  { id: "day7", tagName: "Sunday", tagColor: "#e39df9" },
+  { id: "monday", tagName: "Monday", tagColor: "#e39df9" },
+  { id: "tuesday", tagName: "Tuesday", tagColor: "#e39df9" },
+  { id: "wednesday", tagName: "Wednesday", tagColor: "#e39df9" },
+  { id: "thursday", tagName: "Thursday", tagColor: "#e39df9" },
+  { id: "friday", tagName: "Friday", tagColor: "#e39df9" },
+  { id: "saturday", tagName: "Saturday", tagColor: "#e39df9" },
+  { id: "sunday", tagName: "Sunday", tagColor: "#e39df9" },
 ];
 export const initialDaySettings: ITagSettings = {
   tags: initialDays,
@@ -58,36 +40,17 @@ export const initialTask: ITask = {
   dailyTask: [],
 };
 export const initialDaily: ITodoColumn = {
-  tasks: [
-    {
-      id: "0",
-      title: "Take out the garbage",
-      description: "",
-      tag: initialTag[0],
-    },
-    {
-      id: "1",
-      title: "Watch my favourite show",
-      description: "",
-      tag: initialTag[1],
-    },
-    { id: "2", title: "Charge my phone", description: "" },
-    { id: "3", title: "Cook dinner", description: "", tag: initialTag[2] },
-    { id: "4", title: "Example 1", description: "" },
-    { id: "5", title: "Example 2", description: "" },
-    { id: "6", title: "Example 3", description: "" },
-    { id: "7", title: "Yay", description: "", tag: initialTag[3] },
-  ],
+  tasks: [{ id: "3", title: "Cook dinner", description: "" }],
   columns: [
     {
       id: "monday",
       title: "Monday",
-      taskIds: ["0", "1", "2", "3"],
+      taskIds: ["3"],
     },
     {
       id: "tuesday",
       title: "Tuesday",
-      taskIds: ["4", "5", "6"],
+      taskIds: [],
     },
     {
       id: "wednesday",
@@ -112,7 +75,7 @@ export const initialDaily: ITodoColumn = {
     {
       id: "sunday",
       title: "Sunday",
-      taskIds: ["7"],
+      taskIds: [],
     },
   ],
   columnOrder: [

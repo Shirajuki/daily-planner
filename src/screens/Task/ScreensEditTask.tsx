@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ITagSettings, ITask, ScreensEditType } from "../../types";
 import MultipleTagSelect from "../../components/MultipleTagSelect";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { tagsState, tasksState } from "../../recoil/atoms";
-import { initialDays } from "../../initialData";
+import { tagsState, homeTasksState } from "../../recoil/atoms";
 import "./index.css";
 
 export enum TaskEditableAttributes {
@@ -14,10 +13,6 @@ export enum TaskEditableAttributes {
   TAG = "tag",
   TAGS = "tags",
 }
-const initialDaySettings: ITagSettings = {
-  tags: initialDays,
-  selected: [],
-};
 const ScreensEditTask: React.FC<ScreensEditType> = ({
   task: initialTask,
   taskIds,
@@ -27,9 +22,8 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
   const [checkTime, setCheckTime] = useState<boolean>(false);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
   const [task, setTask] = useState<ITask>(initialTask);
-  const [tasks, setTasks] = useRecoilState(tasksState);
+  const [tasks, setTasks] = useRecoilState(homeTasksState);
   const tags = useRecoilValue(tagsState);
-  const [days, setDays] = useState(initialDaySettings);
   const [tagsSelected, setTagsSelected] = useState<ITagSettings>({
     tags: tags,
     selected: task.tags ?? [],
@@ -94,13 +88,6 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
       TaskEditableAttributes.TAGS
     );
   }, [tagsSelected.selected]);
-
-  useEffect(() => {
-    updateEventHandlerRef.current(
-      days.selected,
-      TaskEditableAttributes.DAILYTASK
-    );
-  }, [days.selected]);
 
   return (
     <>

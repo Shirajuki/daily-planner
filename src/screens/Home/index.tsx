@@ -3,26 +3,54 @@ import DroppableList from "../../components/DroppableList";
 import Calendar from "react-calendar";
 import Popup from "../../components/Popup";
 import * as utilities from "../../utilities";
-import { IColumn, ITask, ScreensType } from "../../types";
+import { IColumn, ITask, ITodoColumn, ScreensType } from "../../types";
 import "./index.css";
 import "react-calendar/dist/Calendar.css";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { tasksState } from "../../recoil/atoms";
+import { dateState, homeTasksState, tasksState } from "../../recoil/atoms";
 import { tasksSelectorState } from "../../recoil/selectors";
 import { ScreensEditTask } from "../Task";
+import { saveTasks } from "../../api";
 
 const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
   const [smallPopup, setSmallPopup] = useState<boolean>(false);
   const [popup, setPopup] = useState<boolean>(false);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useRecoilState(dateState);
   const [selectedTask, setSelectedTask] = useState<ITask>();
-  const [tasks, setTasks] = useRecoilState(tasksState);
+  const [tasks, setTasks] = useRecoilState(homeTasksState);
+  const [taskCol, setTaskCol] = useRecoilState(tasksState);
   const tasksSelector = useRecoilValue(tasksSelectorState);
   const todayRef = useRef(new Date());
+  const compareDiff = (taskCol: ITodoColumn[], nTaskCol: ITodoColumn[]) => {
+    const d1 = taskCol.map((t: ITodoColumn) => JSON.stringify(t));
+    const d2 = nTaskCol.map((t: ITodoColumn) => JSON.stringify(t));
+    d1.sort();
+    d2.sort();
+    return JSON.stringify(d1) !== JSON.stringify(d2);
+  };
+  const compareDiffRef = useRef(compareDiff);
+
   useEffect(() => {
     if (!hidden) setRerender(true);
   }, [hidden]);
+
+  useEffect(() => {
+    setTasks(tasksSelector.todoColumn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [date]);
+
+  useEffect(() => {
+    const nTaskCol = [
+      ...taskCol.filter((t: ITodoColumn) => t?.id !== tasks?.id),
+      tasks,
+    ];
+    if (compareDiffRef.current(taskCol, nTaskCol)) {
+      setTaskCol(nTaskCol);
+      saveTasks(nTaskCol);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [date, tasks]);
 
   const addDate = (days: number) => {
     const ndate = new Date(date);
@@ -136,7 +164,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
       </div>
       <DroppableList
         rerender={rerender}
-        data={tasks}
+        data={tasksSelector.todoColumn}
         setData={setTasks}
         showTitle={false}
         deleteEventHandler={deleteEventHandler}
