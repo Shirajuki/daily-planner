@@ -19,11 +19,10 @@ https://www.figma.com/file/1jsHNKFAHhiX95oUz7eEJo/Daily-Planner?node-id=0%3A1
 - CSS3
 - LocalStorage API
 - Service Workers (PWA)
-- Spaghetti code
 
 ## Setup
 
-If you want to check out the spaghetti, follow these easy instructions:
+If you want to check out the code, follow these instructions:
 
 ##### 1. Clone the repository
 
@@ -31,13 +30,13 @@ If you want to check out the spaghetti, follow these easy instructions:
 git clone https://github.com/Shirajuki/daily-planner.git
 ```
 
-##### 2. Run the spaghetti
+##### 2. Install dependencies and start the application
 
 ```
 cd daily-planner && npm install && npm start
 ```
 
-##### 3. The website view spaghetti should run at `http://localhost:3000/`
+##### 3. The website view should run at `http://localhost:3000/`
 
 ## License
 
