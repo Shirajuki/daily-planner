@@ -21,10 +21,11 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
     if (!hidden) setRerender(true);
   }, [hidden]);
 
-  const selectTaskHandler = (task: ITask, columnId: string) => {
+  const selectTaskHandler = (task: ITask, _: string) => {
     setPopup(true);
     setSelectedTask(task);
   };
+
   const deleteEventHandler = (_: ITask) => {
     console.log("asd");
   };

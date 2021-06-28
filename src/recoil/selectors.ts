@@ -74,12 +74,14 @@ const loadNewDailyTask = (date: Date, dailies: ITodoColumn) => {
       dailies.columns.find((col: IColumn) => col.id === weekday)?.taskIds ?? [];
     const filteredTasks = tasks.filter((t: ITask) => taskIds.includes(t.id));
     const taskCol: ITodoColumn = {
+      id: utilities.prettyDate(date),
       tasks: filteredTasks,
       columns: [
         {
           id: "todo",
           title: "To do",
           taskIds: taskIds,
+          checked: [],
         },
       ],
       columnOrder: ["todo"],

@@ -164,11 +164,11 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
       </div>
       <DroppableList
         rerender={rerender}
-        data={tasksSelector.todoColumn}
+        data={tasks}
         setData={setTasks}
         showTitle={false}
         deleteEventHandler={deleteEventHandler}
-        hasEmptyString={""}
+        hasEmptyString={"no tasks added this day..."}
         onClick={selectTaskHandler}
       />
       <Popup

@@ -40,12 +40,13 @@ export const initialTask: ITask = {
   dailyTask: [],
 };
 export const initialDaily: ITodoColumn = {
-  tasks: [{ id: "3", title: "Cook dinner", description: "" }],
+  id: "daily",
+  tasks: [],
   columns: [
     {
       id: "monday",
       title: "Monday",
-      taskIds: ["3"],
+      taskIds: [],
     },
     {
       id: "tuesday",

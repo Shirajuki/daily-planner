@@ -59,7 +59,15 @@ const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
               <button className="btn delete" onClick={() => setPopup(false)}>
                 NO
               </button>
-              <button className="btn" onClick={() => setPopup(false)}>
+              <button
+                className="btn"
+                onClick={() => {
+                  localStorage.removeItem("djukip-tasks");
+                  localStorage.removeItem("djukip-tags");
+                  localStorage.removeItem("djukip-dailies");
+                  setPopup(false);
+                }}
+              >
                 YES
               </button>
             </div>

@@ -12,7 +12,7 @@ export interface ITask {
   title: string;
   description: string;
   time?: Date;
-  dailyTask?: ITag[];
+  dailyTask?: string[];
   tag?: ITag;
   tags?: string[];
 }

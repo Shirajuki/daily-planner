@@ -19,6 +19,7 @@ export const loadDailies = () => {
   const dailies: ITodoColumn = JSON.parse(
     localStorage.getItem("djukip-dailies") ?? "{}"
   );
+  console.log("gotd", dailies);
   if (dailies?.id === undefined) return initialDaily;
   return dailies;
 };

@@ -1,10 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ITagSettings, ITask, ScreensEditType } from "../../types";
+import {
+  IColumn,
+  ITagSettings,
+  ITask,
+  ITodoColumn,
+  ScreensEditType,
+} from "../../types";
 import MultipleTagSelect from "../../components/MultipleTagSelect";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { tagsState, homeTasksState } from "../../recoil/atoms";
+import { tagsState, dailiesState } from "../../recoil/atoms";
 import { initialDaySettings } from "../../initialData";
 import "./index.css";
+import { dailiesSelectorState } from "../../recoil/selectors";
+import { saveDailies } from "../../api";
 
 export enum TaskEditableAttributes {
   TITLE = "title",
@@ -22,8 +30,9 @@ const ScreensEditDaily: React.FC<ScreensEditType> = ({
   const divRef = useRef<HTMLDivElement>(null);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
   const [task, setTask] = useState<ITask>(initialTask);
-  const [tasks, setTasks] = useRecoilState(homeTasksState);
+  const [dailies, setDailies] = useRecoilState(dailiesState);
   const tags = useRecoilValue(tagsState);
+  const dailiesSelector = useRecoilValue(dailiesSelectorState);
   const [days, setDays] = useState(initialDaySettings);
   const [tagsSelected, setTagsSelected] = useState<ITagSettings>({
     tags: tags,
@@ -36,6 +45,12 @@ const ScreensEditDaily: React.FC<ScreensEditType> = ({
     setTask({ ...task, [attribute]: value });
   };
   const updateEventHandlerRef = useRef(updateEventHandler);
+
+  useEffect(() => {
+    const checkedDays: string[] = dailiesSelector.tasks[0]?.dailyTask ?? [];
+    const ndays: ITagSettings = { ...days, selected: checkedDays };
+    setDays(ndays);
+  }, [dailiesSelector.tasks[0].dailyTask]);
 
   useEffect(() => {
     if (divRef.current != null) {
@@ -66,9 +81,26 @@ const ScreensEditDaily: React.FC<ScreensEditType> = ({
   };
   const editTask = () => {
     if (checkValidTask(task)) {
-      const ntaskList = tasks.tasks.filter((t: ITask) => t.id !== task.id);
-      const ntasks = { ...tasks, tasks: [...ntaskList, task] };
-      setTasks(ntasks);
+      const ntaskList = [
+        ...dailies.tasks.filter((t: ITask) => t.id !== task.id),
+        task,
+      ];
+      const columns: IColumn[] = JSON.parse(JSON.stringify(dailies.columns));
+      const nColumns: IColumn[] = [];
+      for (let i = 0; i < columns.length; i++) {
+        const col: IColumn = columns[i];
+        col.taskIds = col.taskIds.filter((id: string) => id !== task.id);
+        if (task?.dailyTask?.includes(col.id))
+          col.taskIds = [...col.taskIds, task.id];
+        nColumns.push(col);
+      }
+      const ntasks: ITodoColumn = {
+        ...dailies,
+        columns: nColumns,
+        tasks: ntaskList,
+      };
+      setDailies(ntasks);
+      saveDailies(ntasks);
       closePopup();
       console.log("finished editing");
     } else {

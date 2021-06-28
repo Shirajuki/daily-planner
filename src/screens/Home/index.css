@@ -187,3 +187,6 @@ div.dateWrapper .react-calendar__tile:enabled:hover {
 div.dateWrapper .react-calendar__tile--now {
 	background-color: rgba(255, 176, 176, 0.3);
 }
+div.todaysTask > div.taskContainer > div.taskColumn > p {
+	text-align: center;
+}
