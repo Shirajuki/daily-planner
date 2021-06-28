@@ -9,11 +9,12 @@ div.transitionWrapper {
 	left: 0;
 	background-color: #896296;
 	z-index: 9002;
-	pointer-events: none;
+	pointer-events: all;
 	transition: opacity .4s;
 }
 div.transitionWrapper.hidden {
 	opacity: 0;
+	pointer-events: none;
 }
 div.transitionWrapper > div.circle {
 	width: 100px;
