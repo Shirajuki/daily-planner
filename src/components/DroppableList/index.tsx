@@ -67,7 +67,9 @@ const DroppableList: React.FC<DroppableListType> = ({
       setData(newState);
     }
   };
-
+  const removeColumnId = (id: string) => {
+    return id.split("_")[1];
+  };
   const onDragEnd = (result: any) => {
     const { destination, source, draggableId } = result;
     if (!destination) return;
@@ -82,7 +84,7 @@ const DroppableList: React.FC<DroppableListType> = ({
     if (column) {
       const newTaskIds = [...column.taskIds];
       newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, draggableId);
+      newTaskIds.splice(destination.index, 0, removeColumnId(draggableId));
       const newColumn = { ...column, taskIds: newTaskIds };
       const newColumns = state.columns.filter(
         (col: IColumn) => col.id !== newColumn.id

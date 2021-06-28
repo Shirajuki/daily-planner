@@ -36,8 +36,12 @@ const Task: React.FC<TaskType> = ({
     }
     setIsDone(check);
   };
+  const getTimeStatusColor = (date: Date | undefined) => {
+    // console.log(date);
+    return "transparent";
+  };
   return (
-    <Draggable draggableId={String(task.id)} index={index}>
+    <Draggable draggableId={columnId + "_" + task.id} index={index}>
       {(provided, snapshot) => (
         <div
           className={`taskContent ${snapshot.isDragging ? "dragging" : ""} ${
@@ -67,7 +71,10 @@ const Task: React.FC<TaskType> = ({
             >
               ✕
             </button>
-            <div className="timeStatus"></div>
+            <div
+              className="timeStatus"
+              style={{ backgroundColor: getTimeStatusColor(task?.time) }}
+            ></div>
             <div
               className="tagColor"
               hidden={task?.tag === undefined}

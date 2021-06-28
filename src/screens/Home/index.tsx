@@ -40,8 +40,20 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const compareDaily = (tasks: ITodoColumn, dailies: ITodoColumn) => {
     const dailyTasks = loadNewDailyTask(date, dailies);
     if (tasks.id !== dailyTasks.id) return false;
-    const d1 = JSON.stringify(tasks);
-    const d2 = JSON.stringify(dailyTasks);
+    const ntasks = {
+      ...tasks,
+      tasks: tasks.tasks.map((t: ITask) => {
+        return { ...t, tag: {} };
+      }),
+    };
+    const ndailyTasks = {
+      ...dailyTasks,
+      tasks: dailyTasks.tasks.map((t: ITask) => {
+        return { ...t, tag: {} };
+      }),
+    };
+    const d1 = JSON.stringify(ntasks);
+    const d2 = JSON.stringify(ndailyTasks);
     return d1 !== d2;
   };
 
