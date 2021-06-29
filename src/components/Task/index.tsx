@@ -43,9 +43,9 @@ const Task: React.FC<TaskType> = ({
   const getTimeStatusColor = (taskDate: string | undefined) => {
     if (taskDate) {
       const tdate = new Date(prettyDate(date) + " " + taskDate);
-      const date10 = new Date(date.getTime() - 3600 * 1000 * 10); // 10 hours from tdate
+      const date4 = new Date(date.getTime() - 3600 * 1000 * 4); // 4 hours from tdate
       if (tdate > date) return "#FF7575";
-      else if (tdate > date10) return "#FFE193";
+      else if (tdate > date4) return "#FFE193";
       return "#ABF987";
     }
     return "transparent";
