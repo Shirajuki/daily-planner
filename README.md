@@ -7,6 +7,10 @@
 <h3 align="center">DAILY PLANNER</h3>
 <p align="center">A PWA React application to help me (& hopefully someone else) stay organized c:</p>
 
+## Try the application here
+
+https://shirajuki.js.org/daily-planner
+
 ## Figma design
 
 https://www.figma.com/file/1jsHNKFAHhiX95oUz7eEJo/Daily-Planner?node-id=0%3A1
@@ -22,7 +26,7 @@ https://www.figma.com/file/1jsHNKFAHhiX95oUz7eEJo/Daily-Planner?node-id=0%3A1
 
 ## Setup
 
-If you want to check out the code, follow these instructions:
+If you want to check out the code yourself, follow these instructions:
 
 ##### 1. Clone the repository
 
