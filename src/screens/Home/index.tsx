@@ -3,7 +3,7 @@ import DroppableList from "../../components/DroppableList";
 import Calendar from "react-calendar";
 import Popup from "../../components/Popup";
 import * as utilities from "../../utilities";
-import { IColumn, ITask, ITodoColumn, ScreensType } from "../../types";
+import { IColumn, ITag, ITask, ITodoColumn, ScreensType } from "../../types";
 import "./index.css";
 import "react-calendar/dist/Calendar.css";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -11,6 +11,7 @@ import {
   dailiesState,
   dateState,
   homeTasksState,
+  tagsState,
   tasksState,
 } from "../../recoil/atoms";
 import { loadNewDailyTask, tasksSelectorState } from "../../recoil/selectors";
@@ -25,6 +26,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const [selectedTask, setSelectedTask] = useState<ITask>();
   const [tasks, setTasks] = useRecoilState(homeTasksState);
   const [taskCol, setTaskCol] = useRecoilState(tasksState);
+  const tags = useRecoilValue(tagsState);
   const dailies = useRecoilValue(dailiesState);
   const tasksSelector = useRecoilValue(tasksSelectorState);
   const todayRef = useRef(new Date());
@@ -36,6 +38,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
     return JSON.stringify(d1) !== JSON.stringify(d2);
   };
   const compareDiffRef = useRef(compareDiff);
+  const setTasksRef = useRef(setTasks);
 
   const compareDaily = (tasks: ITodoColumn, dailies: ITodoColumn) => {
     const dailyTasks = loadNewDailyTask(date, dailies);
@@ -68,6 +71,21 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   }, [date]);
 
   useEffect(() => {
+    // Load in tags if not exists
+    const tasksWithoutTags = tasks.tasks.filter(
+      (t: ITask) => t?.tag === undefined
+    );
+    if (tasksWithoutTags.length > 0) {
+      const ntasks = tasks.tasks.map((t: ITask) => {
+        const tag = tags.find((tg: ITag) => t?.tags?.includes(tg.id));
+        if (!tag) return t;
+        return { ...t, tag: tag };
+      });
+      setTasksRef.current({ ...tasks, tasks: ntasks });
+    }
+  }, [tasks, tags]);
+
+  useEffect(() => {
     const nTaskCol = [
       ...taskCol.filter((t: ITodoColumn) => t?.id !== tasks?.id),
       tasks,
@@ -79,12 +97,10 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
     ) {
       setTaskCol(nTaskCol);
       saveTasks(nTaskCol);
-      console.log("saved", nTaskCol);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, tasks, dailies]);
 
-  console.log("rerender");
   const addDate = (days: number) => {
     const ndate = new Date(date);
     ndate.setDate(ndate.getDate() + days);
