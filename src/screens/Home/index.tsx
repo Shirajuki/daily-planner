@@ -84,6 +84,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, tasks, dailies]);
 
+  console.log("rerender");
   const addDate = (days: number) => {
     const ndate = new Date(date);
     ndate.setDate(ndate.getDate() + days);

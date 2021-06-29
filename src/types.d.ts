@@ -11,7 +11,7 @@ export interface ITask {
   id: string;
   title: string;
   description: string;
-  time?: Date;
+  time?: string;
   dailyTask?: string[];
   tag?: ITag;
   tags?: string[];

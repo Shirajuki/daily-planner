@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { ITask } from "../../types";
 import { Draggable } from "react-beautiful-dnd";
 import "./index.css";
+import { useRecoilValue } from "recoil";
+import { dateState } from "../../recoil/atoms";
+import { prettyDate } from "../../utilities";
 
 type TaskType = {
   task: ITask;
@@ -26,6 +29,7 @@ const Task: React.FC<TaskType> = ({
   onClick,
 }) => {
   const [isDone, setIsDone] = useState<boolean>(false);
+  const date = useRecoilValue(dateState);
   useEffect(() => {
     if (checked !== null) if (checked.includes(task.id)) setIsDone(true);
   }, [checked, task.id]);
@@ -36,8 +40,14 @@ const Task: React.FC<TaskType> = ({
     }
     setIsDone(check);
   };
-  const getTimeStatusColor = (date: Date | undefined) => {
-    // console.log(date);
+  const getTimeStatusColor = (taskDate: string | undefined) => {
+    if (taskDate) {
+      const tdate = new Date(prettyDate(date) + " " + taskDate);
+      const date10 = new Date(date.getTime() - 3600 * 1000 * 10); // 10 hours from tdate
+      if (tdate > date) return "#FF7575";
+      else if (tdate > date10) return "#FFE193";
+      return "#ABF987";
+    }
     return "transparent";
   };
   return (

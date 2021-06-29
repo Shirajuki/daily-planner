@@ -19,7 +19,9 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
   deleteEventHandler,
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
-  const [checkTime, setCheckTime] = useState<boolean>(false);
+  const [checkTime, setCheckTime] = useState<boolean>(
+    initialTask?.time !== undefined
+  );
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
   const [task, setTask] = useState<ITask>(initialTask);
   const [tasks, setTasks] = useRecoilState(homeTasksState);
@@ -145,8 +147,13 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
                 type="time"
                 id="time"
                 name="time"
-                ref={null}
-                placeholder="TIME..."
+                value={task.time ?? ""}
+                onChange={(event) =>
+                  updateEventHandler(
+                    event.target.value,
+                    TaskEditableAttributes.TIME
+                  )
+                }
               />
               <svg
                 className="clock"

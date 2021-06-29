@@ -66,6 +66,7 @@ const ScreensAddTask: React.FC = () => {
   };
 
   const checkValidTask = (task: ITask) => {
+    if (checkTime && task.time === undefined) return false;
     return task.title !== "";
   };
 
@@ -175,8 +176,13 @@ const ScreensAddTask: React.FC = () => {
                 type="time"
                 id="time"
                 name="time"
-                ref={null}
-                placeholder="TIME..."
+                value={task.time ?? ""}
+                onChange={(event) =>
+                  updateEventHandler(
+                    event.target.value,
+                    TaskEditableAttributes.TIME
+                  )
+                }
               />
               <svg
                 className="clock"
