@@ -20,6 +20,7 @@ import { saveTasks } from "../../api";
 
 const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
+  const [refreshPopup, setRefreshPopup] = useState<boolean>(false);
   const [smallPopup, setSmallPopup] = useState<boolean>(false);
   const [popup, setPopup] = useState<boolean>(false);
   const [date, setDate] = useRecoilState(dateState);
@@ -131,12 +132,8 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
     ];
     setTasks(ntasks);
     setTaskCol(nTaskCol);
-    // Save if tasks is empty
+    // Save if tasks is empty as it will not be saved on the useEffect hook above otherwise
     if (ntaskList.length === 0) {
-      const nTaskCol = [
-        ...taskCol.filter((t: ITodoColumn) => t?.id !== ntasks?.id),
-        ntasks,
-      ];
       saveTasks(nTaskCol);
     }
   };
@@ -144,6 +141,20 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
     <div className="todaysTask" hidden={hidden}>
       <div className="topBackground">
         <h3>DAILYJUKIPLANNER</h3>
+        <button className="refreshBtn" onClick={() => setRefreshPopup(true)}>
+          <svg
+            width="21"
+            height="20"
+            viewBox="0 0 21 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M18.33 4.69398L18.75 3.31698C18.8276 3.0633 19.0027 2.85083 19.237 2.7263C19.4712 2.60178 19.7453 2.5754 19.999 2.65298C20.2527 2.73056 20.4651 2.90573 20.5897 3.13996C20.7142 3.37419 20.7406 3.6483 20.663 3.90198L19.493 7.72698C19.4154 7.98047 19.2404 8.19279 19.0064 8.3173C18.7724 8.44181 18.4985 8.46831 18.245 8.39098L14.42 7.22098C14.2917 7.18488 14.172 7.12353 14.0678 7.04052C13.9636 6.95751 13.8771 6.85452 13.8132 6.73759C13.7494 6.62067 13.7096 6.49216 13.6961 6.35963C13.6826 6.2271 13.6957 6.0932 13.7347 5.96581C13.7737 5.83842 13.8377 5.72011 13.923 5.61781C14.0084 5.51551 14.1133 5.4313 14.2316 5.37011C14.35 5.30892 14.4793 5.27199 14.6121 5.2615C14.7449 5.251 14.8785 5.26714 15.005 5.30898L16.677 5.81998C15.9378 4.69888 14.9068 3.80066 13.695 3.22206C12.4832 2.64347 11.1366 2.40642 9.80003 2.53646C8.4635 2.66649 7.18777 3.15867 6.11023 3.95999C5.03268 4.76132 4.19416 5.84142 3.68498 7.08398L3.42498 7.71698C3.37769 7.84193 3.30584 7.95615 3.21368 8.05287C3.12152 8.1496 3.01091 8.22687 2.88839 8.28014C2.76586 8.3334 2.63391 8.36158 2.50031 8.36299C2.36672 8.36441 2.23419 8.33904 2.11056 8.28839C1.98694 8.23774 1.87471 8.16282 1.78052 8.06807C1.68633 7.97333 1.61208 7.86066 1.56215 7.73674C1.51222 7.61282 1.48764 7.48015 1.48984 7.34656C1.49204 7.21298 1.52099 7.08119 1.57498 6.95898L1.83498 6.32598C2.48121 4.74926 3.5447 3.37833 4.91125 2.3604C6.27781 1.34247 7.89583 0.715984 9.59156 0.548209C11.2873 0.380435 12.9967 0.677709 14.5362 1.40811C16.0758 2.13852 17.3873 3.27446 18.33 4.69398V4.69398ZM2.80798 15.307L2.48098 16.618C2.45172 16.748 2.39677 16.8709 2.31935 16.9793C2.24193 17.0878 2.14362 17.1797 2.03017 17.2497C1.91673 17.3196 1.79045 17.3662 1.65876 17.3866C1.52706 17.4071 1.39261 17.401 1.26331 17.3687C1.134 17.3364 1.01245 17.2787 0.905787 17.1988C0.799129 17.1188 0.70952 17.0184 0.642224 16.9034C0.574929 16.7884 0.531306 16.661 0.513919 16.5289C0.496531 16.3968 0.50573 16.2625 0.540975 16.134L1.50798 12.254C1.5406 12.1219 1.59984 11.9978 1.68208 11.8894C1.76431 11.781 1.86781 11.6905 1.98623 11.6235C2.10465 11.5564 2.23551 11.5143 2.37079 11.4996C2.50607 11.4849 2.64292 11.498 2.77298 11.538L6.60098 12.492C6.85837 12.5562 7.07972 12.72 7.21634 12.9474C7.35296 13.1747 7.39366 13.4471 7.32948 13.7045C7.26529 13.9619 7.10149 14.1832 6.8741 14.3198C6.64671 14.4565 6.37437 14.4972 6.11698 14.433L4.33098 13.988C5.09449 15.1568 6.17373 16.0853 7.44352 16.6656C8.7133 17.2459 10.1216 17.4544 11.5051 17.2668C12.8885 17.0792 14.1904 16.5033 15.2598 15.6058C16.3292 14.7082 17.1223 13.5259 17.547 12.196C17.5869 12.0708 17.6511 11.9548 17.7359 11.8544C17.8206 11.7541 17.9243 11.6714 18.0411 11.6111C18.1578 11.5509 18.2852 11.5142 18.4161 11.5032C18.547 11.4922 18.6788 11.5071 18.804 11.547C18.9291 11.5869 19.0452 11.6511 19.1455 11.7359C19.2459 11.8206 19.3285 11.9243 19.3888 12.0411C19.4491 12.1578 19.4858 12.2852 19.4968 12.4161C19.5078 12.547 19.4929 12.6788 19.453 12.804C19.0367 14.1099 18.3392 15.3088 17.4097 16.3162C16.4802 17.3236 15.3413 18.1151 14.073 18.635C12.0968 19.4446 9.90361 19.556 7.85553 18.951C5.80745 18.3459 4.02694 17.0605 2.80798 15.307V15.307Z"
+              fill="white"
+            />
+          </svg>
+        </button>
         <div className="infoBox">
           <div className="dateBox">
             <p className="day">{utilities.getDayFormatted(todayRef.current)}</p>
@@ -257,6 +268,43 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
           )
         }
         closeEvent={() => setSmallPopup(false)}
+      />
+      <Popup
+        isFullscreen={false}
+        shown={refreshPopup}
+        children={
+          refreshPopup ? (
+            <div className="popupWrapper center">
+              <h1 className="title">R YOU SURE?</h1>
+              <p>Action: REFRESH DAILY TASKS</p>
+              <button
+                className="btn delete"
+                onClick={() => setRefreshPopup(false)}
+              >
+                NO
+              </button>
+              <button
+                className="btn"
+                onClick={() => {
+                  const ntasks = loadNewDailyTask(date, dailies, true);
+                  const nTaskCol = [
+                    ...taskCol.filter((t: ITodoColumn) => t?.id !== tasks?.id),
+                    ntasks,
+                  ];
+                  setTasks(ntasks);
+                  setTaskCol(nTaskCol);
+                  saveTasks(nTaskCol);
+                  setRefreshPopup(false);
+                }}
+              >
+                YES
+              </button>
+            </div>
+          ) : (
+            <></>
+          )
+        }
+        closeEvent={() => ""}
       />
       <Popup
         isFullscreen={true}
