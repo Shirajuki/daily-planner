@@ -119,6 +119,15 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
     const ntaskList = tasks.tasks.filter((t: ITask) => t.id !== task.id);
     const ntasks = { ...tasks, columns: [ncolumn], tasks: ntaskList };
     setTasks(ntasks);
+    // Save if tasks is empty
+    if (ntaskList.length === 0) {
+      const nTaskCol = [
+        ...taskCol.filter((t: ITodoColumn) => t?.id !== ntasks?.id),
+        ntasks,
+      ];
+      setTaskCol(nTaskCol);
+      saveTasks(nTaskCol);
+    }
   };
   return (
     <div className="todaysTask" hidden={hidden}>
