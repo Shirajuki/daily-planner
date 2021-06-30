@@ -57,10 +57,9 @@ export const dailiesSelectorState = selector({
         ]
       : [];
     const ntasks = { ...tasks, tasks: ntasksList };
-    const tasksChecked = tasks?.columns ? tasks?.columns[0].checked : [];
+    console.log(ntasks);
     return {
       todoColumn: ntasks,
-      tasksChecked: tasksChecked,
       tasks: ntasks.tasks,
     };
   },

@@ -96,6 +96,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
       tasks?.id
     ) {
       setTaskCol(nTaskCol);
+      console.log("saved");
       saveTasks(nTaskCol);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,20 +113,30 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   };
   const deleteEventHandler = (task: ITask) => {
     // TODO: Add delete animation :)
+    const ntaskList = tasks.tasks.filter((t: ITask) => t.id !== task.id);
+    // Remove the id from column taskIds and checked attributes
     const ncolumn: IColumn = {
       ...tasks.columns[0],
       taskIds: tasks.columns[0].taskIds.filter((id: string) => id !== task.id),
+      checked:
+        tasks.columns[0]?.checked?.filter((id: string) =>
+          ntaskList.map((t: ITask) => t.id).includes(id)
+        ) ?? [],
     };
-    const ntaskList = tasks.tasks.filter((t: ITask) => t.id !== task.id);
+    // Update tasks and taskCol
     const ntasks = { ...tasks, columns: [ncolumn], tasks: ntaskList };
+    const nTaskCol = [
+      ...taskCol.filter((t: ITodoColumn) => t?.id !== tasks?.id),
+      ntasks,
+    ];
     setTasks(ntasks);
+    setTaskCol(nTaskCol);
     // Save if tasks is empty
     if (ntaskList.length === 0) {
       const nTaskCol = [
         ...taskCol.filter((t: ITodoColumn) => t?.id !== ntasks?.id),
         ntasks,
       ];
-      setTaskCol(nTaskCol);
       saveTasks(nTaskCol);
     }
   };
