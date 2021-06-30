@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ITask, ScreensType } from "../../types";
+import { IColumn, ITask, ScreensType } from "../../types";
 import DroppableList from "../../components/DroppableList";
 import "./index.css";
 import * as utilities from "../../utilities";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { dailiesState } from "../../recoil/atoms";
 import Popup from "../../components/Popup";
 import ScreensEditDaily from "./ScreensEditDaily";
@@ -11,7 +11,7 @@ import { dailiesSelectorState } from "../../recoil/selectors";
 
 const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
-  const setDailies = useSetRecoilState(dailiesState);
+  const [dailies, setDailies] = useRecoilState(dailiesState);
   const dailiesSelector = useRecoilValue(dailiesSelectorState);
   const [popup, setPopup] = useState<boolean>(false);
   const [selectedTask, setSelectedTask] = useState<ITask>();
@@ -27,8 +27,15 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
     setSelectedTask(task);
   };
 
-  const deleteEventHandler = (_: ITask) => {
-    console.log("asd");
+  const deleteEventHandler = (task: ITask) => {
+    const ntasks = dailies.tasks.filter((t: ITask) => t.id !== task.id);
+    const ncolumns: IColumn[] = dailies.columns.map((col: IColumn) => {
+      return {
+        ...col,
+        taskIds: col.taskIds.filter((id: string) => id !== task.id),
+      };
+    });
+    setDailies({ ...dailies, tasks: ntasks, columns: ncolumns });
   };
   return (
     <div className="dailies simpleScreen" hidden={hidden}>
