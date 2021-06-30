@@ -2,7 +2,7 @@ div.taskContainer > div.taskColumn {
 	transition: background-color 0.5s ease;
 }
 div.taskContainer > div.taskColumn.dragging {
-	background-color: skyblue;
+	background-color: #fef1ff;
 }
 div.taskContainer > div.taskColumn > h3 {
 	font-size: 1rem;

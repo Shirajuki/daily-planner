@@ -71,7 +71,7 @@ div.taskContent > div > div {
 	transform: translateX(3px);
 }
 div.taskContent.dragging {
-	background-color: lightgreen;
+	background-color: #fef5ff;
 }
 
 div.taskContent:last-child {
