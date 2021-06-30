@@ -38,7 +38,6 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
     return JSON.stringify(d1) !== JSON.stringify(d2);
   };
   const compareDiffRef = useRef(compareDiff);
-  const setTasksRef = useRef(setTasks);
 
   const compareDaily = (tasks: ITodoColumn, dailies: ITodoColumn) => {
     const dailyTasks = loadNewDailyTask(date, dailies);
@@ -73,7 +72,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   useEffect(() => {
     // Load in tags if not exists
     const tasksWithoutTags = tasks.tasks.filter(
-      (t: ITask) => t?.tag === undefined
+      (t: ITask) => t?.tag === undefined && (t?.tags?.length ?? 0 > 0)
     );
     if (tasksWithoutTags.length > 0) {
       const ntasks = tasks.tasks.map((t: ITask) => {
@@ -81,7 +80,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
         if (!tag) return t;
         return { ...t, tag: tag };
       });
-      setTasksRef.current({ ...tasks, tasks: ntasks });
+      setTasks({ ...tasks, tasks: ntasks });
     }
   }, [tasks, tags]);
 

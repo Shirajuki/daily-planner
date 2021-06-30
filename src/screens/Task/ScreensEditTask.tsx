@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ITagSettings, ITask, ScreensEditType } from "../../types";
+import { ITag, ITagSettings, ITask, ScreensEditType } from "../../types";
 import MultipleTagSelect from "../../components/MultipleTagSelect";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tagsState, homeTasksState } from "../../recoil/atoms";
@@ -67,8 +67,11 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
   };
   const editTask = () => {
     if (checkValidTask(task)) {
+      // Load in tags on edit
+      const tag = tags.find((tg: ITag) => task?.tags?.includes(tg.id));
+      const ntask = tag ? { ...task, tag: tag } : task;
       const ntaskList = tasks.tasks.filter((t: ITask) => t.id !== task.id);
-      const ntasks = { ...tasks, tasks: [...ntaskList, task] };
+      const ntasks = { ...tasks, tasks: [...ntaskList, ntask] };
       setTasks(ntasks);
       closePopup();
       console.log("finished editing");
