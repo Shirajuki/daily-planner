@@ -18,7 +18,7 @@ enum TaskEditableAttributes {
   TITLE = "title",
   DESCRIPTION = "description",
   TIME = "time",
-  DAILYTASK = "dailytask",
+  DAILYTASK = "dailyTask",
   TAG = "tag",
   TAGS = "tags",
 }
@@ -47,7 +47,7 @@ const ScreensEditDaily: React.FC<ScreensEditType> = ({
   const updateEventHandlerRef = useRef(updateEventHandler);
 
   useEffect(() => {
-    const checkedDays: string[] = dailiesSelector.tasks[0]?.dailyTask ?? [];
+    const checkedDays: string[] = task?.dailyTask ?? [];
     const ndays: ITagSettings = { ...days, selected: checkedDays };
     setDays(ndays);
     // eslint-disable-next-line react-hooks/exhaustive-deps

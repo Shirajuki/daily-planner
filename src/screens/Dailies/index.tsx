@@ -8,6 +8,7 @@ import { dailiesState } from "../../recoil/atoms";
 import Popup from "../../components/Popup";
 import ScreensEditDaily from "./ScreensEditDaily";
 import { dailiesSelectorState } from "../../recoil/selectors";
+import { saveDailies } from "../../api";
 
 const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);
@@ -35,7 +36,9 @@ const ScreensDailies: React.FC<ScreensType> = ({ hidden }) => {
         taskIds: col.taskIds.filter((id: string) => id !== task.id),
       };
     });
-    setDailies({ ...dailies, tasks: ntasks, columns: ncolumns });
+    const ndailies = { ...dailies, tasks: ntasks, columns: ncolumns };
+    setDailies(ndailies);
+    saveDailies(ndailies);
   };
   return (
     <div className="dailies simpleScreen" hidden={hidden}>
