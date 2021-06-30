@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { themeState } from "../../recoil/atoms";
+import {
+  dailiesState,
+  tagsState,
+  tasksState,
+  themeState,
+} from "../../recoil/atoms";
 import { ScreensType } from "../../types";
 import Popup from "../../components/Popup";
+import { loadDailies, loadTags, loadTasks } from "../../api";
 import "./index.css";
 
 const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
   const [darkmode, setDarkmode] = useState<boolean>(false);
   const [popup, setPopup] = useState<boolean>(false);
+  const setDailies = useSetRecoilState(dailiesState);
+  const setTasks = useSetRecoilState(tasksState);
+  const setTags = useSetRecoilState(tagsState);
   const setTheme = useSetRecoilState(themeState);
   const handleInputChange = (
     setState: (state: boolean) => void,
@@ -65,6 +74,9 @@ const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
                   localStorage.removeItem("djukip-tasks");
                   localStorage.removeItem("djukip-tags");
                   localStorage.removeItem("djukip-dailies");
+                  setTags(loadTags());
+                  setTasks(loadTasks());
+                  setDailies(loadDailies());
                   setPopup(false);
                 }}
               >
