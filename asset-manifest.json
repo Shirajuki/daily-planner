@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/daily-planner/static/css/main.429d86ad.chunk.css",
-    "main.js": "/daily-planner/static/js/main.e20fee6d.chunk.js",
-    "main.js.map": "/daily-planner/static/js/main.e20fee6d.chunk.js.map",
+    "main.js": "/daily-planner/static/js/main.f4e4f011.chunk.js",
+    "main.js.map": "/daily-planner/static/js/main.f4e4f011.chunk.js.map",
     "runtime-main.js": "/daily-planner/static/js/runtime-main.652c0527.js",
     "runtime-main.js.map": "/daily-planner/static/js/runtime-main.652c0527.js.map",
     "static/css/2.835acb34.chunk.css": "/daily-planner/static/css/2.835acb34.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.835acb34.chunk.css",
     "static/js/2.148c420b.chunk.js",
     "static/css/main.429d86ad.chunk.css",
-    "static/js/main.e20fee6d.chunk.js"
+    "static/js/main.f4e4f011.chunk.js"
   ]
 }
