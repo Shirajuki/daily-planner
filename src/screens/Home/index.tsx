@@ -42,7 +42,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const setTasksRef = useRef(setTasks);
 
   const compareDaily = (tasks: ITodoColumn, dailies: ITodoColumn) => {
-    const dailyTasks = loadNewDailyTask(date, dailies);
+    const dailyTasks = loadNewDailyTask(date, dailies, true);
     if (tasks.id !== dailyTasks.id) return false;
     const ntasks = {
       ...tasks,
