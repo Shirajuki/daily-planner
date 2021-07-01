@@ -69,7 +69,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   useEffect(() => {
     setTasks(tasksSelector.todoColumn);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [date]);
+  }, [date, tags]);
 
   useEffect(() => {
     // Load in tags if not exists
@@ -87,9 +87,14 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   }, [tasks, tags]);
 
   useEffect(() => {
+    // Filter out tag
+    const ntasks = tasks.tasks.map((t: ITask) => {
+      const { tag, ...task } = t;
+      return task;
+    });
     const nTaskCol = [
       ...taskCol.filter((t: ITodoColumn) => t?.id !== tasks?.id),
-      tasks,
+      { ...tasks, tasks: ntasks },
     ];
     if (
       compareDiffRef.current(taskCol, nTaskCol) &&
@@ -97,7 +102,6 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
       tasks?.id
     ) {
       setTaskCol(nTaskCol);
-      console.log("saved");
       saveTasks(nTaskCol);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

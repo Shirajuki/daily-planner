@@ -5,11 +5,11 @@ import Popup from "../../components/Popup";
 import ScreensEditTag from "./ScreensEditTag";
 import { ITag, ITask, ITodoColumn, ScreensType } from "../../types";
 import { tagTasksState } from "../../recoil/selectors";
-import { tagsState } from "../../recoil/atoms";
+import { dailiesState, tagsState, tasksState } from "../../recoil/atoms";
 import * as utilities from "../../utilities";
 import { v4 as uuidv4 } from "uuid";
 import "./index.css";
-import { saveTags } from "../../api";
+import { saveDailies, saveTags, saveTasks } from "../../api";
 
 const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState<boolean>(false);
@@ -20,6 +20,8 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
   );
   const [selectedTag, setSelectedTag] = useState<ITask>();
   const tagTasks = useRecoilValue(tagTasksState);
+  const [taskCol, setTaskCol] = useRecoilState(tasksState);
+  const [dailies, setDailies] = useRecoilState(dailiesState);
   const [columnId, setColumnId] = useState<string>("0");
   const [tags, setTags] = useRecoilState(tagsState);
   const dateRef = useRef(new Date());
@@ -49,6 +51,27 @@ const ScreensTags: React.FC<ScreensType> = ({ hidden }) => {
     // TODO: Add delete animation :)
     const ntags = tags.filter((t: ITag) => t.id !== tag.id);
     setTags(ntags);
+    // Delete the tag occurence from all dailies and tasks
+    const ndailiesTasks = dailies.tasks.map((task: ITask) => {
+      return {
+        ...task,
+        tags: task?.tags?.filter((id: string) => id !== tag.id) ?? [],
+      };
+    });
+    const ndailies = { ...dailies, tasks: ndailiesTasks };
+    const nTaskCol = taskCol.map((tcol: ITodoColumn) => {
+      const ntasks = tcol.tasks.map((task: ITask) => {
+        return {
+          ...task,
+          tags: task?.tags?.filter((id: string) => id !== tag.id) ?? [],
+        };
+      });
+      return { ...tcol, tasks: ntasks };
+    });
+    setDailies(ndailies);
+    saveDailies(ndailies);
+    setTaskCol(nTaskCol);
+    saveTasks(nTaskCol);
   };
 
   const addTag = () => {

@@ -34,6 +34,9 @@ const ScreensEditDaily: React.FC<ScreensEditType> = ({
   const tags = useRecoilValue(tagsState);
   const dailiesSelector = useRecoilValue(dailiesSelectorState);
   const [days, setDays] = useState(initialDaySettings);
+  const [checkTime, setCheckTime] = useState<boolean>(
+    initialTask?.time !== undefined
+  );
   const [tagsSelected, setTagsSelected] = useState<ITagSettings>({
     tags: tags,
     selected: task.tags ?? [],
@@ -78,7 +81,7 @@ const ScreensEditDaily: React.FC<ScreensEditType> = ({
   };
 
   const checkValidTask = (task: ITask) => {
-    return task.title !== "";
+    return task.title !== "" && (task?.dailyTask?.length ?? -1) > 0;
   };
   const editTask = () => {
     if (checkValidTask(task)) {
@@ -159,6 +162,52 @@ const ScreensEditDaily: React.FC<ScreensEditType> = ({
               }
               placeholder="DESCRIPTION..."
             />
+          </div>
+          <div className="inputWrapper">
+            <input
+              type="checkbox"
+              name="checkTime"
+              id="checkTime"
+              checked={checkTime}
+              onChange={(event: any) => setCheckTime(event.target.checked)}
+            />
+            <label htmlFor="checkTime">check time?</label>
+          </div>
+          <div hidden={!checkTime}>
+            <div className="inputs">
+              <label htmlFor="time">Time</label>
+              <input
+                type="time"
+                id="time"
+                name="time"
+                value={task.time ?? ""}
+                onChange={(event) =>
+                  updateEventHandler(
+                    event.target.value,
+                    TaskEditableAttributes.TIME
+                  )
+                }
+              />
+              <svg
+                className="clock"
+                width="23"
+                height="23"
+                viewBox="0 0 23 23"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M22 11.5C22 17.299 17.299 22 11.5 22C5.70101 22 1 17.299 1 11.5C1 5.70101 5.70101 1 11.5 1C17.299 1 22 5.70101 22 11.5Z"
+                  fill="white"
+                  stroke="#A4BAF7"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M14.0556 14.0559C16.6112 16.6114 11.5001 11.5003 11.5001 11.5003C11.5001 9.45586 11.5001 1.27808 11.5001 6.38919"
+                  stroke="#707070"
+                />
+              </svg>
+            </div>
           </div>
           <div className="multipleSelectWrapper">
             <label>Tags</label>

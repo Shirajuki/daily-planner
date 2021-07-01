@@ -57,7 +57,6 @@ export const dailiesSelectorState = selector({
         ]
       : [];
     const ntasks = { ...tasks, tasks: ntasksList };
-    console.log(ntasks);
     return {
       todoColumn: ntasks,
       tasks: ntasks.tasks,
@@ -115,7 +114,10 @@ export const tasksSelectorState = selector({
       ...tasks.tasks.map((task: ITask) => {
         const tag = tags.find((t: ITag) => task?.tags?.includes(t.id));
         if (tag) return { ...task, tag: tag };
-        else return task;
+        else {
+          const { tag, ...ntask } = task;
+          return ntask;
+        }
       }),
     ];
     const ntasks = { ...tasks, tasks: ntasksList };
