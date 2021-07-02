@@ -37,10 +37,6 @@ const App: React.FC = () => {
     setPopup(true);
     transitionRef.current = false;
   };
-  const getTheme = (theme: string) => {
-    console.log(theme);
-    return theme;
-  };
   useEffect(() => {
     if (selected === 3) {
       openPopupScreen(0);
@@ -73,7 +69,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`App ${getTheme(theme)}`}>
+    <div className={`App ${theme}`}>
       <Transition shown={transition} setShown={setTransition} />
       <ScreensHome hidden={hiddenScreen(0)} />
       <ScreensDailies hidden={hiddenScreen(1)} />

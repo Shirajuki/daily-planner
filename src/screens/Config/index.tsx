@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   dailiesState,
   tagsState,
@@ -9,15 +9,18 @@ import {
 import { ScreensType } from "../../types";
 import Popup from "../../components/Popup";
 import { loadDailies, loadTags, loadTasks } from "../../api";
+import { saveTheme } from "../../api";
 import "./index.css";
 
 const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
-  const [darkmode, setDarkmode] = useState<boolean>(false);
+  const [theme, setTheme] = useRecoilState(themeState);
+  const [darkmode, setDarkmode] = useState<boolean>(
+    theme === "dark" ? true : false
+  );
   const [popup, setPopup] = useState<boolean>(false);
   const setDailies = useSetRecoilState(dailiesState);
   const setTasks = useSetRecoilState(tasksState);
   const setTags = useSetRecoilState(tagsState);
-  const setTheme = useSetRecoilState(themeState);
   const handleInputChange = (
     setState: (state: boolean) => void,
     state: boolean
@@ -25,8 +28,16 @@ const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
     setState(state);
   };
   useEffect(() => {
-    if (darkmode) setTheme("dark");
-    else setTheme("light");
+    if (theme === "dark") setDarkmode(true);
+    saveTheme(theme);
+  }, [theme]);
+
+  useEffect(() => {
+    if (darkmode) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
   }, [darkmode, setTheme]);
   return (
     <div className="config" hidden={hidden}>
@@ -48,9 +59,9 @@ const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
           name="other"
           id="other"
           checked={darkmode}
-          onChange={(event: any) =>
-            handleInputChange(setDarkmode, event.target.checked)
-          }
+          onChange={(event: any) => {
+            handleInputChange(setDarkmode, event.target.checked);
+          }}
         />
         <label htmlFor="other">some other stuff</label>
       </div>

@@ -32,3 +32,12 @@ export const loadTags = () => {
 export const saveTags = (tags: ITag[]) => {
   localStorage.setItem("djukip-tags", JSON.stringify(tags));
 };
+
+export const loadTheme = () => {
+  const theme: string = localStorage.getItem("djukip-theme") ?? "light";
+  console.log(123, theme);
+  return theme;
+};
+export const saveTheme = (theme: string) => {
+  localStorage.setItem("djukip-theme", theme);
+};

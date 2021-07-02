@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { loadDailies, loadTags, loadTasks } from "../api";
+import { loadDailies, loadTags, loadTasks, loadTheme } from "../api";
 import { initialData } from "../initialData";
 
 export const tagsState = atom({
@@ -29,5 +29,5 @@ export const dateState = atom({
 
 export const themeState = atom({
   key: "themeState",
-  default: "dark",
+  default: loadTheme(),
 });
