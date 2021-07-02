@@ -35,7 +35,6 @@ export const saveTags = (tags: ITag[]) => {
 
 export const loadTheme = () => {
   const theme: string = localStorage.getItem("djukip-theme") ?? "light";
-  console.log(123, theme);
   return theme;
 };
 export const saveTheme = (theme: string) => {

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ITask } from "../../types";
 import { Draggable } from "react-beautiful-dnd";
-import "./index.css";
 import { useRecoilValue } from "recoil";
 import { dateState } from "../../recoil/atoms";
 import { prettyDate } from "../../utilities";
+import "./index.css";
 
 type TaskType = {
   task: ITask;
@@ -31,7 +31,9 @@ const Task: React.FC<TaskType> = ({
   const [isDone, setIsDone] = useState<boolean>(false);
   const date = useRecoilValue(dateState);
   useEffect(() => {
-    if (checked !== null) if (checked.includes(task.id)) setIsDone(true);
+    if (checked !== null)
+      if (checked.includes(task.id)) setIsDone(true);
+      else setIsDone(false);
   }, [checked, task.id]);
   const handleInputChange = (event: any) => {
     const check: boolean = event.target.checked;
