@@ -1,5 +1,9 @@
-import { ITodoColumn, ITag, ITagSettings, ITask } from "./types";
+import { ITodoColumn, ITag, ITagSettings, ITask, ITheme } from "./types";
 
+export const initialTheme: ITheme = {
+  scheme: "light",
+  themeColor: "default",
+};
 export const initialTag: ITag[] = [
   { id: "tagid0", tagName: "test tag1", tagColor: "tomato" },
   { id: "tagid1", tagName: "test tag2", tagColor: "pink" },

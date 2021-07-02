@@ -42,6 +42,9 @@ div.footer > div > div.footerItem {
 div.footer > div > div.footerItem > svg {
 	justify-self: center;
 }
+div.footer > div > div.footerItem > svg .primary {
+	fill: var(--primary1)
+}
 div.footer > div > div.footerItem > p {
 	font-size: 0.6rem;
 	color: var(--footer-secondary-text);

@@ -15,55 +15,82 @@ import "./index.css";
 const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
   const [theme, setTheme] = useRecoilState(themeState);
   const [darkmode, setDarkmode] = useState<boolean>(
-    theme === "dark" ? true : false
+    theme.scheme === "dark" ? true : false
+  );
+  const [themeColor, setThemeColor] = useState<string>(
+    theme.themeColor ?? "default"
   );
   const [popup, setPopup] = useState<boolean>(false);
   const setDailies = useSetRecoilState(dailiesState);
   const setTasks = useSetRecoilState(tasksState);
   const setTags = useSetRecoilState(tagsState);
-  const handleInputChange = (
-    setState: (state: boolean) => void,
-    state: boolean
-  ) => {
-    setState(state);
-  };
   useEffect(() => {
-    if (theme === "dark") setDarkmode(true);
+    if (theme.scheme === "dark") setDarkmode(true);
     saveTheme(theme);
   }, [theme]);
 
   useEffect(() => {
-    if (darkmode) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
+    if (darkmode && theme.scheme !== "dark") {
+      setTheme({ ...theme, scheme: "dark" });
+    } else if (!darkmode && theme.scheme !== "light") {
+      setTheme({ ...theme, scheme: "light" });
     }
-  }, [darkmode, setTheme]);
+  }, [darkmode, setTheme, theme]);
+
+  useEffect(() => {
+    if (themeColor !== theme.themeColor)
+      setTheme({ ...theme, themeColor: themeColor });
+  }, [themeColor, theme]);
   return (
     <div className="config" hidden={hidden}>
+      <h3>Scheme</h3>
       <div className="inputWrapper">
         <input
           type="checkbox"
           name="darkmode"
           id="darkmode"
           checked={darkmode}
-          onChange={(event: any) =>
-            handleInputChange(setDarkmode, event.target.checked)
-          }
+          onChange={(event: any) => setDarkmode(event.target.checked)}
         />
         <label htmlFor="darkmode">dark mode</label>
+      </div>
+
+      <h3>Theme color</h3>
+      <div className="inputWrapper">
+        <input
+          type="checkbox"
+          name="default"
+          id="default"
+          checked={themeColor === "default"}
+          onChange={() => {
+            setThemeColor("default");
+          }}
+        />
+        <label htmlFor="default">default</label>
       </div>
       <div className="inputWrapper">
         <input
           type="checkbox"
-          name="other"
-          id="other"
-          checked={darkmode}
-          onChange={(event: any) => {
-            handleInputChange(setDarkmode, event.target.checked);
+          name="dragon_alumni"
+          id="dragon_alumni"
+          checked={themeColor === "dragon_alumni"}
+          onChange={() => {
+            setThemeColor("dragon_alumni");
           }}
         />
-        <label htmlFor="other">some other stuff</label>
+        <label htmlFor="dragon_alumni">dragon alumni</label>
+      </div>
+      <div className="inputWrapper">
+        <input
+          type="checkbox"
+          name="peko_sky"
+          id="peko_sky"
+          checked={themeColor === "peko_sky"}
+          onChange={() => {
+            setThemeColor("peko_sky");
+          }}
+        />
+        <label htmlFor="peko_sky">peko sky</label>
       </div>
       <button className="btn" onClick={() => setPopup(true)}>
         CLEAR DATA

@@ -69,7 +69,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`App ${theme}`}>
+    <div className={`App ${theme.scheme} ${theme.themeColor}`}>
       <Transition shown={transition} setShown={setTransition} />
       <ScreensHome hidden={hiddenScreen(0)} />
       <ScreensDailies hidden={hiddenScreen(1)} />

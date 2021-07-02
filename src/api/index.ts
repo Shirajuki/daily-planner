@@ -1,5 +1,5 @@
-import { initialDaily } from "../initialData";
-import { ITag, ITodoColumn } from "../types";
+import { initialDaily, initialTheme } from "../initialData";
+import { ITag, ITheme, ITodoColumn } from "../types";
 
 export const loadTasks = () => {
   const tasks: ITodoColumn[] = JSON.parse(
@@ -34,9 +34,13 @@ export const saveTags = (tags: ITag[]) => {
 };
 
 export const loadTheme = () => {
-  const theme: string = localStorage.getItem("djukip-theme") ?? "light";
+  const theme: ITheme = JSON.parse(
+    localStorage.getItem("djukip-theme") ?? "{}"
+  );
+  if (theme.scheme === undefined || theme.themeColor === undefined)
+    return initialTheme;
   return theme;
 };
-export const saveTheme = (theme: string) => {
-  localStorage.setItem("djukip-theme", theme);
+export const saveTheme = (theme: ITheme) => {
+  localStorage.setItem("djukip-theme", JSON.stringify(theme));
 };

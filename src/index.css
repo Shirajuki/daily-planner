@@ -18,13 +18,13 @@
 	--text-title: #ffffff;
 	--text-label: #ffffff;
 	--button-text: #ffffff;
-	--button-light: #f7dAf8;
 	--button-light-color: #434343;
 	--calendar-primary: #000000;
 	--calendar-weekend: #d10000;
 	--calendar-hover: #f1f1f1;
 	--calendar-date-light: #acacac;
 	--label-dark: #707070;
+	--label: #e5e5e5;
 	--task-light: #a7a7a7;
 	--task-dragging: #fef1ff;
 	--task-content-dragging: #fef5ff;
@@ -32,10 +32,9 @@
 	--task-checkbox0: #f6f6f6;
 	--task-checkbox1: #707070;
 	--task-checkbox-checked: #acacac;
-	--footer-secondary-text: #7a7a7a;
-	--footer-primary-text: #9e4bb8;
 	--popup-select: #b4b4b4;
 	--popup-title: #4e4e4e;
+	--footer-secondary-text: #7a7a7a;
 }
 .dark {
 	--gradient-light: #121212;
@@ -49,13 +48,13 @@
 	--text-title: #fafafa;
 	--text-label: #fafafa;
 	--button-text: #ffffff;
-	--button-light: #f7dAf8;
 	--button-light-color: #121212;
 	--calendar-primary: #ffffff;
 	--calendar-weekend: #ff3535;
 	--calendar-hover: #606060;
 	--calendar-date-light: #acacac;
 	--label-dark: #f0f0f0;
+	--label: #e5e5e5;
 	--task-light: #a7a7a7;
 	--task-dragging: #504651;
 	--task-content-dragging: #342835;
@@ -63,10 +62,31 @@
 	--task-checkbox0: #f6f6f6;
 	--task-checkbox1: #707070;
 	--task-checkbox-checked: #acacac;
-	--footer-secondary-text: #9a9a9a;
-	--footer-primary-text: #e39df9;
 	--popup-select: #c0c0c0;
 	--popup-title: #4e4e4e;
+	--footer-secondary-text: #9a9a9a;
+}
+.light.dragon_alumni {
+	--gradient-light: #f8d9d1;
+	--gradient-dark: #e88249;
+	--gradient: linear-gradient(166.31deg, var(--gradient-dark) 9.79%, var(--gradient-light) 78.97%);
+	--primary0: #f7945f;
+	--primary1: #fc9a63;
+	--secondary0: #d86f8e;
+	--secondary-light: #ffd9d9;
+	--secondary-dark: #9b6565;
+	--footer-primary-text: #b35928;
+}
+.dark.dragon_alumni {
+	--gradient-light: #f8d9d1;
+	--gradient-dark: #e88249;
+	--gradient: linear-gradient(166.31deg, var(--gradient-dark) 9.79%, var(--gradient-light) 78.97%);
+	--primary0: #f7945f;
+	--primary1: #fc9a63;
+	--secondary0: #d86f8e;
+	--secondary-light: #ffd9d9;
+	--secondary-dark: #9b6565;
+	--footer-primary-text: #e39df9;
 }
 * {
 	margin: 0;
@@ -100,9 +120,9 @@ input[type="checkbox"] + *::before {
 	top: -2px;
 	width: 1.5rem;
 	height: 1.5rem;
-	background-color: #F6F6F6;
+	background-color: var(--task-checkbox0);
 	border-radius: 50%;
-	border: 1px solid #707070;
+	border: 1px solid var(--task-checkbox1);
 	transition: background-color 0.5s ease;
 	padding-left: 2px;
 	box-sizing: border-box;
@@ -110,11 +130,11 @@ input[type="checkbox"] + *::before {
 }
 input[type="checkbox"]:checked + *::before {
 	content: "✓";
-	background-color: #E39DF9;
-	border-color: #CB78E5;
+	background-color: var(--primary0);
+	border-color: var(--primary1);
 }
 input[type="checkbox"]:checked + * {
-	color: #FFB0B0;
+	color: var(--secondary0);
 }
 input[type="checkbox"] + * {
 	display: block;
@@ -127,15 +147,15 @@ button.btn {
 	text-align: center;
 	font-weight: 700;
 	letter-spacing: 1.5px;
-	color: #ffffff;
+	color: var(--button-text);
 	padding: 10px;
-	background-color: #E39DF9;
+	background-color: var(--primary0);
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 5px;
 	border: none;
 }
 button.btn.delete {
-	background-color: #FFB0B0;
+	background-color: var(--secondary0);
 }
 div.inputs {
 	display: flex;
@@ -144,7 +164,7 @@ div.inputs {
 div.inputs label {
 	display: block;
 	width: 100%;
-	color: #E5E5E5;
+	color: var(--label);
 	font-size: 0.9rem;
 	margin-bottom: 3px;
 }
@@ -156,11 +176,11 @@ div.inputs input[type="time"] {
 	background-color: rgba(0,0,0,0);
 	color: #ffffff;
 	border: none;
-	border-bottom: 2px solid #e5e5e5;
+	border-bottom: 2px solid var(--label);
 	margin-bottom: 20px;
 }
 div.inputs input[type="text"]::placeholder {
-	color: #e5e5e5;
+	color: var(--label);
 }
 div.inputs div.colorWrapper {
 	position: relative;

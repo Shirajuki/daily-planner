@@ -36,3 +36,7 @@ export type ScreensEditType = {
   taskIds?: string[];
   deleteEventHandler?: (tag: ITask) => void;
 };
+export interface ITheme {
+  scheme: string;
+  themeColor: string;
+}

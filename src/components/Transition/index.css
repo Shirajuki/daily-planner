@@ -7,7 +7,7 @@ div.transitionWrapper {
 	position: fixed;
 	top: 0;
 	left: 0;
-	background-color: #896296;
+	background-color: var(--secondary-dark);
 	z-index: 9002;
 	pointer-events: all;
 	transition: opacity .4s;
