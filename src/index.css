@@ -8,6 +8,7 @@
 	--secondary0: #ffb0b0;
 	--secondary-light: #ffd9d9;
 	--secondary-dark: #896296;
+	--footer-primary-text: #9e4bb8;
 }
 .light {
 	--background0: #ffffff;
@@ -19,6 +20,7 @@
 	--text-label: #ffffff;
 	--button-text: #ffffff;
 	--button-light-color: #434343;
+	--button-light-bg: #f7daf8;
 	--calendar-primary: #000000;
 	--calendar-weekend: #d10000;
 	--calendar-hover: #f1f1f1;
@@ -49,6 +51,7 @@
 	--text-label: #fafafa;
 	--button-text: #ffffff;
 	--button-light-color: #121212;
+	--button-light-bg: #f7daf8;
 	--calendar-primary: #ffffff;
 	--calendar-weekend: #ff3535;
 	--calendar-hover: #606060;
@@ -66,7 +69,7 @@
 	--popup-title: #4e4e4e;
 	--footer-secondary-text: #9a9a9a;
 }
-.light.dragon_alumni {
+.dragon_alumni {
 	--gradient-light: #f8d9d1;
 	--gradient-dark: #e88249;
 	--gradient: linear-gradient(166.31deg, var(--gradient-dark) 9.79%, var(--gradient-light) 78.97%);
@@ -78,15 +81,12 @@
 	--footer-primary-text: #b35928;
 }
 .dark.dragon_alumni {
-	--gradient-light: #f8d9d1;
+	--gradient-light: #121212;
 	--gradient-dark: #e88249;
 	--gradient: linear-gradient(166.31deg, var(--gradient-dark) 9.79%, var(--gradient-light) 78.97%);
-	--primary0: #f7945f;
-	--primary1: #fc9a63;
-	--secondary0: #d86f8e;
-	--secondary-light: #ffd9d9;
-	--secondary-dark: #9b6565;
-	--footer-primary-text: #e39df9;
+	--secondary-dark: #825858;
+	--footer-primary-text: #fd955d;
+	--button-light-bg: #f8d9d1;
 }
 * {
 	margin: 0;
