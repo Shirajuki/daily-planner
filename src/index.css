@@ -6,7 +6,6 @@
 	--primary0: #e39df9;
 	--primary1: #cb78e5;
 	--secondary0: #ffb0b0;
-	--secondary-light: #ffd9d9;
 	--secondary-dark: #896296;
 	--footer-primary-text: #9e4bb8;
 }
@@ -76,9 +75,9 @@
 	--primary0: #f7945f;
 	--primary1: #fc9a63;
 	--secondary0: #d86f8e;
-	--secondary-light: #ffd9d9;
 	--secondary-dark: #9b6565;
 	--footer-primary-text: #b35928;
+	--button-light-bg: #f8d9d1;
 }
 .dark.dragon_alumni {
 	--gradient-light: #121212;
@@ -87,6 +86,25 @@
 	--secondary-dark: #825858;
 	--footer-primary-text: #fd955d;
 	--button-light-bg: #f8d9d1;
+}
+.peko_shachou {
+	--gradient-light: #dfe8f6;
+	--gradient-dark: #6979c5;
+	--gradient: linear-gradient(166.31deg, var(--gradient-dark) 9.79%, var(--gradient-light) 78.97%);
+	--primary0: #92a5e1;
+	--primary1: #89a1f8;
+	--secondary0: #e99357;
+	--secondary-dark: #48638f;
+	--footer-primary-text: #2b4ebd;
+	--button-light-bg: #dfe8f6;
+}
+.dark.peko_shachou {
+	--gradient-light: #121212;
+	--gradient-dark: #6979c5;
+	--gradient: linear-gradient(166.31deg, var(--gradient-dark) 9.79%, var(--gradient-light) 78.97%);
+	--secondary-dark: #3a4d6c;
+	--footer-primary-text: #95adf9;
+	--button-light-bg: #dfe8f6;
 }
 * {
 	margin: 0;

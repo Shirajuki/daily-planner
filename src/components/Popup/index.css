@@ -66,6 +66,9 @@ div.popup.fullscreen > button.closeBtn {
 	top: 20px;
 	left: 20px;
 }
+div.popup.fullscreen > button.closeBtn .primary {
+	stroke: var(--button-light-bg);
+}
 div.popup.shown {
 	transform: translateX(0);
 	opacity: 1;

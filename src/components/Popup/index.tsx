@@ -45,6 +45,7 @@ const Popup: React.FC<PopupType> = ({
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
+              className="primary"
               d="M2 11H26M2 11L11 1M2 11L11 21"
               stroke="#F7DAF8"
               strokeWidth="2"

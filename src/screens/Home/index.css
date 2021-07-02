@@ -149,7 +149,7 @@ div.topBackground > div.navigationBox > div.statsBox button {
 div.topBackground > div.navigationBox > div.statsBox button > svg path {
 	stroke: var(--button-light-color);
 }
-div.topBackground > div.navigationBox > div.statsBox button > svg .light.fill{
+div.topBackground > div.navigationBox > div.statsBox button > svg .lfill{
 	fill: var(--button-light-bg);
 }
 div.topBackground > div.navigationBox > div.navBox {

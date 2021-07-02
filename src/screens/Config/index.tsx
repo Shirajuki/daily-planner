@@ -40,7 +40,7 @@ const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
   useEffect(() => {
     if (themeColor !== theme.themeColor)
       setTheme({ ...theme, themeColor: themeColor });
-  }, [themeColor, theme]);
+  }, [themeColor, setTheme, theme]);
   return (
     <div className="config" hidden={hidden}>
       <h3>Scheme</h3>
@@ -83,14 +83,14 @@ const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
       <div className="inputWrapper">
         <input
           type="checkbox"
-          name="peko_sky"
-          id="peko_sky"
-          checked={themeColor === "peko_sky"}
+          name="peko_shachou"
+          id="peko_shachou"
+          checked={themeColor === "peko_shachou"}
           onChange={() => {
-            setThemeColor("peko_sky");
+            setThemeColor("peko_shachou");
           }}
         />
-        <label htmlFor="peko_sky">peko sky</label>
+        <label htmlFor="peko_shachou">peko shachou</label>
       </div>
       <button className="btn" onClick={() => setPopup(true)}>
         CLEAR DATA
