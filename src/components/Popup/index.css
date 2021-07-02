@@ -19,7 +19,7 @@ div.popup {
 	left: 0;
 	display: flex;
 	flex-direction: column;
-	color: #ffffff;
+	color: var(-background0);
 	justify-content: center;
 	align-items: center;
 	z-index: 9001;
@@ -38,21 +38,26 @@ div.popup > h1.title {
 	position: absolute;
 	top: 25px;
 	left: 50%;
+	color: var(--text-title);
 	transform: translateX(-50%);
 	text-align: center;
 	font-size: 1rem;
 	text-transform: uppercase;
 }
+div.popup div.inputWrapper label,
+div.popup div.multipleSelectWrapper label {
+	color: var(--text-label);
+}
 div.popup > button.closeBtn {
 	display: none;
-	color: #F7DAF8;
+	color: var(--button-light);
 	width: 50px;
 	height: 25px;
 	background-color: rgba(0,0,0,0);
 	border: none;
 }
 div.popup.fullscreen {
-	background-color: #896296;
+	background-color: var(--secondary-dark);
 	transition: transform 1s ease;
 }
 div.popup.fullscreen > button.closeBtn {
@@ -66,16 +71,19 @@ div.popup.shown {
 	opacity: 1;
 	pointer-events: all;
 }
+div.popup label {
+	color: var(--text-label);
+}
 div.popupWrapper {
 	display: flex;
 	padding: 16px 12px;
 	flex-direction: column;
 	justify-content: center;
-	background-color: #fff;
+	background-color: var(--background0);
 	width: 85%;
 	max-width: 320px;
 	border-radius: 10px;
-	color: #707070
+	color: var(--label-dark);
 }
 div.popupWrapper.center {
 	text-align: center;
@@ -83,12 +91,12 @@ div.popupWrapper.center {
 div.popupWrapper h1 {
 	font-size: 0.9rem;
 	font-weight: 500;
-	color: #707070;
+	color: var(--label-dark);
 	padding: 8px;
 }
 div.popupWrapper > h1.title {
 	font-weight: 700;
-	color: #4e4e4e;
+	color: var(--popup-title);
 }
 div.popupWrapper button.btn {
 	margin-top: 12px;

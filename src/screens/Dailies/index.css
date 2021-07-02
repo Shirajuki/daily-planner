@@ -1,10 +1,10 @@
 div.simpleScreen {
 	position: relative;
-	background-color: #f4f4f4;
+	background-color: var(--background1);
 	height: 100vh;
 }
 div.simpleScreen > div.topSimple {
-	color: #ffffff;
+	color: var(--text-title);
 	position: relative;
 }
 div.simpleScreen > div.topSimple > div.title {
@@ -33,13 +33,13 @@ div.simpleScreen > div.topSimple > p {
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
-	color: #3C3C3C;
+	color: var(--text-secondary);
 	letter-spacing: 2px;
 	font-size: 0.8rem;
 }
 div.simpleScreen > div.topSimple::after {
 	content: "";
-	background-color: #E39DF9;
+	background-color: var(--primary0);
 	width: 100%;
 	height: 5px;
 	position: absolute;

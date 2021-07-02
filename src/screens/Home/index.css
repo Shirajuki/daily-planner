@@ -1,6 +1,6 @@
 div.todaysTask {
 	position: relative;
-	background-color: #f4f4f4;
+	background-color: var(--background1);
 	height: 100vh;
 }
 div.todaysTask h3 {
@@ -12,14 +12,13 @@ div.todaysTask div.topBackground {
 }
 div.topBackground {
 	display: flex;
-	background-color: tomato;
-	background: linear-gradient(166.31deg, #9E4BB8 9.79%, #F7DAF8 78.97%);
+	background: var(--gradient);
 	flex-direction: column;
 	justify-content: center;
 	height: 120px;
 }
 div.topBackground > h3 {
-	color: #ffffff;
+	color: var(--text-title);
 	padding: 20px;
 }
 div.topBackground > button.refreshBtn {
@@ -32,7 +31,7 @@ div.topBackground > button.refreshBtn {
 }
 div.topBackground > div.infoBox,
 div.topBackground > div.navigationBox > div.statsBox {
-	background-color: #ffffff;
+	background-color: var(--background0);
 	width: 90%;
 	margin: 15px auto;
 	border-radius: 5px;
@@ -43,6 +42,7 @@ div.topBackground > div.infoBox {
 	display: flex;
 	justify-content: space-between;
 	padding: 0 5%;
+	color: var(--text-primary);
 }
 div.topBackground > div.infoBox > div.dateBox {
 	display: grid;
@@ -92,7 +92,7 @@ div.topBackground > div.infoBox > div.statsBox > div.stats {
 	text-align: center;
 }
 div.topBackground > div.infoBox > div.statsBox > div.stats > p {
-	color: #515151;
+	color: var(--text-light);
 	font-size: 0.8rem;
 	transform: translateY(-2px);
 }
@@ -120,7 +120,7 @@ div.topBackground > div.navigationBox > div.statsBox {
 	justify-content: space-between;
 }
 div.topBackground > div.navigationBox > div.statsBox > p {
-	color: #515151;
+	color: var(--text-light);
 	align-self: center;
 	font-size: 0.75rem;
 	margin-left: 5px;
@@ -142,13 +142,12 @@ div.topBackground > div.navigationBox > div.statsBox button {
 	align-items: center;
 	width: 100%;
 	height: 30px;
-	background-color: #F7DAF8;
-	color: #707070;
+	background-color: var(--button-light);
 	border: none;
 	border-radius: 4px;
 }
 div.topBackground > div.navigationBox > div.statsBox button > svg path {
-	stroke: #434343;
+	stroke: var(--button-light-color);
 }
 div.topBackground > div.navigationBox > div.navBox {
 	display: flex;
@@ -157,14 +156,28 @@ div.topBackground > div.navigationBox > div.navBox {
 }
 div.topBackground > div.navigationBox > div.navBox > button {
 	display: block;
-	background-color: #ffffff;
+	background-color: var(--background0);
 	border-radius: 5px;
 	box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
 	width: 40px;
 	border: none;
+	color: var(--text-primary);
 }
 div.dateWrapper .react-calendar {
 	border: none;
+	background-color: var(--background0);
+}
+div.dateWrapper .react-calendar__navigation button {
+	color: var(--calendar-primary);
+}
+div.dateWrapper .react-calendar__tile.react-calendar__month-view__days__day:not(.react-calendar__month-view__days__day--weekend):not(.react-calendar__month-view__days__day--neighboringMonth){
+	color: var(--calendar-primary);
+}
+div.dateWrapper .react-calendar__month-view__days__day--weekend {
+	color: var(--calendar-weekend);
+}
+div.dateWrapper .react-calendar__month-view__days__day--neighboringMonth {
+	color: var(--calendar-date-light);
 }
 div.dateWrapper .react-calendar__navigation {
 	margin-bottom: 0;
@@ -173,13 +186,13 @@ div.dateWrapper .react-calendar__navigation button {
 	border-radius: 2px;
 }
 div.dateWrapper .react-calendar__navigation button:enabled:hover {
-	background-color: #f1f1f1 !important;
+	background-color: var(--calendar-hover) !important;
 }
 div.dateWrapper .react-calendar__navigation button:enabled:focus {
 	background-color: initial;
 }
 div.dateWrapper .react-calendar__month-view__days__day--neighboringMonth {
-	color: #acacac;
+	color: var(--calendar-date-light);
 }
 div.dateWrapper .react-calendar__tile {
 	border-radius: 2px;
@@ -187,13 +200,13 @@ div.dateWrapper .react-calendar__tile {
 div.dateWrapper > div.react-calendar .react-calendar__tile--active,
 div.dateWrapper > div.react-calendar .react-calendar__tile--active:enabled:hover,
 div.dateWrapper > div.react-calendar .react-calendar__tile--active:enabled:focus {
-	background: #E39DF9 !important;
+	background: var(--primary0) !important;
 }
 div.dateWrapper .react-calendar__tile:enabled:hover {
-	background-color: #f1f1f1 !important;
+	background-color: var(--calendar-hover) !important;
 }
 div.dateWrapper .react-calendar__tile--now {
-	background-color: rgba(255, 176, 176, 0.3);
+	background-color: var(--secondary-light);
 }
 div.todaysTask > div.taskContainer > div.taskColumn > p {
 	text-align: center;

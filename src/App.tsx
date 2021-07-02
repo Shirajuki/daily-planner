@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { RecoilRoot } from "recoil";
+import { useRecoilValue } from "recoil";
 import Footer from "./components/Footer";
 import Popup from "./components/Popup";
 import ScreensHome from "./screens/Home";
@@ -9,6 +9,7 @@ import ScreensConfig from "./screens/Config";
 import { ScreensAddTask } from "./screens/Task";
 import Transition from "./components/Transition";
 import "./App.css";
+import { themeState } from "./recoil/atoms";
 
 const App: React.FC = () => {
   const [selected, setSelected] = useState<number>(0);
@@ -17,6 +18,7 @@ const App: React.FC = () => {
   const [popupScreen, setPopupScreen] = useState<number>(0);
   const transitionRef = useRef<boolean>(false);
   const selectedOldRef = useRef<number>(selected);
+  const theme = useRecoilValue(themeState);
 
   const popupScreenTitles = (num: number) => {
     switch (num) {
@@ -34,6 +36,10 @@ const App: React.FC = () => {
     setPopupScreen(num);
     setPopup(true);
     transitionRef.current = false;
+  };
+  const getTheme = (theme: string) => {
+    console.log(theme);
+    return theme;
   };
   useEffect(() => {
     if (selected === 3) {
@@ -67,37 +73,35 @@ const App: React.FC = () => {
   };
 
   return (
-    <RecoilRoot>
-      <div className="App">
-        <Transition shown={transition} setShown={setTransition} />
-        <ScreensHome hidden={hiddenScreen(0)} />
-        <ScreensDailies hidden={hiddenScreen(1)} />
-        <ScreensTags hidden={hiddenScreen(2)} />
-        <Popup
-          isFullscreen={true}
-          shown={popup}
-          closeEvent={() => {
-            if (selected === 3) setSelectedHandler(selectedOldRef.current);
-            setPopup(false);
-            transitionRef.current = false;
-          }}
-          children={
-            <>
-              <ScreensConfig
-                hidden={!popup || selected !== 3 || popupScreen !== 0}
-              />
-              {popup && popupScreen === 1 ? <ScreensAddTask /> : <></>}
-            </>
-          }
-          title={popupScreenTitles(popupScreen)}
-        />
-        <Footer
-          selected={selected}
-          setSelected={setSelectedHandler}
-          setPopupScreen={openPopupScreen}
-        />
-      </div>
-    </RecoilRoot>
+    <div className={`App ${getTheme(theme)}`}>
+      <Transition shown={transition} setShown={setTransition} />
+      <ScreensHome hidden={hiddenScreen(0)} />
+      <ScreensDailies hidden={hiddenScreen(1)} />
+      <ScreensTags hidden={hiddenScreen(2)} />
+      <Popup
+        isFullscreen={true}
+        shown={popup}
+        closeEvent={() => {
+          if (selected === 3) setSelectedHandler(selectedOldRef.current);
+          setPopup(false);
+          transitionRef.current = false;
+        }}
+        children={
+          <>
+            <ScreensConfig
+              hidden={!popup || selected !== 3 || popupScreen !== 0}
+            />
+            {popup && popupScreen === 1 ? <ScreensAddTask /> : <></>}
+          </>
+        }
+        title={popupScreenTitles(popupScreen)}
+      />
+      <Footer
+        selected={selected}
+        setSelected={setSelectedHandler}
+        setPopupScreen={openPopupScreen}
+      />
+    </div>
   );
 };
 

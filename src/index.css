@@ -1,3 +1,73 @@
+/* CSS variables */
+:root {
+	--gradient-light: #f7daf8;
+	--gradient-dark: #9e4bb8;
+	--gradient: linear-gradient(166.31deg, var(--gradient-dark) 9.79%, var(--gradient-light) 78.97%);
+	--primary0: #e39df9;
+	--primary1: #cb78e5;
+	--secondary0: #ffb0b0;
+	--secondary-light: #ffd9d9;
+	--secondary-dark: #896296;
+}
+.light {
+	--background0: #ffffff;
+	--background1: #f4f4f4;
+	--text-primary: #000000;
+	--text-secondary: #3c3c3c;
+	--text-light: #515151;
+	--text-title: #ffffff;
+	--text-label: #ffffff;
+	--button-text: #ffffff;
+	--button-light: #f7dAf8;
+	--button-light-color: #434343;
+	--calendar-primary: #000000;
+	--calendar-weekend: #d10000;
+	--calendar-hover: #f1f1f1;
+	--calendar-date-light: #acacac;
+	--label-dark: #707070;
+	--task-light: #a7a7a7;
+	--task-dragging: #fef1ff;
+	--task-content-dragging: #fef5ff;
+	--task-checkbox-text: #ffffff;
+	--task-checkbox0: #f6f6f6;
+	--task-checkbox1: #707070;
+	--task-checkbox-checked: #acacac;
+	--footer-secondary-text: #7a7a7a;
+	--footer-primary-text: #9e4bb8;
+	--popup-select: #b4b4b4;
+	--popup-title: #4e4e4e;
+}
+.dark {
+	--gradient-light: #121212;
+	--gradient: linear-gradient(166.31deg, var(--gradient-dark) 9.79%, var(--gradient-light) 78.97%);
+	--secondary-dark: #47314f;
+	--background0: #333333;
+	--background1: #121212;
+	--text-primary: #fafafa;
+	--text-secondary: #d4d4d4;
+	--text-light: #eae5ec;
+	--text-title: #fafafa;
+	--text-label: #fafafa;
+	--button-text: #ffffff;
+	--button-light: #f7dAf8;
+	--button-light-color: #121212;
+	--calendar-primary: #ffffff;
+	--calendar-weekend: #ff3535;
+	--calendar-hover: #606060;
+	--calendar-date-light: #acacac;
+	--label-dark: #f0f0f0;
+	--task-light: #a7a7a7;
+	--task-dragging: #504651;
+	--task-content-dragging: #342835;
+	--task-checkbox-text: #efefef;
+	--task-checkbox0: #f6f6f6;
+	--task-checkbox1: #707070;
+	--task-checkbox-checked: #acacac;
+	--footer-secondary-text: #9a9a9a;
+	--footer-primary-text: #e39df9;
+	--popup-select: #c0c0c0;
+	--popup-title: #4e4e4e;
+}
 * {
 	margin: 0;
 	padding: 0;

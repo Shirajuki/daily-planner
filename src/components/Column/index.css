@@ -2,15 +2,16 @@ div.taskContainer > div.taskColumn {
 	transition: background-color 0.5s ease;
 }
 div.taskContainer > div.taskColumn.dragging {
-	background-color: #fef1ff;
+	background-color: var(--task-content-dragging);
 }
 div.taskContainer > div.taskColumn > h3 {
 	font-size: 1rem;
 	text-transform: uppercase;
 	margin-bottom: 8px;
+	color: var(--text-primary);
 }
 div.taskContainer > div.taskColumn > p {
 	font-size: 0.8rem;
-	color: #A7A7A7;
+	color: var(--task-light);
 	margin-bottom: 20px;
 }
