@@ -4,8 +4,6 @@ import Calendar from "react-calendar";
 import Popup from "../../components/Popup";
 import * as utilities from "../../utilities";
 import { IColumn, ITag, ITask, ITodoColumn, ScreensType } from "../../types";
-import "./index.css";
-import "react-calendar/dist/Calendar.css";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   dailiesState,
@@ -17,6 +15,8 @@ import {
 import { loadNewDailyTask, tasksSelectorState } from "../../recoil/selectors";
 import { ScreensEditTask } from "../Task";
 import { saveTasks } from "../../api";
+import "react-calendar/dist/Calendar.css";
+import "./index.css";
 
 const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
   const [rerender, setRerender] = useState(false);

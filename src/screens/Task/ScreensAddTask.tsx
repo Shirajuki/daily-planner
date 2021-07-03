@@ -7,6 +7,7 @@ import { tagsState, homeTasksState, dailiesState } from "../../recoil/atoms";
 import { initialDaySettings, initialTask } from "../../initialData";
 import { v4 as uuidv4 } from "uuid";
 import { saveDailies } from "../../api";
+import Popup from "../../components/Popup";
 
 enum TaskEditableAttributes {
   TITLE = "title",
@@ -17,6 +18,7 @@ enum TaskEditableAttributes {
   TAGS = "tags",
 }
 const ScreensAddTask: React.FC = () => {
+  const [smallPopup, setSmallPopup] = useState<boolean>(false);
   const [checkTime, setCheckTime] = useState<boolean>(false);
   const [isDailyTask, setIsDailyTask] = useState<boolean>(false);
   const [task, setTask] = useState<ITask>(initialTask);
@@ -103,7 +105,12 @@ const ScreensAddTask: React.FC = () => {
       return;
     }
     console.log("nope");
+    setSmallPopup(true);
   };
+  useEffect(() => {
+    if (smallPopup) setTimeout(() => setSmallPopup(false), 1500);
+  }, [smallPopup]);
+
   const handleInputChange = (
     setState: (state: boolean) => void,
     state: boolean
@@ -228,6 +235,20 @@ const ScreensAddTask: React.FC = () => {
         <button className="btn center" onClick={addTask}>
           ADD TASK
         </button>
+        <Popup
+          isFullscreen={false}
+          shown={smallPopup}
+          children={
+            smallPopup ? (
+              <div className="popupWrapper center">
+                <p>nope</p>
+              </div>
+            ) : (
+              <></>
+            )
+          }
+          closeEvent={() => ""}
+        />
       </div>
     </>
   );

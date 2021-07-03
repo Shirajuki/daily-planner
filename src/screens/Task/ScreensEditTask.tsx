@@ -3,6 +3,7 @@ import { ITag, ITagSettings, ITask, ScreensEditType } from "../../types";
 import MultipleTagSelect from "../../components/MultipleTagSelect";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tagsState, homeTasksState } from "../../recoil/atoms";
+import Popup from "../../components/Popup";
 import "./index.css";
 
 enum TaskEditableAttributes {
@@ -18,6 +19,7 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
   taskIds: _,
   deleteEventHandler,
 }) => {
+  const [smallPopup, setSmallPopup] = useState<boolean>(false);
   const divRef = useRef<HTMLDivElement>(null);
   const [checkTime, setCheckTime] = useState<boolean>(
     initialTask?.time !== undefined
@@ -77,8 +79,12 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
       console.log("finished editing");
     } else {
       console.log("nope");
+      setSmallPopup(true);
     }
   };
+  useEffect(() => {
+    if (smallPopup) setTimeout(() => setSmallPopup(false), 1500);
+  }, [smallPopup]);
 
   const handleInputChange = (
     setState: (state: boolean) => void,
@@ -198,6 +204,20 @@ const ScreensEditTask: React.FC<ScreensEditType> = ({
         <button className="btn center" onClick={editTask}>
           EDIT TASK
         </button>
+        <Popup
+          isFullscreen={false}
+          shown={smallPopup}
+          children={
+            smallPopup ? (
+              <div className="popupWrapper center">
+                <p>nope</p>
+              </div>
+            ) : (
+              <></>
+            )
+          }
+          closeEvent={() => ""}
+        />
       </div>
     </>
   );
