@@ -8,6 +8,7 @@
 	--secondary0: #ffb0b0;
 	--secondary-dark: #896296;
 	--footer-primary-text: #9e4bb8;
+	--footer-glow: rgba(158,75,184,0,5);
 }
 .light {
 	--background0: #ffffff;
@@ -77,6 +78,7 @@
 	--secondary0: #d86f8e;
 	--secondary-dark: #9b6565;
 	--footer-primary-text: #b35928;
+	--footer-glow: rgba(169, 115, 46, 0.5);
 	--button-light-bg: #f8d9d1;
 }
 .dark.dragon_alumni {
@@ -96,6 +98,7 @@
 	--secondary0: #e99357;
 	--secondary-dark: #48638f;
 	--footer-primary-text: #2b4ebd;
+	--footer-glow: rgba(50, 46, 169, 0.5);
 	--button-light-bg: #dfe8f6;
 }
 .dark.peko_shachou {

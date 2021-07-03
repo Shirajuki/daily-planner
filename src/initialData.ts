@@ -25,13 +25,13 @@ export const initialData: ITodoColumn = {
 };
 
 export const initialDays: ITag[] = [
-  { id: "monday", tagName: "Monday", tagColor: "#e39df9" },
-  { id: "tuesday", tagName: "Tuesday", tagColor: "#e39df9" },
-  { id: "wednesday", tagName: "Wednesday", tagColor: "#e39df9" },
-  { id: "thursday", tagName: "Thursday", tagColor: "#e39df9" },
-  { id: "friday", tagName: "Friday", tagColor: "#e39df9" },
-  { id: "saturday", tagName: "Saturday", tagColor: "#e39df9" },
-  { id: "sunday", tagName: "Sunday", tagColor: "#e39df9" },
+  { id: "monday", tagName: "Monday", tagColor: "var(--primary0)" },
+  { id: "tuesday", tagName: "Tuesday", tagColor: "var(--primary0)" },
+  { id: "wednesday", tagName: "Wednesday", tagColor: "var(--primary0)" },
+  { id: "thursday", tagName: "Thursday", tagColor: "var(--primary0)" },
+  { id: "friday", tagName: "Friday", tagColor: "var(--primary0)" },
+  { id: "saturday", tagName: "Saturday", tagColor: "var(--primary0)" },
+  { id: "sunday", tagName: "Sunday", tagColor: "var(--primary0)" },
 ];
 export const initialDaySettings: ITagSettings = {
   tags: initialDays,

@@ -16,7 +16,7 @@ div.footer > button.bigButton {
 	right: 15px;
 	bottom: 20px;
 	border: none;
-	box-shadow: 0px 0px 20px rgba(158,75,184,0.5);
+	box-shadow: 0px 0px 20px var(--footer-glow);
 	background-color: var(--primary1);
 	color: var(--button-text);
 	font-size: 2rem;
