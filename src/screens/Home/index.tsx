@@ -173,7 +173,12 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
             </div>
             <div className="stats">
               <p className="num">{tasksSelector.tasks?.length ?? 0}</p>
-              <p>due today</p>
+              <p>
+                {utilities.prettyDate(date) ===
+                utilities.prettyDate(todayRef.current)
+                  ? "due today"
+                  : "due"}
+              </p>
             </div>
           </div>
         </div>
