@@ -80,6 +80,8 @@
 	--footer-primary-text: #b35928;
 	--footer-glow: rgba(169, 115, 46, 0.5);
 	--button-light-bg: #f8d9d1;
+	--task-dragging: #fff8f5;
+	--task-content-dragging: #fffaf5;
 }
 .dark.dragon_alumni {
 	--gradient-light: #121212;
@@ -100,6 +102,8 @@
 	--footer-primary-text: #2b4ebd;
 	--footer-glow: rgba(50, 46, 169, 0.5);
 	--button-light-bg: #dfe8f6;
+	--task-dragging: #f5f7ff;
+	--task-content-dragging: #f5f6ff;
 }
 .dark.peko_shachou {
 	--gradient-light: #121212;
