@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/daily-planner/static/css/main.bd59a9d0.chunk.css",
-    "main.js": "/daily-planner/static/js/main.db7e532f.chunk.js",
-    "main.js.map": "/daily-planner/static/js/main.db7e532f.chunk.js.map",
+    "main.css": "/daily-planner/static/css/main.e958028a.chunk.css",
+    "main.js": "/daily-planner/static/js/main.ba7cf900.chunk.js",
+    "main.js.map": "/daily-planner/static/js/main.ba7cf900.chunk.js.map",
     "runtime-main.js": "/daily-planner/static/js/runtime-main.a2efe8f4.js",
     "runtime-main.js.map": "/daily-planner/static/js/runtime-main.a2efe8f4.js.map",
     "static/css/2.835acb34.chunk.css": "/daily-planner/static/css/2.835acb34.chunk.css",
@@ -14,14 +14,14 @@
     "service-worker.js": "/daily-planner/service-worker.js",
     "service-worker.js.map": "/daily-planner/service-worker.js.map",
     "static/css/2.835acb34.chunk.css.map": "/daily-planner/static/css/2.835acb34.chunk.css.map",
-    "static/css/main.bd59a9d0.chunk.css.map": "/daily-planner/static/css/main.bd59a9d0.chunk.css.map",
+    "static/css/main.e958028a.chunk.css.map": "/daily-planner/static/css/main.e958028a.chunk.css.map",
     "static/js/2.045f9c52.chunk.js.LICENSE.txt": "/daily-planner/static/js/2.045f9c52.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a2efe8f4.js",
     "static/css/2.835acb34.chunk.css",
     "static/js/2.045f9c52.chunk.js",
-    "static/css/main.bd59a9d0.chunk.css",
-    "static/js/main.db7e532f.chunk.js"
+    "static/css/main.e958028a.chunk.css",
+    "static/js/main.ba7cf900.chunk.js"
   ]
 }
