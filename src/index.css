@@ -113,6 +113,28 @@
 	--footer-primary-text: #95adf9;
 	--button-light-bg: #dfe8f6;
 }
+.rushia_boing_boing {
+	--gradient-light: #dff6f4;
+	--gradient-dark: #9adeb4;
+	--gradient: linear-gradient(166.31deg, var(--gradient-dark) 9.79%, var(--gradient-light) 78.97%);
+	--primary0: #62e7af;
+	--primary1: #8feabd;
+	--secondary0: #4693b8;
+	--secondary-dark: #4a9179;
+	--footer-primary-text: #62b58c;
+	--footer-glow: rgba(46, 169, 117, 0.5);
+	--button-light-bg: #dff6f2;
+	--task-dragging: #f5fffe;
+	--task-content-dragging: #f5fffb;
+}
+.dark.rushia_boing_boing {
+	--gradient-light: #121212;
+	--gradient-dark: #9adeb4;
+	--gradient: linear-gradient(166.31deg, var(--gradient-dark) 9.79%, var(--gradient-light) 78.97%);
+	--secondary-dark: #3c7461;
+	--footer-primary-text: #95f9e2;
+	--button-light-bg: #dff6f2;
+}
 * {
 	margin: 0;
 	padding: 0;

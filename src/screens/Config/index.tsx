@@ -12,6 +12,12 @@ import { loadDailies, loadTags, loadTasks } from "../../api";
 import { saveTheme } from "../../api";
 import "./index.css";
 
+const themes: string[] = [
+  "default",
+  "dragon_alumni",
+  "peko_shachou",
+  "rushia_boing_boing",
+];
 const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
   const [theme, setTheme] = useRecoilState(themeState);
   const [darkmode, setDarkmode] = useState<boolean>(
@@ -56,42 +62,20 @@ const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
       </div>
 
       <h3>Theme color</h3>
-      <div className="inputWrapper">
-        <input
-          type="checkbox"
-          name="default"
-          id="default"
-          checked={themeColor === "default"}
-          onChange={() => {
-            setThemeColor("default");
-          }}
-        />
-        <label htmlFor="default">default</label>
-      </div>
-      <div className="inputWrapper">
-        <input
-          type="checkbox"
-          name="dragon_alumni"
-          id="dragon_alumni"
-          checked={themeColor === "dragon_alumni"}
-          onChange={() => {
-            setThemeColor("dragon_alumni");
-          }}
-        />
-        <label htmlFor="dragon_alumni">dragon alumni</label>
-      </div>
-      <div className="inputWrapper">
-        <input
-          type="checkbox"
-          name="peko_shachou"
-          id="peko_shachou"
-          checked={themeColor === "peko_shachou"}
-          onChange={() => {
-            setThemeColor("peko_shachou");
-          }}
-        />
-        <label htmlFor="peko_shachou">peko shachou</label>
-      </div>
+      {themes.map((thm: string, index: number) => (
+        <div className="inputWrapper" key={thm + index}>
+          <input
+            type="checkbox"
+            name={thm}
+            id={thm}
+            checked={themeColor === thm}
+            onChange={() => {
+              setThemeColor(thm);
+            }}
+          />
+          <label htmlFor={thm}>{thm}</label>
+        </div>
+      ))}
       <button className="btn" onClick={() => setPopup(true)}>
         CLEAR DATA
       </button>

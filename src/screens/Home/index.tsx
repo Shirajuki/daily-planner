@@ -177,7 +177,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
                 {utilities.prettyDate(date) ===
                 utilities.prettyDate(todayRef.current)
                   ? "due today"
-                  : "due"}
+                  : "\u00A0\u00A0\u00A0\u00A0\u00A0due\u00A0\u00A0\u00A0\u00A0\u00A0"}
               </p>
             </div>
           </div>
