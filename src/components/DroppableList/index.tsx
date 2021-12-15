@@ -41,7 +41,7 @@ const DroppableList: React.FC<DroppableListType> = ({
         .reduce((a: number, b: number) => a + b, 0);
       if (height > wrapper.offsetHeight) {
         setIsOverflow(true);
-      }
+      } else if (isOverflow) setIsOverflow(false);
     }
   }, [divRef, rerender]);
 

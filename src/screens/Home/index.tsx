@@ -84,6 +84,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
       });
       setTasksRef.current({ ...tasks, tasks: ntasks });
     }
+    setRerender(!rerender);
   }, [tasks, tags]);
 
   useEffect(() => {
