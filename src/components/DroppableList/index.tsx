@@ -43,6 +43,7 @@ const DroppableList: React.FC<DroppableListType> = ({
         setIsOverflow(true);
       } else if (isOverflow) setIsOverflow(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [divRef, rerender]);
 
   useEffect(() => {

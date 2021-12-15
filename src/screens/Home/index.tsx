@@ -85,6 +85,7 @@ const ScreensHome: React.FC<ScreensType> = ({ hidden }) => {
       setTasksRef.current({ ...tasks, tasks: ntasks });
     }
     setRerender(!rerender);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tasks, tags]);
 
   useEffect(() => {
