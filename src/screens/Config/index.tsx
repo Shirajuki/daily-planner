@@ -58,9 +58,8 @@ const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
           checked={darkmode}
           onChange={(event: any) => setDarkmode(event.target.checked)}
         />
-        <label htmlFor="darkmode">dark mode</label>
+        <label htmlFor="darkmode">Dark mode</label>
       </div>
-
       <h3>Theme color</h3>
       {themes.map((thm: string, index: number) => (
         <div className="inputWrapper" key={thm + index}>
@@ -73,7 +72,9 @@ const ScreensConfig: React.FC<ScreensType> = ({ hidden }) => {
               setThemeColor(thm);
             }}
           />
-          <label htmlFor={thm}>{thm}</label>
+          <label htmlFor={thm} style={{ textTransform: "capitalize" }}>
+            {thm.replaceAll("_", " ")}
+          </label>
         </div>
       ))}
       <button className="btn" onClick={() => setPopup(true)}>
